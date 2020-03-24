@@ -19,3 +19,14 @@ if (!semver.satisfies(process.version, version)) {
     console.log(`Brixi requires at least Node v${rawVersion} and you're using Node ${process.version}`);
     process.exit(1);
 }
+
+/**
+ * TODO:
+ *  1. get config file
+ *  2. merge config files
+ *  3. genreate margins
+ *  4. generate paddings
+ *  5. generate positions
+ *  6. generate borders
+ *  7. generate colors
+ */

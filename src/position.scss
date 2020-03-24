@@ -34,28 +34,6 @@
     bottom: auto;
 }
 
-/* Gap */
-[position~="t-0"]{
-    top: 0;
-}
-[position~="r-0"]{
-    right: 0;
-}
-[position~="b-0"]{
-    bottom: 0;
-}
-[position~="l-0"]{
-    left: 0;
-}
-[position~="x-0"]{
-    right: 0;
-    left: 0;
-}
-[position~="y-0"]{
-    top: 0;
-    bottom: 0;
-}
-
 /* Center */
 [position~="center"]{
     top: 50%;

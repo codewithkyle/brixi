@@ -25,7 +25,8 @@
     },
     "files": [
         "cli.js",
-        "config.js"
+        "config.js",
+        "src"
     ],
     "devDependencies": {
         "prettier": "^2.0.2",
