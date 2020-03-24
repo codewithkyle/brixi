@@ -1,0 +1,40 @@
+{
+    "name": "brixi",
+    "version": "0.0.0",
+    "description": "A utility first CSS framework",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/codewithkyle/brixi.git"
+    },
+    "keywords": [
+        "utility",
+        "css-framework",
+        "web-components"
+    ],
+    "author": "Kyle Andrews",
+    "license": "GPL-3.0",
+    "bugs": {
+        "url": "https://github.com/codewithkyle/brixi/issues"
+    },
+    "homepage": "https://github.com/codewithkyle/brixi#readme",
+    "bin": {
+        "brixi": "./cli.js"
+    },
+    "engines": {
+        "node": ">=12.10.0"
+    },
+    "files": [
+        "cli.js"
+    ],
+    "devDependencies": {
+        "prettier": "^2.0.2"
+    },
+    "dependencies": {
+        "glob": "^7.1.6",
+        "minify": "^5.1.1",
+        "node-sass": "^4.13.1",
+        "ora": "^4.0.3",
+        "semver": "^7.1.3",
+        "yargs": "^15.3.1"
+    }
+}
