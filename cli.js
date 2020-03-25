@@ -238,9 +238,15 @@ class Brixi {
         return new Promise((resolve, reject) => {
             let data = "";
 
-            for (const [name, value] of Object.entries(this.config.fonts)) {
+            for (const [name, value] of Object.entries(this.config.fonts.families)) {
                 data += `.family-${name}{\n`;
                 data += `\tfont-family: ${value};\n`;
+                data += "}\n";
+            }
+
+            for (const [name, value] of Object.entries(this.config.fonts.weights)) {
+                data += `.font-${name}{\n`;
+                data += `\tfont-weight: ${value};\n`;
                 data += "}\n";
             }
 

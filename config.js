@@ -2,9 +2,22 @@ module.exports = {
     output: "sass",
     outDir: "./brixi",
     fonts: {
-        base: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif",
-        serif: "Georgia, Cambria, 'Times New Roman', Times, serif",
-        mono: "Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+        families: {
+            base: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif",
+            serif: "Georgia, Cambria, 'Times New Roman', Times, serif",
+            mono: "Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+        },
+        weights: {
+            hairline: 100,
+            thin: 200,
+            light: 300,
+            regular: 400,
+            medium: 500,
+            semibold: 600,
+            bold: 700,
+            heavy: 800,
+            black: 900,
+        },
     },
     colors: {
         primary: {
