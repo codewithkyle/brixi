@@ -225,6 +225,8 @@ class Brixi {
                 }
             }
 
+            // TODO: Border radius
+
             fs.writeFile(path.join(this.output, "borders.scss"), data, (error) => {
                 if (error) {
                     reject(error);
@@ -347,6 +349,13 @@ class Brixi {
             await this.generateFonts();
             await this.generateFontColors();
             await this.generateBackgroundColors();
+            // TODO: Copy flex
+            // TODO: Copy grid
+            // TODO: Copy text
+            // TODO: Generate shadows
+            // TODO: Copy container
+            // TODO: Copy cursor
+
             this.spinner.succeed();
             process.exit(0);
         } catch (error) {
