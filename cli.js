@@ -239,14 +239,14 @@ class Brixi {
             let data = "";
 
             for (const [name, value] of Object.entries(this.config.fonts.families)) {
-                data += `.family-${name}{\n`;
-                data += `\tfont-family: ${value};\n`;
+                data += `.font-${name}{\n`;
+                data += `\tfont-family: var(--font-${name});\n`;
                 data += "}\n";
             }
 
             for (const [name, value] of Object.entries(this.config.fonts.weights)) {
                 data += `.font-${name}{\n`;
-                data += `\tfont-weight: ${value};\n`;
+                data += `\tfont-weight: var(--font-${name});\n`;
                 data += "}\n";
             }
 
@@ -266,7 +266,7 @@ class Brixi {
             for (const [name, values] of Object.entries(this.config.colors)) {
                 for (const [shade, value] of Object.entries(values)) {
                     data += `.font-${name}-${shade}{\n`;
-                    data += `\tcolor: ${value};\n`;
+                    data += `\tcolor: var(--${name}-${shade});\n`;
                     data += "}\n";
                 }
             }
@@ -287,12 +287,44 @@ class Brixi {
             for (const [name, values] of Object.entries(this.config.colors)) {
                 for (const [shade, value] of Object.entries(values)) {
                     data += `.bg-${name}-${shade}{\n`;
-                    data += `\tbackground-color: ${value};\n`;
+                    data += `\tbackground-color: var(--${name}-${shade});\n`;
                     data += "}\n";
                 }
             }
 
             fs.writeFile(path.join(this.output, "background-colors.scss"), data, (error) => {
+                if (error) {
+                    reject(error);
+                }
+                resolve();
+            });
+        });
+    }
+
+    generateVariables() {
+        return new Promise((resolve, reject) => {
+            let data = ":root{\n";
+
+            /** Colors */
+            for (const [name, values] of Object.entries(this.config.colors)) {
+                for (const [shade, value] of Object.entries(values)) {
+                    data += `\t--${name}-${shade}: ${value};\n`;
+                }
+                data += "\n";
+            }
+
+            /** Fonts */
+            for (const [name, value] of Object.entries(this.config.fonts.families)) {
+                data += `\t--font-${name}: ${value};\n`;
+            }
+            data += "\n";
+            for (const [name, value] of Object.entries(this.config.fonts.weights)) {
+                data += `\t--font-${name}: ${value};\n`;
+            }
+
+            data += "}\n";
+
+            fs.writeFile(path.join(this.output, "variables.scss"), data, (error) => {
                 if (error) {
                     reject(error);
                 }
@@ -307,6 +339,7 @@ class Brixi {
                 fs.rmdirSync(this.output, { recursive: true });
             }
             fs.mkdirSync(this.output);
+            await this.generateVariables();
             await this.generateMargins();
             await this.generatePaddings();
             await this.generatePositions();
