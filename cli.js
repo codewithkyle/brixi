@@ -44,11 +44,6 @@ if (configArgs) {
     }
 }
 
-/**
- * TODO:
- *  6. generate borders
- *  7. generate colors
- */
 class Brixi {
     constructor() {
         this.spinner = ora("Assembling Brixi").start();
@@ -60,7 +55,7 @@ class Brixi {
         this.run();
     }
 
-    generate(attr, classes, values, unit = "") {
+    generateAttributes(attr, classes, values, unit = "") {
         let data = "";
         for (let i = 0; i < classes.length; i++) {
             for (let k = 0; k < values.length; k++) {
@@ -106,9 +101,9 @@ class Brixi {
 
             const staticData = fs.readFileSync(path.join(__dirname, "src/margin.scss"));
             data += staticData;
-            data += this.generate("margin", classes, this.config.margins, "rem");
+            data += this.generateAttributes("margin", classes, this.config.margins, "rem");
 
-            fs.writeFile(path.join(this.output, "margin.scss"), data, (error) => {
+            fs.writeFile(path.join(this.output, "margins.scss"), data, (error) => {
                 if (error) {
                     reject(error);
                 }
@@ -147,9 +142,9 @@ class Brixi {
                 },
             ];
 
-            data += this.generate("padding", classes, this.config.padding, "rem");
+            data += this.generateAttributes("padding", classes, this.config.padding, "rem");
 
-            fs.writeFile(path.join(this.output, "padding.scss"), data, (error) => {
+            fs.writeFile(path.join(this.output, "paddings.scss"), data, (error) => {
                 if (error) {
                     reject(error);
                 }
@@ -182,9 +177,9 @@ class Brixi {
 
             const staticData = fs.readFileSync(path.join(__dirname, "src/position.scss"));
             data += staticData;
-            data += this.generate("position", classes, this.config.positions);
+            data += this.generateAttributes("position", classes, this.config.positions);
 
-            fs.writeFile(path.join(this.output, "position.scss"), data, (error) => {
+            fs.writeFile(path.join(this.output, "positions.scss"), data, (error) => {
                 if (error) {
                     reject(error);
                 }
@@ -230,7 +225,26 @@ class Brixi {
                 }
             }
 
-            fs.writeFile(path.join(this.output, "border.scss"), data, (error) => {
+            fs.writeFile(path.join(this.output, "borders.scss"), data, (error) => {
+                if (error) {
+                    reject(error);
+                }
+                resolve();
+            });
+        });
+    }
+
+    generateFonts() {
+        return new Promise((resolve, reject) => {
+            let data = "";
+
+            for (const [name, value] of Object.entries(this.config.fonts)) {
+                data += `.${name}{\n`;
+                data += `\tfont-family: ${value};\n`;
+                data += "}\n";
+            }
+
+            fs.writeFile(path.join(this.output, "fonts.scss"), data, (error) => {
                 if (error) {
                     reject(error);
                 }
@@ -249,6 +263,7 @@ class Brixi {
             await this.generatePaddings();
             await this.generatePositions();
             await this.generateBorders();
+            await this.generateFonts();
             this.spinner.succeed();
             process.exit(0);
         } catch (error) {
