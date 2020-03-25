@@ -239,12 +239,54 @@ class Brixi {
             let data = "";
 
             for (const [name, value] of Object.entries(this.config.fonts)) {
-                data += `.${name}{\n`;
+                data += `.family-${name}{\n`;
                 data += `\tfont-family: ${value};\n`;
                 data += "}\n";
             }
 
             fs.writeFile(path.join(this.output, "fonts.scss"), data, (error) => {
+                if (error) {
+                    reject(error);
+                }
+                resolve();
+            });
+        });
+    }
+
+    generateFontColors() {
+        return new Promise((resolve, reject) => {
+            let data = "";
+
+            for (const [name, values] of Object.entries(this.config.colors)) {
+                for (const [shade, value] of Object.entries(values)) {
+                    data += `.font-${name}-${shade}{\n`;
+                    data += `\tcolor: ${value};\n`;
+                    data += "}\n";
+                }
+            }
+
+            fs.writeFile(path.join(this.output, "font-colors.scss"), data, (error) => {
+                if (error) {
+                    reject(error);
+                }
+                resolve();
+            });
+        });
+    }
+
+    generateBackgroundColors() {
+        return new Promise((resolve, reject) => {
+            let data = "";
+
+            for (const [name, values] of Object.entries(this.config.colors)) {
+                for (const [shade, value] of Object.entries(values)) {
+                    data += `.bg-${name}-${shade}{\n`;
+                    data += `\tbackground-color: ${value};\n`;
+                    data += "}\n";
+                }
+            }
+
+            fs.writeFile(path.join(this.output, "background-colors.scss"), data, (error) => {
                 if (error) {
                     reject(error);
                 }
@@ -264,6 +306,8 @@ class Brixi {
             await this.generatePositions();
             await this.generateBorders();
             await this.generateFonts();
+            await this.generateFontColors();
+            await this.generateBackgroundColors();
             this.spinner.succeed();
             process.exit(0);
         } catch (error) {
