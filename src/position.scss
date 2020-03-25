@@ -1,4 +1,3 @@
-/* Position */
 [position~="relative"]{
     position: relative;
 }
@@ -11,8 +10,6 @@
 [position~="sticky"]{
     position: sticky;
 }
-
-/* Auto */
 [position~="t-auto"]{
     top: auto;
 }
@@ -33,8 +30,6 @@
     top: auto;
     bottom: auto;
 }
-
-/* Center */
 [position~="center"]{
     top: 50%;
     left: 50%;
