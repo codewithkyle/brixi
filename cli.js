@@ -46,9 +46,6 @@ if (configArgs) {
 
 /**
  * TODO:
- *  3. genreate margins
- *  4. generate paddings
- *  5. generate positions
  *  6. generate borders
  *  7. generate colors
  */
@@ -63,13 +60,13 @@ class Brixi {
         this.run();
     }
 
-    generate(attr, classes, values) {
+    generate(attr, classes, values, unit = "") {
         let data = "";
         for (let i = 0; i < classes.length; i++) {
             for (let k = 0; k < values.length; k++) {
                 data += `[${attr}~="${classes[i].prefix}-${values[k]}"]{\n`;
                 for (let p = 0; p < classes[i].css.length; p++) {
-                    data += `\t${classes[i].css[p]}: ${values[k]}rem;\n`;
+                    data += `\t${classes[i].css[p]}: ${values[k]}${unit};\n`;
                 }
                 data += "}\n";
             }
@@ -109,7 +106,7 @@ class Brixi {
 
             const staticData = fs.readFileSync(path.join(__dirname, "src/margin.scss"));
             data += staticData;
-            data += this.generate("margin", classes, this.config.margins);
+            data += this.generate("margin", classes, this.config.margins, "rem");
 
             fs.writeFile(path.join(this.output, "margin.scss"), data, (error) => {
                 if (error) {
@@ -150,7 +147,7 @@ class Brixi {
                 },
             ];
 
-            data += this.generate("padding", classes, this.config.padding);
+            data += this.generate("padding", classes, this.config.padding, "rem");
 
             fs.writeFile(path.join(this.output, "padding.scss"), data, (error) => {
                 if (error) {
@@ -196,6 +193,52 @@ class Brixi {
         });
     }
 
+    generateBorders() {
+        return new Promise((resolve, reject) => {
+            let data = "";
+
+            const borderAttrs = ["border", "border-top", "border-right", "border-bottom", "border-left"];
+
+            /** Border styles */
+            const borders = this.config.borders.styles;
+            for (let a = 0; a < borderAttrs.length; a++) {
+                for (let i = 0; i < borders.length; i++) {
+                    data += `[${borderAttrs[a]}~="${borders[i]}"]{\n`;
+                    data += `\t${borderAttrs[a]}-style: ${borders[i]};\n`;
+                    data += "}\n";
+                }
+            }
+
+            /** Border widths */
+            const widths = this.config.borders.widths;
+            for (let a = 0; a < borderAttrs.length; a++) {
+                for (let i = 0; i < widths.length; i++) {
+                    data += `[${borderAttrs[a]}~="${widths[i]}"]{\n`;
+                    data += `\t${borderAttrs[a]}-width: ${widths[i]}px;\n`;
+                    data += "}\n";
+                }
+            }
+
+            /** Border colors */
+            for (let a = 0; a < borderAttrs.length; a++) {
+                for (const [name, values] of Object.entries(this.config.colors)) {
+                    for (const [shade, value] of Object.entries(values)) {
+                        data += `[${borderAttrs[a]}~="${name}-${shade}"]{\n`;
+                        data += `\t${borderAttrs[a]}-color: ${value};\n`;
+                        data += "}\n";
+                    }
+                }
+            }
+
+            fs.writeFile(path.join(this.output, "border.scss"), data, (error) => {
+                if (error) {
+                    reject(error);
+                }
+                resolve();
+            });
+        });
+    }
+
     async run() {
         try {
             if (fs.existsSync(this.output)) {
@@ -205,6 +248,7 @@ class Brixi {
             await this.generateMargins();
             await this.generatePaddings();
             await this.generatePositions();
+            await this.generateBorders();
             this.spinner.succeed();
             process.exit(0);
         } catch (error) {
