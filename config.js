@@ -1,5 +1,4 @@
 module.exports = {
-    output: "scss",
     outDir: "./brixi",
     minify: false,
     fonts: {
@@ -114,5 +113,9 @@ module.exports = {
             "4k": 3840,
         },
         columns: [2, 3, 4],
+    },
+    grid: {
+        columns: 12,
+        gaps: [0, 0.25, 0.5, 1, 1.5, 2],
     },
 };

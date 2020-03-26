@@ -1,0 +1,15 @@
+[grid]{
+    display: grid;
+}
+[grid~="flow-row"]{
+    grid-auto-flow: row;
+}
+[grid~="flow-column"]{
+    grid-auto-flow: column;
+}
+[grid~="flow-row"][grid~="dense"]{
+    grid-auto-flow: row dense;
+}
+[grid~="flow-column"][grid~="dense"]{
+    grid-auto-flow: column dense;
+}

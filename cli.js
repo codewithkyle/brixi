@@ -58,10 +58,7 @@ class Brixi {
             this.config = Object.assign(this.config, customConfig);
         }
 
-        this.config.output = this.config.output.toLowerCase().trim();
-        if (this.config.output !== "css" && this.config.output !== "scss" && this.config.output !== "sass") {
-            this.config.output = "scss";
-        }
+        this.config.output = "css";
     }
 
     minifyCSS() {
@@ -503,6 +500,40 @@ class Brixi {
         });
     }
 
+    generateGrid() {
+        return new Promise((resolve, reject) => {
+            let data = "";
+
+            const columns = this.config.grid.columns;
+            for (let i = 0; i < columns; i++) {
+                data += `[grid~="columns"][grid~="${i + 1}"]{\n`;
+                data += `\tgrid-template-columns: repeat(${i + 1}, minmax(0, 1fr));\n`;
+                data += "}\n";
+
+                data += `[grid~="rows"][grid~="${i + 1}"]{\n`;
+                data += `\tgrid-template-rows: repeat(${i + 1}, minmax(0, 1fr));\n`;
+                data += "}\n";
+            }
+
+            const gaps = this.config.grid.gaps;
+            for (let i = 0; i < gaps.length; i++) {
+                data += `[grid~="gap-${gaps[i]}"]{\n`;
+                data += `\tgap: ${gaps[i]}rem;\n`;
+                data += "}\n";
+            }
+
+            const staticData = fs.readFileSync(path.join(__dirname, "src/grid.css"));
+            data += staticData.toString();
+
+            fs.writeFile(path.join(this.output, `grid.${this.config.output}`), data, (error) => {
+                if (error) {
+                    reject(error);
+                }
+                resolve();
+            });
+        });
+    }
+
     async run() {
         try {
             if (fs.existsSync(this.output)) {
@@ -517,7 +548,7 @@ class Brixi {
             await this.generateFonts();
             await this.generateFontColors();
             await this.generateBackgroundColors();
-            // TODO: Copy grid
+            await this.generateGrid();
             await this.copyFlexbox();
             await this.copyText();
             await this.generateShadows();
