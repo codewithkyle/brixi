@@ -471,6 +471,22 @@ class Brixi {
         });
     }
 
+    copyLineHeights() {
+        return new Promise((resolve, reject) => {
+            fs.readFile(path.join(__dirname, "src/line-heights.css"), (error, buffer) => {
+                if (error) {
+                    reject(error);
+                }
+                fs.writeFile(path.join(this.output, `line-heights.${this.config.output}`), buffer, (error) => {
+                    if (error) {
+                        reject(error);
+                    }
+                    resolve();
+                });
+            });
+        });
+    }
+
     async run() {
         try {
             if (fs.existsSync(this.output)) {
@@ -491,6 +507,7 @@ class Brixi {
             await this.generateShadows();
             await this.generateContainers();
             await this.copyCursor();
+            await this.copyLineHeights();
             if (this.config.minify && this.config.output === "css") {
                 await this.minifyCSS();
             }
