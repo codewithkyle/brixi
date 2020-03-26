@@ -4,7 +4,6 @@ const fs = require("fs");
 const path = require("path");
 const glob = require("glob");
 const semver = require("semver");
-const sass = require("node-sass");
 const yargs = require("yargs").argv;
 const minify = require("minify");
 const ora = require("ora");
