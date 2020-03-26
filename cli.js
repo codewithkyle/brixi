@@ -21,38 +21,47 @@ if (!semver.satisfies(process.version, version)) {
     process.exit(1);
 }
 
-let customConfig = null;
-const configArgs = yargs.c || yargs.config || null;
-let pathToCustomConfig;
-if (configArgs) {
-    pathToCustomConfig = path.resolve(cwd, configArgs);
-    if (fs.existsSync(pathToCustomConfig)) {
-        customConfig = require(pathToCustomConfig);
-    } else {
-        console.log(`Unabled to find custom config file at ${pathToCustomConfig}`);
-        process.exit(1);
-    }
-} else {
-    pathToCustomConfig = path.join(cwd, "brixi.config.js");
-    if (fs.existsSync(pathToCustomConfig)) {
-        customConfig = require(pathToCustomConfig);
-    } else {
-        pathToCustomConfig = path.join(cwd, "brixi.js");
-        if (fs.existsSync(pathToCustomConfig)) {
-            customConfig = require(pathToCustomConfig);
-        }
-    }
-}
-
 class Brixi {
     constructor() {
         this.spinner = ora("Assembling Brixi").start();
         this.config = defaultConfig;
+        this.wrangleConfigs();
+        this.output = path.join(__dirname, "output");
+        this.run();
+    }
+
+    wrangleConfigs() {
+        let customConfig = null;
+        const configArgs = yargs.c || yargs.config || null;
+        let pathToCustomConfig;
+        if (configArgs) {
+            pathToCustomConfig = path.resolve(cwd, configArgs);
+            if (fs.existsSync(pathToCustomConfig)) {
+                customConfig = require(pathToCustomConfig);
+            } else {
+                console.log(`Unabled to find custom config file at ${pathToCustomConfig}`);
+                process.exit(1);
+            }
+        } else {
+            pathToCustomConfig = path.join(cwd, "brixi.config.js");
+            if (fs.existsSync(pathToCustomConfig)) {
+                customConfig = require(pathToCustomConfig);
+            } else {
+                pathToCustomConfig = path.join(cwd, "brixi.js");
+                if (fs.existsSync(pathToCustomConfig)) {
+                    customConfig = require(pathToCustomConfig);
+                }
+            }
+        }
+
         if (customConfig) {
             this.config = Object.assign(this.config, customConfig);
         }
-        this.output = path.join(__dirname, "output");
-        this.run();
+
+        this.config.output = this.config.output.toLowerCase().trim();
+        if (this.config.output !== "css" && this.config.output !== "scss" && this.config.output !== "sass") {
+            this.config.output = "scss";
+        }
     }
 
     generateAttributes(attr, classes, values, unit = "") {
@@ -103,7 +112,7 @@ class Brixi {
             data += staticData;
             data += this.generateAttributes("margin", classes, this.config.margins, "rem");
 
-            fs.writeFile(path.join(this.output, "margins.scss"), data, (error) => {
+            fs.writeFile(path.join(this.output, `margins.${this.config.output}`), data, (error) => {
                 if (error) {
                     reject(error);
                 }
@@ -144,7 +153,7 @@ class Brixi {
 
             data += this.generateAttributes("padding", classes, this.config.padding, "rem");
 
-            fs.writeFile(path.join(this.output, "paddings.scss"), data, (error) => {
+            fs.writeFile(path.join(this.output, `paddings.${this.config.output}`), data, (error) => {
                 if (error) {
                     reject(error);
                 }
@@ -179,7 +188,7 @@ class Brixi {
             data += staticData;
             data += this.generateAttributes("position", classes, this.config.positions);
 
-            fs.writeFile(path.join(this.output, "positions.scss"), data, (error) => {
+            fs.writeFile(path.join(this.output, `positions.${this.config.output}`), data, (error) => {
                 if (error) {
                     reject(error);
                 }
@@ -227,7 +236,7 @@ class Brixi {
 
             // TODO: Border radius
 
-            fs.writeFile(path.join(this.output, "borders.scss"), data, (error) => {
+            fs.writeFile(path.join(this.output, `borders.${this.config.output}`), data, (error) => {
                 if (error) {
                     reject(error);
                 }
@@ -252,7 +261,7 @@ class Brixi {
                 data += "}\n";
             }
 
-            fs.writeFile(path.join(this.output, "fonts.scss"), data, (error) => {
+            fs.writeFile(path.join(this.output, `fonts.${this.config.output}`), data, (error) => {
                 if (error) {
                     reject(error);
                 }
@@ -273,7 +282,7 @@ class Brixi {
                 }
             }
 
-            fs.writeFile(path.join(this.output, "font-colors.scss"), data, (error) => {
+            fs.writeFile(path.join(this.output, `font-colors.${this.config.output}`), data, (error) => {
                 if (error) {
                     reject(error);
                 }
@@ -294,7 +303,7 @@ class Brixi {
                 }
             }
 
-            fs.writeFile(path.join(this.output, "background-colors.scss"), data, (error) => {
+            fs.writeFile(path.join(this.output, `background-colors.${this.config.output}`), data, (error) => {
                 if (error) {
                     reject(error);
                 }
@@ -326,11 +335,43 @@ class Brixi {
 
             data += "}\n";
 
-            fs.writeFile(path.join(this.output, "variables.scss"), data, (error) => {
+            fs.writeFile(path.join(this.output, `variables.${this.config.output}`), data, (error) => {
                 if (error) {
                     reject(error);
                 }
                 resolve();
+            });
+        });
+    }
+
+    minifyCSS() {
+        return new Promise((resolve, reject) => {
+            glob(`${this.output}/*.css`, (error, files) => {
+                if (error) {
+                    reject(error);
+                }
+
+                let minified = 0;
+                for (let i = 0; i < files.length; i++) {
+                    minify(files[i]).then((css) => {
+                        fs.unlink(files[i], (error) => {
+                            if (error) {
+                                reject(error);
+                            }
+
+                            fs.writeFile(files[i], css, (error) => {
+                                if (error) {
+                                    reject(error);
+                                }
+
+                                minified++;
+                                if (minified === files.length) {
+                                    resolve();
+                                }
+                            });
+                        });
+                    });
+                }
             });
         });
     }
@@ -353,9 +394,11 @@ class Brixi {
             // TODO: Copy grid
             // TODO: Copy text
             // TODO: Generate shadows
-            // TODO: Copy container
+            // TODO: Generate & copy container
             // TODO: Copy cursor
-
+            if (this.config.minify && this.config.output === "css") {
+                await this.minifyCSS();
+            }
             this.spinner.succeed();
             process.exit(0);
         } catch (error) {
