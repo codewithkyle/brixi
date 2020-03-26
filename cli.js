@@ -504,18 +504,7 @@ class Brixi {
         return new Promise((resolve, reject) => {
             let data = "";
 
-            const columns = this.config.grid.columns;
-            for (let i = 0; i < columns; i++) {
-                data += `[grid~="columns"][grid~="${i + 1}"]{\n`;
-                data += `\tgrid-template-columns: repeat(${i + 1}, minmax(0, 1fr));\n`;
-                data += "}\n";
-
-                data += `[grid~="rows"][grid~="${i + 1}"]{\n`;
-                data += `\tgrid-template-rows: repeat(${i + 1}, minmax(0, 1fr));\n`;
-                data += "}\n";
-            }
-
-            const gaps = this.config.grid.gaps;
+            const gaps = this.config.gaps;
             for (let i = 0; i < gaps.length; i++) {
                 data += `[grid~="gap-${gaps[i]}"]{\n`;
                 data += `\tgap: ${gaps[i]}rem;\n`;
