@@ -26,7 +26,7 @@ class Brixi {
         this.spinner = ora("Assembling Brixi").start();
         this.config = defaultConfig;
         this.wrangleConfigs();
-        this.output = path.join(__dirname, "output");
+        this.output = path.join(__dirname, "temp");
         this.run();
     }
 
@@ -487,6 +487,22 @@ class Brixi {
         });
     }
 
+    copyFlexbox() {
+        return new Promise((resolve, reject) => {
+            fs.readFile(path.join(__dirname, "src/flexbox.css"), (error, buffer) => {
+                if (error) {
+                    reject(error);
+                }
+                fs.writeFile(path.join(this.output, `flexbox.${this.config.output}`), buffer, (error) => {
+                    if (error) {
+                        reject(error);
+                    }
+                    resolve();
+                });
+            });
+        });
+    }
+
     async run() {
         try {
             if (fs.existsSync(this.output)) {
@@ -501,8 +517,8 @@ class Brixi {
             await this.generateFonts();
             await this.generateFontColors();
             await this.generateBackgroundColors();
-            // TODO: Copy flex
             // TODO: Copy grid
+            await this.copyFlexbox();
             await this.copyText();
             await this.generateShadows();
             await this.generateContainers();
