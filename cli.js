@@ -64,6 +64,79 @@ class Brixi {
         }
     }
 
+    minifyCSS() {
+        return new Promise((resolve, reject) => {
+            glob(`${this.output}/*.css`, (error, files) => {
+                if (error) {
+                    reject(error);
+                }
+
+                let minified = 0;
+                for (let i = 0; i < files.length; i++) {
+                    minify(files[i]).then((css) => {
+                        fs.unlink(files[i], (error) => {
+                            if (error) {
+                                reject(error);
+                            }
+
+                            fs.writeFile(files[i], css, (error) => {
+                                if (error) {
+                                    reject(error);
+                                }
+
+                                minified++;
+                                if (minified === files.length) {
+                                    resolve();
+                                }
+                            });
+                        });
+                    });
+                }
+            });
+        });
+    }
+
+    generateVariables() {
+        return new Promise((resolve, reject) => {
+            let data = ":root{\n";
+
+            /** Colors */
+            for (const [name, values] of Object.entries(this.config.colors)) {
+                for (const [shade, value] of Object.entries(values)) {
+                    data += `\t--${name}-${shade}: ${value};\n`;
+                }
+                data += "\n";
+            }
+
+            /** Fonts */
+            for (const [name, value] of Object.entries(this.config.fonts.families)) {
+                data += `\t--font-${name}: ${value};\n`;
+            }
+
+            data += "\n";
+
+            for (const [name, value] of Object.entries(this.config.fonts.weights)) {
+                data += `\t--font-${name}: ${value};\n`;
+            }
+
+            data += "\n";
+
+            /** Box shadows */
+            for (const [name, value] of Object.entries(this.config.shadows)) {
+                data += `\t--shadow-${name}: ${value};\n`;
+            }
+
+            data += "}\n";
+
+            fs.writeFile(path.join(this.output, `variables.${this.config.output}`), data, (error) => {
+                if (error) {
+                    reject(error);
+                }
+                resolve();
+            });
+        });
+    }
+
     generateAttributes(attr, classes, values, unit = "") {
         let data = "";
         for (let i = 0; i < classes.length; i++) {
@@ -312,66 +385,21 @@ class Brixi {
         });
     }
 
-    generateVariables() {
+    generateShadows() {
         return new Promise((resolve, reject) => {
-            let data = ":root{\n";
+            let data = "";
 
-            /** Colors */
-            for (const [name, values] of Object.entries(this.config.colors)) {
-                for (const [shade, value] of Object.entries(values)) {
-                    data += `\t--${name}-${shade}: ${value};\n`;
-                }
-                data += "\n";
+            for (const [name, values] of Object.entries(this.config.shadows)) {
+                data += `.shadow-${name}{\n`;
+                data += `\tbox-shadow: var(--shadow-${name});\n`;
+                data += "}\n";
             }
 
-            /** Fonts */
-            for (const [name, value] of Object.entries(this.config.fonts.families)) {
-                data += `\t--font-${name}: ${value};\n`;
-            }
-            data += "\n";
-            for (const [name, value] of Object.entries(this.config.fonts.weights)) {
-                data += `\t--font-${name}: ${value};\n`;
-            }
-
-            data += "}\n";
-
-            fs.writeFile(path.join(this.output, `variables.${this.config.output}`), data, (error) => {
+            fs.writeFile(path.join(this.output, `shadows.${this.config.output}`), data, (error) => {
                 if (error) {
                     reject(error);
                 }
                 resolve();
-            });
-        });
-    }
-
-    minifyCSS() {
-        return new Promise((resolve, reject) => {
-            glob(`${this.output}/*.css`, (error, files) => {
-                if (error) {
-                    reject(error);
-                }
-
-                let minified = 0;
-                for (let i = 0; i < files.length; i++) {
-                    minify(files[i]).then((css) => {
-                        fs.unlink(files[i], (error) => {
-                            if (error) {
-                                reject(error);
-                            }
-
-                            fs.writeFile(files[i], css, (error) => {
-                                if (error) {
-                                    reject(error);
-                                }
-
-                                minified++;
-                                if (minified === files.length) {
-                                    resolve();
-                                }
-                            });
-                        });
-                    });
-                }
             });
         });
     }
@@ -394,6 +422,7 @@ class Brixi {
             // TODO: Copy grid
             // TODO: Copy text
             // TODO: Generate shadows
+            await this.generateShadows();
             // TODO: Generate & copy container
             // TODO: Copy cursor
             if (this.config.minify && this.config.output === "css") {
