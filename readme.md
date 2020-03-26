@@ -26,6 +26,16 @@ module.exports = {
             heavy: 800,
             black: 900,
         },
+        sizes: {
+            xs: 0.75, // rem
+            sm: 0.875,
+            base: 1,
+            md: 1.125,
+            lg: 1.25,
+            xl: 1.5,
+            "2xl": 1.875,
+            "3xl": 2.25,
+        },
     },
     colors: {
         white: "#ffffff",
@@ -114,9 +124,8 @@ module.exports = {
         "3xl": "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
     },
     containers: {
-        // pixels
         screens: {
-            mobile: 411,
+            mobile: 411, // px
             tablet: 768,
             laptop: 1024,
             desktop: 1280,
@@ -126,5 +135,11 @@ module.exports = {
         columns: [2, 3, 4],
     },
     gaps: [1, 1.5, 2], // rem
+    easings: {
+        "ease-in-out": "0.4, 0.0, 0.2, 1", // cubic bezier
+        in: "0.0, 0.0, 0.2, 1",
+        out: "0.4, 0.0, 1, 1",
+        bounce: "0.175, 0.885, 0.32, 1.275",
+    },
 };
 ```

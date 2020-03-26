@@ -139,11 +139,26 @@ class Brixi {
 
             data += "\n";
 
+            /** Font sizes */
+            for (const [name, value] of Object.entries(this.config.fonts.sizes)) {
+                data += `\t--font-${name}: ${value}rem;\n`;
+            }
+
+            data += "\n";
+
             /** Box shadows */
             for (const [name, value] of Object.entries(this.config.shadows)) {
                 data += `\t--shadow-${name}: ${value};\n`;
             }
 
+            data += "\n";
+
+            /** Easing */
+            for (const [name, value] of Object.entries(this.config.easings)) {
+                data += `\t--ease-${name}: cubic-bezier(${value});\n`;
+            }
+
+            /** END OF FILE */
             data += "}\n";
 
             fs.writeFile(path.join(this.temp, `variables.${this.config.output}`), data, (error) => {
@@ -394,6 +409,25 @@ class Brixi {
         });
     }
 
+    generateFontSizes() {
+        return new Promise((resolve, reject) => {
+            let data = "";
+
+            for (const [size, value] of Object.entries(this.config.fonts.sizes)) {
+                data += `.font-${size}{\n`;
+                data += `\tfont-size: var(--font-${size});\n`;
+                data += "}\n";
+            }
+
+            fs.writeFile(path.join(this.temp, `font-sizes.${this.config.output}`), data, (error) => {
+                if (error) {
+                    reject(error);
+                }
+                resolve();
+            });
+        });
+    }
+
     generateBackgroundColors() {
         return new Promise((resolve, reject) => {
             let data = "";
@@ -599,6 +633,7 @@ class Brixi {
             await this.generateBorders();
             await this.generateFonts();
             await this.generateFontColors();
+            await this.generateFontSizes();
             await this.generateBackgroundColors();
             await this.generateGrid();
             await this.copyFlexbox();
