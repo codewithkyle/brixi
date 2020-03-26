@@ -1,6 +1,5 @@
 module.exports = {
     outDir: "./brixi",
-    minify: false,
     fonts: {
         families: {
             base: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif",

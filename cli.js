@@ -26,7 +26,8 @@ class Brixi {
         this.spinner = ora("Assembling Brixi").start();
         this.config = defaultConfig;
         this.wrangleConfigs();
-        this.output = path.join(__dirname, "temp");
+        this.temp = path.join(__dirname, "temp");
+        this.output = path.join(__dirname, "output");
         this.run();
     }
 
@@ -59,34 +60,50 @@ class Brixi {
         }
 
         this.config.output = "css";
+        this.config.outDir = path.resolve(cwd, this.config.outDir);
     }
 
-    minifyCSS() {
+    copyCSS() {
         return new Promise((resolve, reject) => {
-            glob(`${this.output}/*.css`, (error, files) => {
+            glob(`${this.temp}/*.css`, (error, files) => {
                 if (error) {
                     reject(error);
                 }
 
+                let copied = 0;
+                for (let i = 0; i < files.length; i++) {
+                    const filename = files[i].replace(/.*[\/\\]/, "");
+                    fs.copyFile(files[i], path.join(this.output, "src", filename), (error) => {
+                        if (error) {
+                            reject(error);
+                        }
+                        copied++;
+                        if (copied === files.length) {
+                            resolve();
+                        }
+                    });
+                }
+            });
+        });
+    }
+
+    minifyCSS() {
+        return new Promise((resolve, reject) => {
+            glob(`${this.temp}/*.css`, (error, files) => {
+                if (error) {
+                    reject(error);
+                }
+
+                let data = "";
                 let minified = 0;
                 for (let i = 0; i < files.length; i++) {
+                    const filename = files[i].replace(/.*[\/\\]/g, "");
                     minify(files[i]).then((css) => {
-                        fs.unlink(files[i], (error) => {
-                            if (error) {
-                                reject(error);
-                            }
-
-                            fs.writeFile(files[i], css, (error) => {
-                                if (error) {
-                                    reject(error);
-                                }
-
-                                minified++;
-                                if (minified === files.length) {
-                                    resolve();
-                                }
-                            });
-                        });
+                        data += css;
+                        minified++;
+                        if (minified === files.length) {
+                            resolve(data);
+                        }
                     });
                 }
             });
@@ -125,7 +142,7 @@ class Brixi {
 
             data += "}\n";
 
-            fs.writeFile(path.join(this.output, `variables.${this.config.output}`), data, (error) => {
+            fs.writeFile(path.join(this.temp, `variables.${this.config.output}`), data, (error) => {
                 if (error) {
                     reject(error);
                 }
@@ -182,7 +199,7 @@ class Brixi {
             data += staticData;
             data += this.generateAttributes("margin", classes, this.config.margins, "rem");
 
-            fs.writeFile(path.join(this.output, `margins.${this.config.output}`), data, (error) => {
+            fs.writeFile(path.join(this.temp, `margins.${this.config.output}`), data, (error) => {
                 if (error) {
                     reject(error);
                 }
@@ -223,7 +240,7 @@ class Brixi {
 
             data += this.generateAttributes("padding", classes, this.config.padding, "rem");
 
-            fs.writeFile(path.join(this.output, `paddings.${this.config.output}`), data, (error) => {
+            fs.writeFile(path.join(this.temp, `paddings.${this.config.output}`), data, (error) => {
                 if (error) {
                     reject(error);
                 }
@@ -258,7 +275,7 @@ class Brixi {
             data += staticData;
             data += this.generateAttributes("position", classes, this.config.positions);
 
-            fs.writeFile(path.join(this.output, `positions.${this.config.output}`), data, (error) => {
+            fs.writeFile(path.join(this.temp, `positions.${this.config.output}`), data, (error) => {
                 if (error) {
                     reject(error);
                 }
@@ -306,7 +323,7 @@ class Brixi {
 
             // TODO: Border radius
 
-            fs.writeFile(path.join(this.output, `borders.${this.config.output}`), data, (error) => {
+            fs.writeFile(path.join(this.temp, `borders.${this.config.output}`), data, (error) => {
                 if (error) {
                     reject(error);
                 }
@@ -331,7 +348,7 @@ class Brixi {
                 data += "}\n";
             }
 
-            fs.writeFile(path.join(this.output, `fonts.${this.config.output}`), data, (error) => {
+            fs.writeFile(path.join(this.temp, `fonts.${this.config.output}`), data, (error) => {
                 if (error) {
                     reject(error);
                 }
@@ -352,7 +369,7 @@ class Brixi {
                 }
             }
 
-            fs.writeFile(path.join(this.output, `font-colors.${this.config.output}`), data, (error) => {
+            fs.writeFile(path.join(this.temp, `font-colors.${this.config.output}`), data, (error) => {
                 if (error) {
                     reject(error);
                 }
@@ -373,7 +390,7 @@ class Brixi {
                 }
             }
 
-            fs.writeFile(path.join(this.output, `background-colors.${this.config.output}`), data, (error) => {
+            fs.writeFile(path.join(this.temp, `background-colors.${this.config.output}`), data, (error) => {
                 if (error) {
                     reject(error);
                 }
@@ -392,7 +409,7 @@ class Brixi {
                 data += "}\n";
             }
 
-            fs.writeFile(path.join(this.output, `shadows.${this.config.output}`), data, (error) => {
+            fs.writeFile(path.join(this.temp, `shadows.${this.config.output}`), data, (error) => {
                 if (error) {
                     reject(error);
                 }
@@ -407,7 +424,7 @@ class Brixi {
                 if (error) {
                     reject(error);
                 }
-                fs.writeFile(path.join(this.output, `text.${this.config.output}`), buffer, (error) => {
+                fs.writeFile(path.join(this.temp, `text.${this.config.output}`), buffer, (error) => {
                     if (error) {
                         reject(error);
                     }
@@ -423,7 +440,7 @@ class Brixi {
                 if (error) {
                     reject(error);
                 }
-                fs.writeFile(path.join(this.output, `cursor.${this.config.output}`), buffer, (error) => {
+                fs.writeFile(path.join(this.temp, `cursor.${this.config.output}`), buffer, (error) => {
                     if (error) {
                         reject(error);
                     }
@@ -459,7 +476,7 @@ class Brixi {
             const staticData = fs.readFileSync(path.join(__dirname, "src/container.css"));
             data += staticData.toString();
 
-            fs.writeFile(path.join(this.output, `containers.${this.config.output}`), data, (error) => {
+            fs.writeFile(path.join(this.temp, `containers.${this.config.output}`), data, (error) => {
                 if (error) {
                     reject(error);
                 }
@@ -474,7 +491,7 @@ class Brixi {
                 if (error) {
                     reject(error);
                 }
-                fs.writeFile(path.join(this.output, `line-heights.${this.config.output}`), buffer, (error) => {
+                fs.writeFile(path.join(this.temp, `line-heights.${this.config.output}`), buffer, (error) => {
                     if (error) {
                         reject(error);
                     }
@@ -490,7 +507,7 @@ class Brixi {
                 if (error) {
                     reject(error);
                 }
-                fs.writeFile(path.join(this.output, `flexbox.${this.config.output}`), buffer, (error) => {
+                fs.writeFile(path.join(this.temp, `flexbox.${this.config.output}`), buffer, (error) => {
                     if (error) {
                         reject(error);
                     }
@@ -514,7 +531,7 @@ class Brixi {
             const staticData = fs.readFileSync(path.join(__dirname, "src/grid.css"));
             data += staticData.toString();
 
-            fs.writeFile(path.join(this.output, `grid.${this.config.output}`), data, (error) => {
+            fs.writeFile(path.join(this.temp, `grid.${this.config.output}`), data, (error) => {
                 if (error) {
                     reject(error);
                 }
@@ -529,7 +546,7 @@ class Brixi {
                 if (error) {
                     reject(error);
                 }
-                fs.writeFile(path.join(this.output, `scrolling.${this.config.output}`), buffer, (error) => {
+                fs.writeFile(path.join(this.temp, `scrolling.${this.config.output}`), buffer, (error) => {
                     if (error) {
                         reject(error);
                     }
@@ -541,10 +558,18 @@ class Brixi {
 
     async run() {
         try {
+            /** Setup */
+            if (fs.existsSync(this.temp)) {
+                fs.rmdirSync(this.temp, { recursive: true });
+            }
+            fs.mkdirSync(this.temp);
             if (fs.existsSync(this.output)) {
                 fs.rmdirSync(this.output, { recursive: true });
             }
             fs.mkdirSync(this.output);
+            fs.mkdirSync(path.join(this.output, "src"));
+
+            /** CSS Generators */
             await this.generateVariables();
             await this.generateMargins();
             await this.generatePaddings();
@@ -561,9 +586,14 @@ class Brixi {
             await this.copyCursor();
             await this.copyLineHeights();
             await this.copyScrolling();
-            if (this.config.minify && this.config.output === "css") {
-                await this.minifyCSS();
-            }
+
+            /** Output */
+            this.copyCSS();
+            const prodCSS = await this.minifyCSS();
+            fs.writeFileSync(path.join(this.output, "brixi.css"), prodCSS);
+            fs.renameSync(this.output, this.config.outDir);
+            fs.rmdirSync(this.temp, { recursive: true });
+
             this.spinner.succeed();
             process.exit(0);
         } catch (error) {
