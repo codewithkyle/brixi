@@ -436,6 +436,41 @@ class Brixi {
         });
     }
 
+    generateContainers() {
+        return new Promise((resolve, reject) => {
+            let data = "";
+
+            for (const [name, value] of Object.entries(this.config.containers.screens)) {
+                data += `.w-${name}{\n`;
+                data += `\twidth: ${value}px;\n`;
+                data += "}\n";
+
+                data += `.max-w-${name}{\n`;
+                data += `\tmax-width: ${value}px;\n`;
+                data += "}\n";
+            }
+
+            const columns = this.config.containers.columns;
+            for (let i = 0; i < columns.length; i++) {
+                for (let k = 1; k < columns[i]; k++) {
+                    data += `.w-${k}\\/${columns[i]}{\n`;
+                    data += `\twidth: ${(k / columns[i]) * 100}%;\n`;
+                    data += "}\n";
+                }
+            }
+
+            const staticData = fs.readFileSync(path.join(__dirname, "src/container.css"));
+            data += staticData.toString();
+
+            fs.writeFile(path.join(this.output, `containers.${this.config.output}`), data, (error) => {
+                if (error) {
+                    reject(error);
+                }
+                resolve();
+            });
+        });
+    }
+
     async run() {
         try {
             if (fs.existsSync(this.output)) {
@@ -454,7 +489,7 @@ class Brixi {
             // TODO: Copy grid
             await this.copyText();
             await this.generateShadows();
-            // TODO: Generate & copy container
+            await this.generateContainers();
             await this.copyCursor();
             if (this.config.minify && this.config.output === "css") {
                 await this.minifyCSS();
