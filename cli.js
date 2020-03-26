@@ -116,9 +116,14 @@ class Brixi {
 
             /** Colors */
             for (const [name, values] of Object.entries(this.config.colors)) {
-                for (const [shade, value] of Object.entries(values)) {
-                    data += `\t--${name}-${shade}: ${value};\n`;
+                if (typeof values === "object") {
+                    for (const [shade, value] of Object.entries(values)) {
+                        data += `\t--${name}-${shade}: ${value};\n`;
+                    }
+                } else {
+                    data += `\t--${name}: ${values};\n`;
                 }
+
                 data += "\n";
             }
 
@@ -313,9 +318,15 @@ class Brixi {
             /** Border colors */
             for (let a = 0; a < borderAttrs.length; a++) {
                 for (const [name, values] of Object.entries(this.config.colors)) {
-                    for (const [shade, value] of Object.entries(values)) {
-                        data += `[${borderAttrs[a]}~="${name}-${shade}"]{\n`;
-                        data += `\t${borderAttrs[a]}-color: ${value};\n`;
+                    if (typeof values === "object") {
+                        for (const [shade, value] of Object.entries(values)) {
+                            data += `[${borderAttrs[a]}~="${name}-${shade}"]{\n`;
+                            data += `\t${borderAttrs[a]}-color: var(--${name}-${shade});\n`;
+                            data += "}\n";
+                        }
+                    } else {
+                        data += `[${borderAttrs[a]}~="${name}"]{\n`;
+                        data += `\t${borderAttrs[a]}-color: var(--${name});\n`;
                         data += "}\n";
                     }
                 }
@@ -362,9 +373,15 @@ class Brixi {
             let data = "";
 
             for (const [name, values] of Object.entries(this.config.colors)) {
-                for (const [shade, value] of Object.entries(values)) {
-                    data += `.font-${name}-${shade}{\n`;
-                    data += `\tcolor: var(--${name}-${shade});\n`;
+                if (typeof values === "object") {
+                    for (const [shade, value] of Object.entries(values)) {
+                        data += `.font-${name}-${shade}{\n`;
+                        data += `\tcolor: var(--${name}-${shade});\n`;
+                        data += "}\n";
+                    }
+                } else {
+                    data += `.font-${name}{\n`;
+                    data += `\tcolor: var(--${name});\n`;
                     data += "}\n";
                 }
             }
@@ -383,9 +400,15 @@ class Brixi {
             let data = "";
 
             for (const [name, values] of Object.entries(this.config.colors)) {
-                for (const [shade, value] of Object.entries(values)) {
-                    data += `.bg-${name}-${shade}{\n`;
-                    data += `\tbackground-color: var(--${name}-${shade});\n`;
+                if (typeof values === "object") {
+                    for (const [shade, value] of Object.entries(values)) {
+                        data += `.bg-${name}-${shade}{\n`;
+                        data += `\tbackground-color: var(--${name}-${shade});\n`;
+                        data += "}\n";
+                    }
+                } else {
+                    data += `.bg-${name}{\n`;
+                    data += `\tbackground-color: var(--${name});\n`;
                     data += "}\n";
                 }
             }
