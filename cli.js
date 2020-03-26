@@ -181,7 +181,7 @@ class Brixi {
                 },
             ];
 
-            const staticData = fs.readFileSync(path.join(__dirname, "src/margin.scss"));
+            const staticData = fs.readFileSync(path.join(__dirname, "src/margin.css"));
             data += staticData;
             data += this.generateAttributes("margin", classes, this.config.margins, "rem");
 
@@ -257,7 +257,7 @@ class Brixi {
                 },
             ];
 
-            const staticData = fs.readFileSync(path.join(__dirname, "src/position.scss"));
+            const staticData = fs.readFileSync(path.join(__dirname, "src/position.css"));
             data += staticData;
             data += this.generateAttributes("position", classes, this.config.positions);
 
@@ -404,6 +404,38 @@ class Brixi {
         });
     }
 
+    copyText() {
+        return new Promise((resolve, reject) => {
+            fs.readFile(path.join(__dirname, "src/text.css"), (error, buffer) => {
+                if (error) {
+                    reject(error);
+                }
+                fs.writeFile(path.join(this.output, `text.${this.config.output}`), buffer, (error) => {
+                    if (error) {
+                        reject(error);
+                    }
+                    resolve();
+                });
+            });
+        });
+    }
+
+    copyCursor() {
+        return new Promise((resolve, reject) => {
+            fs.readFile(path.join(__dirname, "src/cursor.css"), (error, buffer) => {
+                if (error) {
+                    reject(error);
+                }
+                fs.writeFile(path.join(this.output, `cursor.${this.config.output}`), buffer, (error) => {
+                    if (error) {
+                        reject(error);
+                    }
+                    resolve();
+                });
+            });
+        });
+    }
+
     async run() {
         try {
             if (fs.existsSync(this.output)) {
@@ -420,11 +452,10 @@ class Brixi {
             await this.generateBackgroundColors();
             // TODO: Copy flex
             // TODO: Copy grid
-            // TODO: Copy text
-            // TODO: Generate shadows
+            await this.copyText();
             await this.generateShadows();
             // TODO: Generate & copy container
-            // TODO: Copy cursor
+            await this.copyCursor();
             if (this.config.minify && this.config.output === "css") {
                 await this.minifyCSS();
             }
