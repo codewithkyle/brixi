@@ -622,8 +622,6 @@ class Brixi {
             if (fs.existsSync(this.output)) {
                 fs.rmdirSync(this.output, { recursive: true });
             }
-            fs.mkdirSync(this.output);
-            fs.mkdirSync(path.join(this.output, "src"));
 
             /** CSS Generators */
             await this.generateVariables();
@@ -647,6 +645,12 @@ class Brixi {
             /** Output */
             this.copyCSS();
             const prodCSS = await this.minifyCSS();
+
+            if (fs.existsSync(path.join(this.output))) {
+                fs.rmdirSync(this.output, { recursive: true });
+            }
+            fs.mkdirSync(this.output);
+            fs.mkdirSync(path.join(this.output, "src"));
             fs.writeFileSync(path.join(this.output, "brixi.css"), prodCSS);
             fs.renameSync(this.output, this.config.outDir);
             fs.rmdirSync(this.temp, { recursive: true });

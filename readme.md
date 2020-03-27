@@ -136,7 +136,7 @@ module.exports = {
     },
     gaps: [1, 1.5, 2], // rem
     easings: {
-        "ease-in-out": "0.4, 0.0, 0.2, 1", // cubic bezier
+        "in-out": "0.4, 0.0, 0.2, 1", // cubic bezier
         in: "0.0, 0.0, 0.2, 1",
         out: "0.4, 0.0, 1, 1",
         bounce: "0.175, 0.885, 0.32, 1.275",
