@@ -56,7 +56,18 @@ class Brixi {
         }
 
         if (customConfig) {
-            this.config = Object.assign(this.config, customConfig);
+            for (const [key, value] in Object.entries(customConfig)) {
+                switch (key) {
+                    case "colors":
+                        for (const [colorKey, value] in Object.entries(customConfig[key])) {
+                            this.config[key][colorKey] = value;
+                        }
+                        break;
+                    default:
+                        this.config[key] = value;
+                        break;
+                }
+            }
         }
 
         this.config.output = "css";
