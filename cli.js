@@ -102,7 +102,7 @@ class Brixi {
 
     minifyCSS() {
         return new Promise((resolve, reject) => {
-            glob(`${this.temp}/*.css`, (error, files) => {
+            glob(`${this.output}/src/*.css`, (error, files) => {
                 if (error) {
                     reject(error);
                 }
@@ -185,7 +185,7 @@ class Brixi {
 
     makeImportant() {
         return new Promise((resolve, reject) => {
-            glob(`${this.temp}/*.css`, (error, files) => {
+            glob(`${this.output}/**/*.css`, (error, files) => {
                 if (error) {
                     reject(error);
                 }
@@ -694,7 +694,7 @@ class Brixi {
             await this.copyScrolling();
 
             /** Output */
-            this.copyCSS();
+            await this.copyCSS();
 
             if (this.config.important) {
                 await this.makeImportant();
