@@ -61,10 +61,10 @@ class Brixi {
         }
 
         if (customConfig) {
-            for (const [key, value] in Object.entries(customConfig)) {
+            for (const [key, value] of Object.entries(customConfig)) {
                 switch (key) {
                     case "colors":
-                        for (const [colorKey, value] in Object.entries(customConfig[key])) {
+                        for (const [colorKey, value] of Object.entries(customConfig[key])) {
                             this.config[key][colorKey] = value;
                         }
                         break;
