@@ -28,6 +28,11 @@ class Brixi {
         this.temp = path.join(__dirname, "temp");
         this.output = path.join(__dirname, "output");
         this.important = this.config.important;
+
+        if (yargs.debug) {
+            console.log(this.config);
+        }
+
         this.run();
     }
 
@@ -632,21 +637,28 @@ class Brixi {
 
                 let updated = 0;
                 for (let i = 0; i < files.length; i++) {
-                    fs.readFile(files[i], (error, buffer) => {
-                        if (error) {
-                            reject(error);
-                        }
-                        const data = buffer.toString().replace(/\;/g, " !important;");
-                        fs.writeFile(files[i], data, (error) => {
+                    if (!files[i].match(/variables/g)) {
+                        fs.readFile(files[i], (error, buffer) => {
                             if (error) {
                                 reject(error);
                             }
-                            updated++;
-                            if (updated === files.length) {
-                                resolve();
-                            }
+                            const data = buffer.toString().replace(/\;/g, " !important;");
+                            fs.writeFile(files[i], data, (error) => {
+                                if (error) {
+                                    reject(error);
+                                }
+                                updated++;
+                                if (updated === files.length) {
+                                    resolve();
+                                }
+                            });
                         });
-                    });
+                    } else {
+                        updated++;
+                        if (updated === files.length) {
+                            resolve();
+                        }
+                    }
                 }
             });
         });
