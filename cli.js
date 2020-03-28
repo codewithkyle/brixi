@@ -183,6 +183,42 @@ class Brixi {
         });
     }
 
+    makeImportant() {
+        return new Promise((resolve, reject) => {
+            glob(`${this.temp}/*.css`, (error, files) => {
+                if (error) {
+                    reject(error);
+                }
+
+                let updated = 0;
+                for (let i = 0; i < files.length; i++) {
+                    if (!files[i].match(/variables/g)) {
+                        fs.readFile(files[i], (error, buffer) => {
+                            if (error) {
+                                reject(error);
+                            }
+                            const data = buffer.toString().replace(/\;/g, " !important;");
+                            fs.writeFile(files[i], data, (error) => {
+                                if (error) {
+                                    reject(error);
+                                }
+                                updated++;
+                                if (updated === files.length) {
+                                    resolve();
+                                }
+                            });
+                        });
+                    } else {
+                        updated++;
+                        if (updated === files.length) {
+                            resolve();
+                        }
+                    }
+                }
+            });
+        });
+    }
+
     generateAttributes(attr, classes, values, unit = "") {
         let data = "";
         for (let i = 0; i < classes.length; i++) {
@@ -625,42 +661,6 @@ class Brixi {
         });
     }
 
-    makeImportant() {
-        return new Promise((resolve, reject) => {
-            glob(`${this.output}/**/*.css`, (error, files) => {
-                if (error) {
-                    reject(error);
-                }
-
-                let updated = 0;
-                for (let i = 0; i < files.length; i++) {
-                    if (!files[i].match(/variables/g)) {
-                        fs.readFile(files[i], (error, buffer) => {
-                            if (error) {
-                                reject(error);
-                            }
-                            const data = buffer.toString().replace(/\;/g, " !important;");
-                            fs.writeFile(files[i], data, (error) => {
-                                if (error) {
-                                    reject(error);
-                                }
-                                updated++;
-                                if (updated === files.length) {
-                                    resolve();
-                                }
-                            });
-                        });
-                    } else {
-                        updated++;
-                        if (updated === files.length) {
-                            resolve();
-                        }
-                    }
-                }
-            });
-        });
-    }
-
     async run() {
         try {
             /** Setup */
@@ -695,6 +695,11 @@ class Brixi {
 
             /** Output */
             this.copyCSS();
+
+            if (this.config.important) {
+                await this.makeImportant();
+            }
+
             const prodCSS = await this.minifyCSS();
 
             if (fs.existsSync(this.config.outDir)) {
@@ -702,10 +707,6 @@ class Brixi {
             }
 
             fs.writeFileSync(path.join(this.output, "brixi.css"), prodCSS);
-
-            if (this.config.important) {
-                await this.makeImportant();
-            }
 
             fs.renameSync(this.output, this.config.outDir);
             fs.rmdirSync(this.temp, { recursive: true });
