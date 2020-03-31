@@ -9,6 +9,8 @@ Below is the default config file. Any value can be overridden by adding a `brixi
 ```javascript
 module.exports = {
     outDir: "./brixi",
+    important: true, // when true the !important specificity selector is applied
+    output: "production", // can be 'production' or 'source'
     fonts: {
         families: {
             base: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif",

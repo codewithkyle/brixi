@@ -72,7 +72,11 @@ class Brixi {
             }
         }
 
-        this.config.output = "css";
+        if (typeof customConfig === "string") {
+            if (customConfig === "production" || customConfig === "source") {
+                this.config.output = customConfig;
+            }
+        }
         this.config.outDir = path.resolve(cwd, this.config.outDir);
     }
 
@@ -174,7 +178,7 @@ class Brixi {
             /** END OF FILE */
             data += "}\n";
 
-            fs.writeFile(path.join(this.temp, `variables.${this.config.output}`), data, (error) => {
+            fs.writeFile(path.join(this.temp, `variables.css`), data, (error) => {
                 if (error) {
                     reject(error);
                 }
@@ -223,7 +227,7 @@ class Brixi {
         let data = "";
         for (let i = 0; i < classes.length; i++) {
             for (let k = 0; k < values.length; k++) {
-                data += `[${attr}~="${classes[i].prefix}-${values[k]}"]{\n`;
+                data += `.${attr}${classes[i].prefix}-${values[k].toString().replace(/(\.)|(\/)/g, "\\.")}{\n`;
                 for (let p = 0; p < classes[i].css.length; p++) {
                     data += `\t${classes[i].css[p]}: ${values[k]}${unit};\n`;
                 }
@@ -237,6 +241,10 @@ class Brixi {
         return new Promise((resolve, reject) => {
             let data = "";
             const classes = [
+                {
+                    prefix: "",
+                    css: ["margin"],
+                },
                 {
                     prefix: "t",
                     css: ["margin-top"],
@@ -265,9 +273,9 @@ class Brixi {
 
             const staticData = fs.readFileSync(path.join(__dirname, "src/margin.css"));
             data += staticData;
-            data += this.generateAttributes("margin", classes, this.config.margins, "rem");
+            data += this.generateAttributes("m", classes, this.config.margins, "rem");
 
-            fs.writeFile(path.join(this.temp, `margins.${this.config.output}`), data, (error) => {
+            fs.writeFile(path.join(this.temp, `margins.css`), data, (error) => {
                 if (error) {
                     reject(error);
                 }
@@ -280,6 +288,10 @@ class Brixi {
         return new Promise((resolve, reject) => {
             let data = "";
             const classes = [
+                {
+                    prefix: "",
+                    css: ["padding"],
+                },
                 {
                     prefix: "t",
                     css: ["padding-top"],
@@ -306,9 +318,9 @@ class Brixi {
                 },
             ];
 
-            data += this.generateAttributes("padding", classes, this.config.padding, "rem");
+            data += this.generateAttributes("p", classes, this.config.padding, "rem");
 
-            fs.writeFile(path.join(this.temp, `paddings.${this.config.output}`), data, (error) => {
+            fs.writeFile(path.join(this.temp, `padding.css`), data, (error) => {
                 if (error) {
                     reject(error);
                 }
@@ -341,9 +353,9 @@ class Brixi {
 
             const staticData = fs.readFileSync(path.join(__dirname, "src/position.css"));
             data += staticData;
-            data += this.generateAttributes("position", classes, this.config.positions);
+            data += this.generateAttributes("", classes, this.config.positions);
 
-            fs.writeFile(path.join(this.temp, `positions.${this.config.output}`), data, (error) => {
+            fs.writeFile(path.join(this.temp, `positions.css`), data, (error) => {
                 if (error) {
                     reject(error);
                 }
@@ -357,39 +369,40 @@ class Brixi {
             let data = "";
 
             const borderAttrs = ["border", "border-top", "border-right", "border-bottom", "border-left"];
+            const borderType = ["b", "bt", "br", "bb", "bl"];
 
             /** Border styles */
             const borders = this.config.borders.styles;
-            for (let a = 0; a < borderAttrs.length; a++) {
-                for (let i = 0; i < borders.length; i++) {
-                    data += `[${borderAttrs[a]}~="${borders[i]}"]{\n`;
-                    data += `\t${borderAttrs[a]}-style: ${borders[i]};\n`;
+            for (let i = 0; i < borderType.length; i++) {
+                for (let b = 0; b < borders.length; b++) {
+                    data += `.${borderType[i]}-${borders[b]}{\n`;
+                    data += `\t${borderAttrs[i]}-style: ${borders[b]};\n`;
                     data += "}\n";
                 }
             }
 
             /** Border widths */
             const widths = this.config.borders.widths;
-            for (let a = 0; a < borderAttrs.length; a++) {
-                for (let i = 0; i < widths.length; i++) {
-                    data += `[${borderAttrs[a]}~="${widths[i]}"]{\n`;
-                    data += `\t${borderAttrs[a]}-width: ${widths[i]}px;\n`;
+            for (let i = 0; i < borderType.length; i++) {
+                for (let b = 0; b < widths.length; b++) {
+                    data += `.${borderType[i]}-${widths[b]}{\n`;
+                    data += `\t${borderAttrs[i]}-width: ${widths[b]}px;\n`;
                     data += "}\n";
                 }
             }
 
             /** Border colors */
-            for (let a = 0; a < borderAttrs.length; a++) {
+            for (let i = 0; i < borderType.length; i++) {
                 for (const [name, values] of Object.entries(this.config.colors)) {
                     if (typeof values === "object") {
                         for (const [shade, value] of Object.entries(values)) {
-                            data += `[${borderAttrs[a]}~="${name}-${shade}"]{\n`;
-                            data += `\t${borderAttrs[a]}-color: var(--${name}-${shade});\n`;
+                            data += `.${borderType[i]}-${name}-${shade}{\n`;
+                            data += `\t${borderAttrs[i]}-color: var(--${name}-${shade});\n`;
                             data += "}\n";
                         }
                     } else {
-                        data += `[${borderAttrs[a]}~="${name}"]{\n`;
-                        data += `\t${borderAttrs[a]}-color: var(--${name});\n`;
+                        data += `.${borderType[i]}-${name}{\n`;
+                        data += `\t${borderAttrs[i]}-color: var(--${name});\n`;
                         data += "}\n";
                     }
                 }
@@ -397,7 +410,7 @@ class Brixi {
 
             // TODO: Border radius
 
-            fs.writeFile(path.join(this.temp, `borders.${this.config.output}`), data, (error) => {
+            fs.writeFile(path.join(this.temp, `borders.css`), data, (error) => {
                 if (error) {
                     reject(error);
                 }
@@ -422,7 +435,7 @@ class Brixi {
                 data += "}\n";
             }
 
-            fs.writeFile(path.join(this.temp, `fonts.${this.config.output}`), data, (error) => {
+            fs.writeFile(path.join(this.temp, `fonts.css`), data, (error) => {
                 if (error) {
                     reject(error);
                 }
@@ -449,7 +462,7 @@ class Brixi {
                 }
             }
 
-            fs.writeFile(path.join(this.temp, `font-colors.${this.config.output}`), data, (error) => {
+            fs.writeFile(path.join(this.temp, `font-colors.css`), data, (error) => {
                 if (error) {
                     reject(error);
                 }
@@ -468,7 +481,7 @@ class Brixi {
                 data += "}\n";
             }
 
-            fs.writeFile(path.join(this.temp, `font-sizes.${this.config.output}`), data, (error) => {
+            fs.writeFile(path.join(this.temp, `font-sizes.css`), data, (error) => {
                 if (error) {
                     reject(error);
                 }
@@ -495,7 +508,7 @@ class Brixi {
                 }
             }
 
-            fs.writeFile(path.join(this.temp, `background-colors.${this.config.output}`), data, (error) => {
+            fs.writeFile(path.join(this.temp, `background-colors.css`), data, (error) => {
                 if (error) {
                     reject(error);
                 }
@@ -514,7 +527,7 @@ class Brixi {
                 data += "}\n";
             }
 
-            fs.writeFile(path.join(this.temp, `shadows.${this.config.output}`), data, (error) => {
+            fs.writeFile(path.join(this.temp, `shadows.css`), data, (error) => {
                 if (error) {
                     reject(error);
                 }
@@ -529,7 +542,7 @@ class Brixi {
                 if (error) {
                     reject(error);
                 }
-                fs.writeFile(path.join(this.temp, `text.${this.config.output}`), buffer, (error) => {
+                fs.writeFile(path.join(this.temp, `text.css`), buffer, (error) => {
                     if (error) {
                         reject(error);
                     }
@@ -545,7 +558,7 @@ class Brixi {
                 if (error) {
                     reject(error);
                 }
-                fs.writeFile(path.join(this.temp, `cursor.${this.config.output}`), buffer, (error) => {
+                fs.writeFile(path.join(this.temp, `cursor.css`), buffer, (error) => {
                     if (error) {
                         reject(error);
                     }
@@ -581,7 +594,7 @@ class Brixi {
             const staticData = fs.readFileSync(path.join(__dirname, "src/container.css"));
             data += staticData.toString();
 
-            fs.writeFile(path.join(this.temp, `containers.${this.config.output}`), data, (error) => {
+            fs.writeFile(path.join(this.temp, `containers.css`), data, (error) => {
                 if (error) {
                     reject(error);
                 }
@@ -596,7 +609,7 @@ class Brixi {
                 if (error) {
                     reject(error);
                 }
-                fs.writeFile(path.join(this.temp, `line-heights.${this.config.output}`), buffer, (error) => {
+                fs.writeFile(path.join(this.temp, `line-heights.css`), buffer, (error) => {
                     if (error) {
                         reject(error);
                     }
@@ -612,7 +625,7 @@ class Brixi {
                 if (error) {
                     reject(error);
                 }
-                fs.writeFile(path.join(this.temp, `flexbox.${this.config.output}`), buffer, (error) => {
+                fs.writeFile(path.join(this.temp, `flexbox.css`), buffer, (error) => {
                     if (error) {
                         reject(error);
                     }
@@ -636,7 +649,7 @@ class Brixi {
             const staticData = fs.readFileSync(path.join(__dirname, "src/grid.css"));
             data += staticData.toString();
 
-            fs.writeFile(path.join(this.temp, `grid.${this.config.output}`), data, (error) => {
+            fs.writeFile(path.join(this.temp, `grid.css`), data, (error) => {
                 if (error) {
                     reject(error);
                 }
@@ -651,7 +664,7 @@ class Brixi {
                 if (error) {
                     reject(error);
                 }
-                fs.writeFile(path.join(this.temp, `scrolling.${this.config.output}`), buffer, (error) => {
+                fs.writeFile(path.join(this.temp, `scrolling.css`), buffer, (error) => {
                     if (error) {
                         reject(error);
                     }
@@ -693,7 +706,6 @@ class Brixi {
             await this.copyLineHeights();
             await this.copyScrolling();
 
-            /** Output */
             await this.copyCSS();
 
             if (this.config.important) {
@@ -707,6 +719,10 @@ class Brixi {
             }
 
             fs.writeFileSync(path.join(this.output, "brixi.css"), prodCSS);
+
+            if (this.config.output === "production") {
+                fs.rmdirSync(path.join(this.output, "src"), { recursive: true });
+            }
 
             fs.renameSync(this.output, this.config.outDir);
             fs.rmdirSync(this.temp, { recursive: true });

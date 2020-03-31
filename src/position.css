@@ -1,45 +1,45 @@
-[position~="relative"]{
+.relative{
     position: relative;
 }
-[position~="absolute"]{
+.absolute{
     position: absolute;
 }
-[position~="fixed"]{
+.fixed{
     position: fixed;
 }
-[position~="sticky"]{
+.sticky{
     position: sticky;
 }
-[position~="t-auto"]{
+.t-auto{
     top: auto;
 }
-[position~="r-auto"]{
+.r-auto{
     right: auto;
 }
-[position~="b-auto"]{
+.b-auto{
     bottom: auto;
 }
-[position~="l-auto"]{
+.l-auto{
     left: auto;
 }
-[position~="x-auto"]{
+.x-auto{
     right: auto;
     left: auto;
 }
-[position~="y-auto"]{
+.y-auto{
     top: auto;
     bottom: auto;
 }
-[position~="center"]{
+.center{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
-[position~="x-center"]{
+.x-center{
     left: 50%;
     transform: translateX(-50%);
 }
-[position~="y-center"]{
+.y-center{
     top: 50%;
     transform: translateY(-50%);
 }
