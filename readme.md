@@ -1,6 +1,6 @@
 # Brixi
 
-A highly configurable utility first CSS framework built upon CSS variables.
+A highly configurable utility first CSS framework built on CSS variables.
 
 ## Configuration
 
@@ -115,6 +115,7 @@ module.exports = {
     borders: {
         styles: ["solid", "dashed", "dotted"],
         widths: [0, 1, 2], // px
+        radius: [0.125, 0.25, 0.5], // rem
     },
     shadows: {
         xs: "0 0 0 1px rgba(0, 0, 0, 0.05)",
