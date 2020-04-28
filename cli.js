@@ -408,7 +408,13 @@ class Brixi {
                 }
             }
 
-            // TODO: Border radius
+            /** Border radius */
+            const radius = this.config.borders.radius;
+            for (let b = 0; b < radius.length; b++) {
+                data += `.radius-${radius[b].toString().replace(/(\.)/g, "\\.")}{\n`;
+                data += `\tborder-radius: ${radius[b]}rem;\n`;
+                data += "}\n";
+            }
 
             fs.writeFile(path.join(this.temp, `borders.css`), data, (error) => {
                 if (error) {

@@ -106,6 +106,7 @@ module.exports = {
     borders: {
         styles: ["solid", "dashed", "dotted"],
         widths: [0, 1, 2],
+        radius: [0.125, 0.25, 0.5],
     },
     shadows: {
         xs: "0 0 0 1px rgba(0, 0, 0, 0.05)",
