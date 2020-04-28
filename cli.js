@@ -369,7 +369,7 @@ class Brixi {
             let data = "";
 
             const borderAttrs = ["border", "border-top", "border-right", "border-bottom", "border-left"];
-            const borderType = ["b", "bt", "br", "bb", "bl"];
+            const borderType = ["border", "border-t", "border-r", "border-b", "border-l"];
 
             /** Border styles */
             const borders = this.config.borders.styles;
