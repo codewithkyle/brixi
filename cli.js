@@ -64,7 +64,13 @@ class Brixi {
             for (const [key, value] of Object.entries(customConfig)) {
                 if (typeof customConfig[key] === "object") {
                     for (const [key2, value2] of Object.entries(customConfig[key])) {
-                        this.config[key][key2] = value2;
+                        if (typeof customConfig[key][key2] === "object") {
+                            for (const [key3, value3] of Object.entries(customConfig[key][key2])) {
+                                this.config[key][key2][key3] = value3;
+                            }
+                        } else {
+                            this.config[key][key2] = value2;
+                        }
                     }
                 } else {
                     this.config[key] = value;

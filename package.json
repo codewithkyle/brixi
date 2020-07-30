@@ -1,6 +1,6 @@
 {
     "name": "brixi",
-    "version": "0.2.1",
+    "version": "0.2.2",
     "description": "A highly configurable utility first CSS framework built on CSS variables.",
     "repository": {
         "type": "git",
