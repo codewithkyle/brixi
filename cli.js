@@ -65,6 +65,9 @@ class Brixi {
                 if (typeof customConfig[key] === "object") {
                     for (const [key2, value2] of Object.entries(customConfig[key])) {
                         if (typeof customConfig[key][key2] === "object") {
+                            if (typeof this.config[key][key2] === "undefined"){
+                                this.config[key][key2] = {};
+                            }
                             for (const [key3, value3] of Object.entries(customConfig[key][key2])) {
                                 this.config[key][key2][key3] = value3;
                             }
