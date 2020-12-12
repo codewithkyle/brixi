@@ -16,7 +16,7 @@
     "bugs": {
         "url": "https://github.com/codewithkyle/brixi/issues"
     },
-    "homepage": "https://github.com/codewithkyle/brixi#readme",
+    "homepage": "https://brixi.dev/",
     "bin": {
         "brixi": "./cli.js"
     },
@@ -29,6 +29,8 @@
         "src"
     ],
     "devDependencies": {
+        "@codewithkyle/dev-docs": "^0.1.14",
+        "gh-pages": "^3.1.0",
         "prettier": "^2.2.1",
         "serve": "^11.3.2"
     },
@@ -41,6 +43,22 @@
     },
     "scripts": {
         "design": "serve ./design",
-        "test": "node ./cli.js"
+        "test": "node ./cli.js",
+        "docs": "docs",
+        "predeploy": "docs -o ./public -c ./CNAME",
+        "deploy": "node ./deploy.js"
+    },
+    "devDocs": {
+        "name": "Brixi",
+        "links": [
+            {
+                "label": "GitHub",
+                "url": "https://github.com/codewithkyle/brixi/"
+            },
+            {
+                "label": "NPM",
+                "url": "https://www.npmjs.com/package/brixi"
+            }
+        ]
     }
 }
