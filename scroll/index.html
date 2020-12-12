@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <title>Scroll</title>
+
+        <link href="/normalize.css" rel="stylesheet" />
+        <link href="/reset.css" rel="stylesheet" />
+        <link href="/brixi.css" rel="stylesheet" />
+        <link href="/base.css" rel="stylesheet" />
+
+        <script defer src="/prism.js"></script>
+        <link href="/prism.css" rel="stylesheet" />
+
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+        <script defer src="/nav.js"></script>
+        <script defer src="/page-jump-generator.js"></script>
+    </head>
+    <body>
+        <main>
+            <aside><nav><a href="/" class="project-name">Brixi</a><a href="https://github.com/codewithkyle/brixi/"><span>GitHub</span></a><a href="https://www.npmjs.com/package/brixi"><span>NPM</span></a><header>Documents</header><a href="/aspect-ratios" data-slug="/aspect-ratios"><span>aspect ratios</span></a><a href="/backgrounds" data-slug="/backgrounds"><span>backgrounds</span></a><a href="/borders" data-slug="/borders"><span>borders</span></a><a href="/box-shadows" data-slug="/box-shadows"><span>box shadows</span></a><a href="/colors" data-slug="/colors"><span>colors</span></a><a href="/containers" data-slug="/containers"><span>containers</span></a><a href="/css-variables" data-slug="/css-variables"><span>css variables</span></a><a href="/cursor" data-slug="/cursor"><span>cursor</span></a><a href="/flexbox" data-slug="/flexbox"><span>flexbox</span></a><a href="/fonts" data-slug="/fonts"><span>fonts</span></a><a href="/grid" data-slug="/grid"><span>grid</span></a><a href="/line-height" data-slug="/line-height"><span>line height</span></a><a href="/margins" data-slug="/margins"><span>margins</span></a><a href="/padding" data-slug="/padding"><span>padding</span></a><a href="/positions" data-slug="/positions"><span>positions</span></a><a href="/readme" data-slug="/readme"><span>readme</span></a><a href="/scroll" data-slug="/scroll"><span>scroll</span></a><a href="/text" data-slug="/text"><span>text</span></a></nav></aside>
+            <article><h2 id="scrollingoverflow">Scrolling &amp; Overflow</h2>
+<pre><code class="css language-css">.scroll{
+    overflow: scroll;
+}
+.scroll-x{
+    overflow-x: scroll;
+}
+.scroll-y{
+    overflow-y: scroll;
+}
+.no-scroll{
+    overflow: none;
+}
+.no-scroll-x{
+    overflow-x: hidden;
+}
+.no-scroll-y{
+    overflow-y: hidden;
+}
+.scroll-smooth{
+    scroll-behavior: smooth;
+}
+.scroll-auto{
+    overflow: auto;
+}
+.scroll-x-auto{
+    overflow-x: auto;
+}
+.scroll-y-auto{
+    overflow-y: auto;
+}
+</code></pre>
+<h2 id="scrollsnapping">Scroll Snapping</h2>
+<pre><code class="css language-css">.snap-y{
+    scroll-snap-type: y mandatory;
+}
+.snap-x{
+    scroll-snap-type: x mandatory;
+}
+.snap-start{
+    scroll-snap-align: start;
+}
+.snap-center{
+    scroll-snap-align: center;
+}
+.snap-end{
+    scroll-snap-align: end;
+}
+</code></pre>
+<h2 id="overscroll">Overscroll</h2>
+<pre><code class="css language-css">.overscroll-auto{
+    overscroll-behavior: auto;   
+}
+.overscroll-contain{
+    overscroll-behavior: contain;
+}
+.overscroll-none{
+    overscroll-behavior: none;
+}
+</code></pre></article>
+        </main>
+    </body>
+</html>

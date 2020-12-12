@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <title>Containers</title>
+
+        <link href="/normalize.css" rel="stylesheet" />
+        <link href="/reset.css" rel="stylesheet" />
+        <link href="/brixi.css" rel="stylesheet" />
+        <link href="/base.css" rel="stylesheet" />
+
+        <script defer src="/prism.js"></script>
+        <link href="/prism.css" rel="stylesheet" />
+
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+        <script defer src="/nav.js"></script>
+        <script defer src="/page-jump-generator.js"></script>
+    </head>
+    <body>
+        <main>
+            <aside><nav><a href="/" class="project-name">Brixi</a><a href="https://github.com/codewithkyle/brixi/"><span>GitHub</span></a><a href="https://www.npmjs.com/package/brixi"><span>NPM</span></a><header>Documents</header><a href="/aspect-ratios" data-slug="/aspect-ratios"><span>aspect ratios</span></a><a href="/backgrounds" data-slug="/backgrounds"><span>backgrounds</span></a><a href="/borders" data-slug="/borders"><span>borders</span></a><a href="/box-shadows" data-slug="/box-shadows"><span>box shadows</span></a><a href="/colors" data-slug="/colors"><span>colors</span></a><a href="/containers" data-slug="/containers"><span>containers</span></a><a href="/css-variables" data-slug="/css-variables"><span>css variables</span></a><a href="/cursor" data-slug="/cursor"><span>cursor</span></a><a href="/flexbox" data-slug="/flexbox"><span>flexbox</span></a><a href="/fonts" data-slug="/fonts"><span>fonts</span></a><a href="/grid" data-slug="/grid"><span>grid</span></a><a href="/line-height" data-slug="/line-height"><span>line height</span></a><a href="/margins" data-slug="/margins"><span>margins</span></a><a href="/padding" data-slug="/padding"><span>padding</span></a><a href="/positions" data-slug="/positions"><span>positions</span></a><a href="/readme" data-slug="/readme"><span>readme</span></a><a href="/scroll" data-slug="/scroll"><span>scroll</span></a><a href="/text" data-slug="/text"><span>text</span></a></nav></aside>
+            <article><h3 id="width">Width</h3>
+<pre><code class="css language-css">.w-auto{
+    width: auto;
+}
+.w-full{
+    width: 100%;
+}
+.w-screen{
+    width: 100vw;
+}
+</code></pre>
+<h2 id="height">Height</h2>
+<pre><code class="css language-css">.h-auto{
+    height: auto;
+}
+.h-full{
+    height: 100%;
+}
+.h-screen{
+    height: 100vh;
+}
+</code></pre>
+<h2 id="minmax">Min &amp; Max</h2>
+<pre><code class="css language-css">.min-w-full{
+    min-width: 100%;
+}
+.max-w-full{
+    max-width: 100%;
+}
+.max-w-screen{
+    max-width: 100vw;
+}
+.min-h-full{
+    min-height: 100%;
+}
+.max-h-full{
+    max-height: 100%;
+}
+.max-h-screen{
+    max-height: 100vh;
+}
+</code></pre>
+<h2 id="display">Display</h2>
+<pre><code class="css language-css">.block{
+    display:  block;
+}
+.inline-block{
+    display: inline-block;
+}
+.inline{
+    display: inline;
+}
+.none{
+    display: none;
+}
+.list-item{
+    display: list-item;
+}
+</code></pre>
+<h2 id="customwidth">Custom Width</h2>
+<p><strong>Format:</strong> <code>.w-{name}</code></p>
+<p><strong>CSS:</strong> <code>width &amp; max-width</code></p>
+<p><strong>Defaults:</strong></p>
+<pre><code class="bash language-bash">mobile: 411
+tablet: 768
+laptop: 1024
+desktop: 1280
+hd: 1920
+4k: 3840
+</code></pre>
+<p><strong>Output:</strong></p>
+<pre><code class="css language-css">.w-tablet{
+    width: 768px;
+}
+.max-w-4k{
+    max-width: 3840px;
+}
+</code></pre>
+<h2 id="fractions">Fractions</h2>
+<p><strong>Format:</strong> <code>.w-{width}/{total}</code></p>
+<p><strong>CSS:</strong> <code>width</code></p>
+<p><strong>Defaults:</strong></p>
+<pre><code class="bash language-bash">columns: [2, 3, 4]
+</code></pre>
+<p><strong>Output:</strong></p>
+<pre><code class="css language-css">.w-1/2{
+    width: 50%;
+}
+.w-3/4{
+    width: 75%;
+}
+</code></pre></article>
+        </main>
+    </body>
+</html>
