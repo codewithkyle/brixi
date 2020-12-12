@@ -43,3 +43,12 @@
 .snap-end{
     scroll-snap-align: end;
 }
+.overscroll-auto{
+    overscroll-behavior: auto;   
+}
+.overscroll-contain{
+    overscroll-behavior: contain;
+}
+.overscroll-none{
+    overscroll-behavior: none;
+}
