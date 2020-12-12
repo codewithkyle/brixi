@@ -6,7 +6,7 @@ A highly configurable utility first CSS framework built on CSS variables.
 
 Below is the default config file. Any value can be overridden by adding a `brixi.config.js` file to your project's root directory.
 
-```javascript
+```bash
 module.exports = {
     outDir: "./brixi",
     important: true, // when true the !important specificity selector is applied

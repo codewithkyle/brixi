@@ -1,0 +1,67 @@
+## Scrolling & Overflow
+
+```css
+.scroll{
+    overflow: scroll;
+}
+.scroll-x{
+    overflow-x: scroll;
+}
+.scroll-y{
+    overflow-y: scroll;
+}
+.no-scroll{
+    overflow: none;
+}
+.no-scroll-x{
+    overflow-x: hidden;
+}
+.no-scroll-y{
+    overflow-y: hidden;
+}
+.scroll-smooth{
+    scroll-behavior: smooth;
+}
+.scroll-auto{
+    overflow: auto;
+}
+.scroll-x-auto{
+    overflow-x: auto;
+}
+.scroll-y-auto{
+    overflow-y: auto;
+}
+```
+
+## Scroll Snapping
+
+```css
+.snap-y{
+    scroll-snap-type: y mandatory;
+}
+.snap-x{
+    scroll-snap-type: x mandatory;
+}
+.snap-start{
+    scroll-snap-align: start;
+}
+.snap-center{
+    scroll-snap-align: center;
+}
+.snap-end{
+    scroll-snap-align: end;
+}
+```
+
+## Overscroll
+```css
+.overscroll-auto{
+    overscroll-behavior: auto;   
+}
+.overscroll-contain{
+    overscroll-behavior: contain;
+}
+.overscroll-none{
+    overscroll-behavior: none;
+}
+```
