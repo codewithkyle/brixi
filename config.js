@@ -2,6 +2,22 @@ module.exports = {
     outDir: "./brixi",
     important: true,
     output: "dev",
+    features: {
+        aspectRatios: true,
+        borders: true,
+        containers: true,
+        cursors: true,
+        flexbox: true,
+        fonts: true,
+        grid: true,
+        lineHeight: true,
+        margin: true,
+        padding: true,
+        scroll: true,
+        shadows: true,
+        positions: true,
+        backgrounds: true,
+    },
     fonts: {
         families: {
             base: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif",

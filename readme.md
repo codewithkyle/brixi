@@ -11,6 +11,22 @@ module.exports = {
     outDir: "./brixi",
     important: true, // when true the !important specificity selector is applied
     output: "production", // can be 'production' or 'source'
+    features: { // disable unwanted features to create smaller CSS files
+        aspectRatios: true,
+        borders: true,
+        containers: true,
+        cursors: true,
+        flexbox: true,
+        fonts: true,
+        grid: true,
+        lineHeight: true,
+        margin: true,
+        padding: true,
+        scroll: true,
+        shadows: true,
+        positions: true,
+        backgrounds: true,
+    },
     fonts: {
         families: {
             base: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif",
@@ -29,7 +45,7 @@ module.exports = {
             black: 900,
         },
         sizes: {
-            xs: 0.75, // rem
+            xs: 0.75,
             sm: 0.875,
             base: 1,
             md: 1.125,
@@ -109,13 +125,13 @@ module.exports = {
             900: "#212121",
         },
     },
-    margins: [0, 0.125, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 3, 4, 5, 6], // rem
-    padding: [0, 0.125, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 3, 4, 5, 6], // rem
+    margins: [0, 0.125, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 3, 4, 5, 6],
+    padding: [0, 0.125, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 3, 4, 5, 6],
     positions: [0],
     borders: {
         styles: ["solid", "dashed", "dotted"],
-        widths: [0, 1, 2], // px
-        radius: [0.125, 0.25, 0.5], // rem
+        widths: [0, 1, 2],
+        radius: [0.125, 0.25, 0.5],
     },
     shadows: {
         xs: "0 0 0 1px rgba(0, 0, 0, 0.05)",
@@ -128,7 +144,7 @@ module.exports = {
     },
     containers: {
         screens: {
-            mobile: 411, // px
+            mobile: 411,
             tablet: 768,
             laptop: 1024,
             desktop: 1280,
@@ -137,12 +153,13 @@ module.exports = {
         },
         columns: [2, 3, 4],
     },
-    gaps: [1, 1.5, 2], // rem
+    gaps: [1, 1.5, 2],
     easings: {
-        "in-out": "0.4, 0.0, 0.2, 1", // cubic bezier
+        "in-out": "0.4, 0.0, 0.2, 1",
         in: "0.0, 0.0, 0.2, 1",
         out: "0.4, 0.0, 1, 1",
         bounce: "0.175, 0.885, 0.32, 1.275",
     },
+    aspectRatios: ["16:9", "4:3", "1:1"]
 };
 ```

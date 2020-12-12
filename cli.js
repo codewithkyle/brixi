@@ -727,23 +727,65 @@ class Brixi {
 
             /** CSS Generators */
             await this.generateVariables();
-            await this.generateMargins();
-            await this.generatePaddings();
-            await this.generatePositions();
-            await this.generateBorders();
-            await this.generateFonts();
-            await this.generateFontColors();
-            await this.generateFontSizes();
-            await this.generateBackgroundColors();
-            await this.generateGrid();
-            await this.copyFlexbox();
-            await this.copyText();
-            await this.generateShadows();
-            await this.generateContainers();
-            await this.copyCursor();
-            await this.copyLineHeights();
-            await this.copyScrolling();
-            await this.generateAspectRatios();
+
+            if (this.config.features.margin){
+                await this.generateMargins();
+            }
+
+            if (this.config.features.padding){
+                await this.generatePaddings();
+            }
+
+            if (this.config.features.positions){
+                await this.generatePositions();
+            }
+
+            if (this.config.features.borders){
+                await this.generateBorders();
+            }
+
+            if (this.config.features.fonts){
+                await this.generateFonts();
+                await this.generateFontColors();
+                await this.generateFontSizes();
+                await this.copyText();
+            }
+
+            if (this.config.features.backgrounds){
+                await this.generateBackgroundColors();
+            }
+
+            if (this.config.features.grid){
+                await this.generateGrid();
+            }
+
+            if (this.config.features.flexbox){
+                await this.copyFlexbox();
+            }
+
+            if (this.config.features.shadows){
+                await this.generateShadows();
+            }
+
+            if (this.config.features.containers){
+                await this.generateContainers();
+            }
+
+            if (this.config.features.cursors){
+                await this.copyCursor();
+            }
+
+            if (this.config.features.lineHeight){
+                await this.copyLineHeights();
+            }
+
+            if (this.config.features.scroll){
+                await this.copyScrolling();
+            }
+
+            if (this.config.features.aspectRatios){
+                await this.generateAspectRatios();
+            }
 
             await this.copyCSS();
 
