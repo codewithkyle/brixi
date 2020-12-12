@@ -1,7 +1,7 @@
 module.exports = {
     outDir: "./brixi",
     important: true,
-    output: "production",
+    output: "dev",
     fonts: {
         families: {
             base: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif",
@@ -135,4 +135,5 @@ module.exports = {
         out: "0.4, 0.0, 1, 1",
         bounce: "0.175, 0.885, 0.32, 1.275",
     },
+    aspectRatios: ["16:9", "4:3", "1:1"]
 };

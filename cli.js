@@ -689,6 +689,29 @@ class Brixi {
         });
     }
 
+    generateAspectRatios(){
+        return new Promise((resolve, reject) => {
+            let data = "";
+            const ratios = this.config.aspectRatios;
+            for (let i = 0; i < ratios.length; i++){
+                const values = ratios[i].trim().split(/\:|\//);
+                if (values.length === 2){
+                    data += `.ar-${values[0]}\\:${values[1]}::before{\n`;
+                    data += `\tcontent:"";\n`;
+                    data += `\twidth: 100%;\n`;
+                    data += `\tdisplay: block;\n`;
+                    data += `\tpadding-bottom: ${values[1] / values[0] * 100}%;\n}\n`;
+                }
+            }
+            fs.writeFile(path.join(this.temp, "aspect-ratios.css"), data, (error) => {
+                if (error){
+                    reject();
+                }
+                resolve();
+            });
+        });
+    }
+
     async run() {
         try {
             /** Setup */
@@ -720,6 +743,7 @@ class Brixi {
             await this.copyCursor();
             await this.copyLineHeights();
             await this.copyScrolling();
+            await this.generateAspectRatios();
 
             await this.copyCSS();
 
