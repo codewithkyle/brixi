@@ -1,6 +1,10 @@
-## Padding
+# Padding
 
-**Format:** `.p{side}-{size}`
+**Format:**
+```bash
+.p-{size}
+.p{side}-{size}
+```
 
 **CSS:** `padding, padding-top, padding-right, padding-bottom, padding-left`
 

@@ -1,4 +1,6 @@
-## Cursor
+# Cursor
+
+## Cursor Types
 
 ```css
 .cursor-default{
@@ -23,7 +25,7 @@
 }
 ```
 
-## Select
+## User Select
 
 ```css
 .select-none{

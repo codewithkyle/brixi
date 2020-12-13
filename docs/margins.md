@@ -1,6 +1,10 @@
-## Margins
+# Margins
 
-**Format:** `.m{side}-{size}`
+**Format:**
+```bash
+.m-{size}
+.m{side}-{size}
+```
 
 **CSS:** `margin, margin-top, margin-right, margin-bottom, margin-left`
 

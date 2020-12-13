@@ -1,4 +1,4 @@
-## Aspect Ratios
+# Aspect Ratios
 
 **Format:** `.ar-{size}:{size}`
 

@@ -1,6 +1,10 @@
+# CSS Variables
+
+This is the only required file and will always be generated.
+
 ## Colors
 
-Colors are generated in two formats: single color and shades.
+Colors are generated in two formats: single colors and shades.
 
 **Format:**
 ```bash
@@ -19,7 +23,7 @@ Colors are generated in two formats: single color and shades.
 
 ## Font Families
 
-**Format:** `--font-{name}: {value};`
+**Format:** `--font-{name}: {value}`
 
 **Output:**
 ```css
@@ -30,7 +34,7 @@ Colors are generated in two formats: single color and shades.
 
 ## Font Weights
 
-**Format:** `--font-{name}: {value};`
+**Format:** `--font-{name}: {value}`
 
 **Output:**
 ```css
@@ -41,7 +45,7 @@ Colors are generated in two formats: single color and shades.
 
 ## Font Size
 
-**Format:** `--font-{name}: {value};`
+**Format:** `--font-{name}: {value}`
 
 **Output:**
 ```css
@@ -52,7 +56,7 @@ Colors are generated in two formats: single color and shades.
 
 ## Shadows
 
-**Format:** `--shadow-{name}: {value};`
+**Format:** `--shadow-{name}: {value}`
 
 **Output:**
 ```css

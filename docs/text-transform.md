@@ -1,4 +1,4 @@
-## Text Transforms
+# Text Transforms
 
 ```css
 .text-uppercase{

@@ -1,6 +1,12 @@
+# Borders
+
 ## Widths
 
-**Format:** `.border-{side}-{size}`
+**Format:**
+```bash
+.border-{size}
+.border-{side}-{size}
+```
 
 **CSS:** `border-width, border-top-width, border-right-width, border-bottom-width, border-left-width`
 
@@ -21,7 +27,11 @@ widths: [0, 1, 2]
 
 ## Styles
 
-**Format:** `.border-{side}-{style}`
+**Format:**
+```bash
+.border-{style}
+.border-{side}-{style}
+```
 
 **CSS:** `border-style, border-top-style, border-right-style, border-bottom-style, border-left-style`
 
@@ -37,6 +47,33 @@ styles: ["solid", "dashed", "dotted"]
 }
 .border-r-solid{
     border-right-style: solid;
+}
+```
+
+## Colors
+
+**Format:**
+```bash
+.border-{color}
+.border-{color}-{shade}
+.border-{side}-{color}
+.border-{side}-{color}-{shade}
+```
+
+**CSS:** `border-color, border-top-color, border-right-color, border-bottom-color, border-left-color`
+
+**Defaults:** see [Colors](https://github.com/codewithkyle/brixi/wiki/Colors)
+
+**Output:**
+```css
+.border-black{
+    border-color: var(--black);
+}
+.border-grey-300{
+    border-color: var(--grey-300);
+}
+.border-r-primary-300{
+    border-right-color: var(--primary-300);
 }
 ```
 

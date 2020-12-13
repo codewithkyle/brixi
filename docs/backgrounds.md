@@ -1,9 +1,9 @@
-## Background Colors
+# Background Colors
 
 **Format:**
 ```bash
-.bg-{name};
-.bg-{name}-{shade};
+.bg-{name}
+.bg-{name}-{shade}
 ```
 
 **CSS:** `background-color`

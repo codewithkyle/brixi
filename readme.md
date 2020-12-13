@@ -1,6 +1,26 @@
 # Brixi
 
-A highly configurable utility first CSS framework built on CSS variables.
+A highly configurable utility first CSS framework.
+
+## Installation
+
+Install the npm package
+
+```sh
+npm i -S brixi
+```
+
+Add the startup script to your `package.json` file
+
+```json
+"brixi": "brixi"
+```
+
+Run the script
+
+```sh
+npm run brixi
+```
 
 ## Configuration
 
@@ -26,6 +46,10 @@ module.exports = {
         shadows: true,
         positions: true,
         backgrounds: true,
+        alignment: true,
+        whitespace: true,
+        textTransforms: true,
+        display: true,
     },
     fonts: {
         families: {

@@ -1,4 +1,4 @@
-## Alignment
+# Text Alignment
 
 ```css
 .text-left{

@@ -1,4 +1,4 @@
-## Adding Colors
+# Adding Colors
 
 Use the `colors` object in the `brixi.config.js` file.
 
@@ -22,4 +22,4 @@ colors: {
 }
 ```
 
-To convert a single primary color into shades use [Colortron 9000](https://colorpalette.app/) to generate shades and check your color palette's accessability [here](https://accessiblecolors.app/).
+Convert a single primary color into several shades using [Colortron 9000](https://colorpalette.app/). You can also check your color palette's accessability [here](https://accessiblecolors.app/).

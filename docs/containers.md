@@ -1,4 +1,6 @@
-### Width
+# Containers
+
+## Width
 
 ```css
 .w-auto{
@@ -53,7 +55,7 @@
 
 **Format:** `.w-{name}`
 
-**CSS:** `width & max-width`
+**CSS:** `width, max-width`
 
 **Defaults:**
 ```bash
@@ -88,10 +90,10 @@ columns: [2, 3, 4]
 
 **Output:**
 ```css
-.w-1/2{
+.w-1\/2{
     width: 50%;
 }
-.w-3/4{
+.w-3\/4{
     width: 75%;
 }
 ```
