@@ -734,6 +734,10 @@ class Brixi {
                 await this.generateAspectRatios();
             }
 
+            if (this.config.features.display){
+                await this.copyFile("display");
+            }
+
             await this.copyCSS();
 
             if (this.config.important) {

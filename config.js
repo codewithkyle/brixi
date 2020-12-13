@@ -20,6 +20,7 @@ module.exports = {
         alignment: true,
         whitespace: true,
         textTransforms: true,
+        display: true,
     },
     fonts: {
         families: {

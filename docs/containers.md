@@ -49,26 +49,6 @@
 }
 ```
 
-## Display
-
-```css
-.block{
-    display:  block;
-}
-.inline-block{
-    display: inline-block;
-}
-.inline{
-    display: inline;
-}
-.none{
-    display: none;
-}
-.list-item{
-    display: list-item;
-}
-```
-
 ## Custom Width
 
 **Format:** `.w-{name}`
