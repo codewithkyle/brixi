@@ -551,38 +551,6 @@ class Brixi {
         });
     }
 
-    copyText() {
-        return new Promise((resolve, reject) => {
-            fs.readFile(path.join(__dirname, "src/text.css"), (error, buffer) => {
-                if (error) {
-                    reject(error);
-                }
-                fs.writeFile(path.join(this.temp, `text.css`), buffer, (error) => {
-                    if (error) {
-                        reject(error);
-                    }
-                    resolve();
-                });
-            });
-        });
-    }
-
-    copyCursor() {
-        return new Promise((resolve, reject) => {
-            fs.readFile(path.join(__dirname, "src/cursor.css"), (error, buffer) => {
-                if (error) {
-                    reject(error);
-                }
-                fs.writeFile(path.join(this.temp, `cursor.css`), buffer, (error) => {
-                    if (error) {
-                        reject(error);
-                    }
-                    resolve();
-                });
-            });
-        });
-    }
-
     generateContainers() {
         return new Promise((resolve, reject) => {
             let data = "";
@@ -618,38 +586,6 @@ class Brixi {
         });
     }
 
-    copyLineHeights() {
-        return new Promise((resolve, reject) => {
-            fs.readFile(path.join(__dirname, "src/line-heights.css"), (error, buffer) => {
-                if (error) {
-                    reject(error);
-                }
-                fs.writeFile(path.join(this.temp, `line-heights.css`), buffer, (error) => {
-                    if (error) {
-                        reject(error);
-                    }
-                    resolve();
-                });
-            });
-        });
-    }
-
-    copyFlexbox() {
-        return new Promise((resolve, reject) => {
-            fs.readFile(path.join(__dirname, "src/flexbox.css"), (error, buffer) => {
-                if (error) {
-                    reject(error);
-                }
-                fs.writeFile(path.join(this.temp, `flexbox.css`), buffer, (error) => {
-                    if (error) {
-                        reject(error);
-                    }
-                    resolve();
-                });
-            });
-        });
-    }
-
     generateGrid() {
         return new Promise((resolve, reject) => {
             let data = "";
@@ -673,22 +609,6 @@ class Brixi {
         });
     }
 
-    copyScrolling() {
-        return new Promise((resolve, reject) => {
-            fs.readFile(path.join(__dirname, "src/scrolling.css"), (error, buffer) => {
-                if (error) {
-                    reject(error);
-                }
-                fs.writeFile(path.join(this.temp, `scrolling.css`), buffer, (error) => {
-                    if (error) {
-                        reject(error);
-                    }
-                    resolve();
-                });
-            });
-        });
-    }
-
     generateAspectRatios(){
         return new Promise((resolve, reject) => {
             let data = "";
@@ -708,6 +628,22 @@ class Brixi {
                     reject();
                 }
                 resolve();
+            });
+        });
+    }
+
+    copyFile(fileName) {
+        return new Promise((resolve, reject) => {
+            fs.readFile(path.join(__dirname, `src/${fileName}.css`), (error, buffer) => {
+                if (error) {
+                    reject(error);
+                }
+                fs.writeFile(path.join(this.temp, `${fileName}.css`), buffer, (error) => {
+                    if (error) {
+                        reject(error);
+                    }
+                    resolve();
+                });
             });
         });
     }
@@ -748,7 +684,18 @@ class Brixi {
                 await this.generateFonts();
                 await this.generateFontColors();
                 await this.generateFontSizes();
-                await this.copyText();
+            }
+
+            if (this.config.features.alignment){
+                await this.copyFile("alignment");
+            }
+
+            if (this.config.features.whitespace){
+                await this.copyFile("whitespace");
+            }
+
+            if (this.config.features.textTransforms){
+                await this.copyFile("text-transform");
             }
 
             if (this.config.features.backgrounds){
@@ -760,7 +707,7 @@ class Brixi {
             }
 
             if (this.config.features.flexbox){
-                await this.copyFlexbox();
+                await this.copyFile("flexbox");
             }
 
             if (this.config.features.shadows){
@@ -772,15 +719,15 @@ class Brixi {
             }
 
             if (this.config.features.cursors){
-                await this.copyCursor();
+                await this.copyFile("cursor");
             }
 
             if (this.config.features.lineHeight){
-                await this.copyLineHeights();
+                await this.copyFile("line-heights");
             }
 
             if (this.config.features.scroll){
-                await this.copyScrolling();
+                await this.copyFile("scrolling");
             }
 
             if (this.config.features.aspectRatios){

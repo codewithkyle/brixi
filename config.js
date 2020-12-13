@@ -17,6 +17,9 @@ module.exports = {
         shadows: true,
         positions: true,
         backgrounds: true,
+        alignment: true,
+        whitespace: true,
+        textTransforms: true,
     },
     fonts: {
         families: {
