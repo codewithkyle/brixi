@@ -16,12 +16,12 @@ padding: [0, 0.125, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 3, 
 **Output:**
 ```css
 .p-2{
-    margin: 2rem;
+    padding: 2rem;
 }
 .pr-1{
-    margin-right: 1rem;
+    padding-right: 1rem;
 }
 .pl-0.25{
-    margin-left: 0.25rem;
+    padding-left: 0.25rem;
 }
 ```
