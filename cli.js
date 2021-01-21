@@ -744,16 +744,21 @@ class Brixi {
                 await this.makeImportant();
             }
 
-            const prodCSS = await this.minifyCSS();
-
             if (fs.existsSync(this.config.outDir)) {
                 fs.rmdirSync(this.config.outDir, { recursive: true });
             }
 
-            fs.writeFileSync(path.join(this.output, "brixi.css"), prodCSS);
-
             if (this.config.output === "production") {
+                const prodCSS = await this.minifyCSS();
+                fs.writeFileSync(path.join(this.output, "brixi.css"), prodCSS);
                 fs.rmdirSync(path.join(this.output, "src"), { recursive: true });
+            }else{
+                const sourceFiles = glob.sync(`${this.output}/src/*.css`);
+                for (let i = 0; i < sourceFiles.length; i++){
+                    const filename = sourceFiles[i].replace(/.*[\\\/]/, "");
+                    fs.renameSync(sourceFiles[i], path.join(this.output, filename));
+                }
+                fs.rmdirSync(path.join(this.output, "src"));
             }
 
             fs.renameSync(this.output, this.config.outDir);

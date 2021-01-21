@@ -1,7 +1,7 @@
 module.exports = {
     outDir: "./brixi",
     important: true,
-    output: "dev",
+    output: "production",
     features: {
         aspectRatios: true,
         borders: true,
