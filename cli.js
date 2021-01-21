@@ -616,11 +616,20 @@ class Brixi {
             for (let i = 0; i < ratios.length; i++){
                 const values = ratios[i].trim().split(/\:|\//);
                 if (values.length === 2){
-                    data += `.ar-${values[0]}\\:${values[1]}::before{\n`;
-                    data += `\tcontent:"";\n`;
-                    data += `\twidth: 100%;\n`;
-                    data += `\tdisplay: block;\n`;
-                    data += `\tpadding-bottom: ${values[1] / values[0] * 100}%;\n}\n`;
+                    data += `@supports not (aspect-ratio: 1 / 1){\n`;
+                    data += `\t.ar-${values[0]}\\:${values[1]}::before{\n`;
+                    data += `\t\tcontent:"";\n`;
+                    data += `\t\twidth: 100%;\n`;
+                    data += `\t\tdisplay: block;\n`;
+                    data += `\t\tpadding-bottom: ${values[1] / values[0] * 100}%;\n`;
+                    data += `\t}\n`;
+                    data += `}\n`;
+
+                    data += `@supports (aspect-ratio: 1 / 1){\n`;
+                    data += `\t.ar-${values[0]}\\:${values[1]}{\n`;
+                    data += `\t\taspect-ratio: ${values[0]} / ${values[1]}\n`;
+                    data += `\t}\n`;
+                    data += `}\n`
                 }
             }
             fs.writeFile(path.join(this.temp, "aspect-ratios.css"), data, (error) => {
