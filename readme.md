@@ -22,6 +22,12 @@ Run the script
 npm run brixi
 ```
 
+Or use the CDN version:
+
+```html
+<link href="https://unpkg.com/brixi@^0.3/brixi.min.css" rel="stylesheet">
+```
+
 ## Configuration
 
 Below is the default config file. Any value can be overridden by adding a `brixi.config.js` file to your project's root directory.
