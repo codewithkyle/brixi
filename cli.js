@@ -167,7 +167,7 @@ class Brixi {
 
             /** Font sizes */
             for (const [name, value] of Object.entries(this.config.fonts.sizes)) {
-                data += `\t--font-${name}: ${value}${this.config.units};\n`;
+                data += `\t--font-${name}: ${value}${this.config.fonts?.units ?? this.config.baseUnit};\n`;
             }
 
             data += "\n";
@@ -282,7 +282,7 @@ class Brixi {
 
             const staticData = fs.readFileSync(path.join(__dirname, "src/margin.css"));
             data += staticData;
-            data += this.generateAttributes("m", classes, this.config.margins, this.config.units);
+            data += this.generateAttributes("m", classes, this.config.margins, this.config.baseUnit);
 
             fs.writeFile(path.join(this.temp, `margins.css`), data, (error) => {
                 if (error) {
@@ -327,7 +327,7 @@ class Brixi {
                 },
             ];
 
-            data += this.generateAttributes("p", classes, this.config.padding, this.config.units);
+            data += this.generateAttributes("p", classes, this.config.padding, this.config.baseUnit);
 
             fs.writeFile(path.join(this.temp, `padding.css`), data, (error) => {
                 if (error) {
@@ -395,7 +395,7 @@ class Brixi {
             for (let i = 0; i < borderType.length; i++) {
                 for (let b = 0; b < widths.length; b++) {
                     data += `.${borderType[i]}-${widths[b]}{\n`;
-                    data += `\t${borderAttrs[i]}-width: ${widths[b]}${this.config.borders.units};\n`;
+                    data += `\t${borderAttrs[i]}-width: ${widths[b]}${this.config.borders?.units ?? this.config.baseUnit};\n`;
                     data += "}\n";
                 }
             }
@@ -421,7 +421,7 @@ class Brixi {
             const radius = this.config.borders.radius;
             for (let b = 0; b < radius.length; b++) {
                 data += `.radius-${radius[b].toString().replace(/(\.)/g, "\\.")}{\n`;
-                data += `\tborder-radius: ${radius[b]}${this.config.units};\n`;
+                data += `\tborder-radius: ${radius[b]}${this.config.baseUnit};\n`;
                 data += "}\n";
             }
 
@@ -557,11 +557,11 @@ class Brixi {
 
             for (const [name, value] of Object.entries(this.config.containers.screens)) {
                 data += `.w-${name}{\n`;
-                data += `\twidth: ${value}${this.config.containers.units};\n`;
+                data += `\twidth: ${value}${this.config.containers?.units ?? this.config.baseUnit};\n`;
                 data += "}\n";
 
                 data += `.max-w-${name}{\n`;
-                data += `\tmax-width: ${value}${this.config.containers.units};\n`;
+                data += `\tmax-width: ${value}${this.config.containers?.units ?? this.config.baseUnit};\n`;
                 data += "}\n";
             }
 
@@ -593,7 +593,7 @@ class Brixi {
             const gaps = this.config.gaps;
             for (let i = 0; i < gaps.length; i++) {
                 data += `[grid~="gap-${gaps[i]}"]{\n`;
-                data += `\tgap: ${gaps[i]}${this.config.units};\n`;
+                data += `\tgap: ${gaps[i]}${this.config.baseUnit};\n`;
                 data += "}\n";
             }
 

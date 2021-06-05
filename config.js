@@ -2,7 +2,7 @@ module.exports = {
     outDir: "./brixi",
     important: true,
     output: "production",
-    units: "rem",
+    baseUnit: "rem",
     features: {
         aspectRatios: true,
         borders: true,
@@ -24,6 +24,7 @@ module.exports = {
         display: true,
     },
     fonts: {
+        units: "rem",
         families: {
             base: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif",
             serif: "Georgia, Cambria, 'Times New Roman', Times, serif",
@@ -142,12 +143,6 @@ module.exports = {
     containers: {
         units: "px",
         screens: {
-            mobile: 411,
-            tablet: 768,
-            laptop: 1024,
-            desktop: 1280,
-            hd: 1920,
-            "4k": 3840,
             "411": 411,
             "768": 768,
             "1024": 1024,
