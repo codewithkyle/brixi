@@ -2,6 +2,7 @@ module.exports = {
     outDir: "./brixi",
     important: true,
     output: "production",
+    units: "rem",
     features: {
         aspectRatios: true,
         borders: true,
@@ -124,6 +125,7 @@ module.exports = {
     padding: [0, 0.125, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 3, 4, 5, 6],
     positions: [0],
     borders: {
+        units: "px",
         styles: ["solid", "dashed", "dotted"],
         widths: [0, 1, 2],
         radius: [0.125, 0.25, 0.5],
@@ -138,6 +140,7 @@ module.exports = {
         "3xl": "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
     },
     containers: {
+        units: "px",
         screens: {
             mobile: 411,
             tablet: 768,

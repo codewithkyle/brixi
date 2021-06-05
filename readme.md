@@ -37,6 +37,7 @@ module.exports = {
     outDir: "./brixi",
     important: true, // when true the !important specificity selector is applied
     output: "production", // can be 'production' or 'source'
+    units: "rem", // can be any valid CSS unit
     features: { // disable unwanted features to create smaller CSS files
         aspectRatios: true,
         borders: true,
@@ -159,6 +160,7 @@ module.exports = {
     padding: [0, 0.125, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 3, 4, 5, 6],
     positions: [0],
     borders: {
+        units: "px",
         styles: ["solid", "dashed", "dotted"],
         widths: [0, 1, 2],
         radius: [0.125, 0.25, 0.5],
@@ -173,6 +175,7 @@ module.exports = {
         "3xl": "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
     },
     containers: {
+        units: "px",
         screens: {
             mobile: 411,
             tablet: 768,
@@ -180,6 +183,13 @@ module.exports = {
             desktop: 1280,
             hd: 1920,
             "4k": 3840,
+            "4k": 3840,
+            "411": 411,
+            "768": 768,
+            "1024": 1024,
+            "1280": 1280,
+            "1920": 1920,
+            "3840": 3840,
         },
         columns: [2, 3, 4],
     },
