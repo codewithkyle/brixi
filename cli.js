@@ -184,6 +184,11 @@ class Brixi {
                 data += `\t--ease-${name}: cubic-bezier(${value});\n`;
             }
 
+            /** Custom variables */
+            for (const variable in this.config.themes){
+                data += `\t--${variable}: ${this.config.themes[variable]};\n`;
+            }
+
             /** End of general */
             data += "}\n";
 
