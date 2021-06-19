@@ -1,6 +1,6 @@
 {
     "name": "brixi",
-    "version": "0.4.1",
+    "version": "0.5.0",
     "description": "A lightweight (1.3kb) highly configurable utility-first CSS framework.",
     "repository": {
         "type": "git",
@@ -43,8 +43,8 @@
         "yargs": "^15.4.1"
     },
     "scripts": {
-        "preview": "serve ./brixi",
-        "test": "node ./cli.js",
+        "preview": "serve ./public",
+        "test": "node ./cli.js && mv ./brixi/brixi.css ./test/brixi.css && serve ./test",
         "docs": "docs",
         "build": "npm run test && mv ./brixi/brixi.css ./brixi.min.css",
         "predeploy": "docs -o ./public -c ./CNAME",
