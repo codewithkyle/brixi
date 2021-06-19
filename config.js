@@ -407,5 +407,15 @@ module.exports = {
     },
     aspectRatios: ["16:9", "4:3", "1:1"],
     variables: {},
-    themes: {},
+    themes: {
+        dim: {
+            dashboard: "var(--cool-grey-700)",
+        },
+        dark: {
+            dashboard: "var(--neutral-800)",
+        },
+        light: {
+            dashboard: "var(--grey-100)",
+        }
+    },
 };

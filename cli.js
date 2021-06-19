@@ -184,8 +184,26 @@ class Brixi {
                 data += `\t--ease-${name}: cubic-bezier(${value});\n`;
             }
 
-            /** END OF FILE */
+            /** End of general */
             data += "}\n";
+
+            /** Themes */
+            for (const theme in this.config.themes){
+                data += `:root[theme="${theme}"]{\n`;
+                for (const variable in this.config.themes[theme]){
+                    data += `\t--${variable}: ${this.config.themes[theme][variable]};\n`;
+                }
+                data += "}\n";
+
+                if (theme === "dark" || theme === "light"){
+                    data += `@media (prefers-color-scheme: ${theme}) {\n`;
+                    data += `\t:root[theme="auto"]{\n`;
+                    for (const variable in this.config.themes[theme]){
+                        data += `\t\t--${variable}: ${this.config.themes[theme][variable]};\n`;
+                    }
+                    data += "\t}\n}\n";
+                }
+            }
 
             fs.writeFile(path.join(this.temp, `variables.css`), data, (error) => {
                 if (error) {
