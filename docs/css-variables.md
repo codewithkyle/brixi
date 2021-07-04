@@ -75,3 +75,26 @@ Colors are generated in two formats: single colors and shades.
 --ease-out: cubic-bezier(0.4, 0.0, 1, 1);
 --ease-bounce: cubic-bezier(0.175, 0.885, 0.32, 1.275);
 ```
+
+## Custom Variables
+
+Custom variables can be added to the `variables` section of your config file.
+
+**Config:**
+```javascript
+variables: {
+    "brand-hue": 200,
+    "brand-saturation": 100%,
+    "brand-lightness": 50%,
+}
+```
+
+**Output:**
+
+```css
+:root{
+    --brand-hue: 200;
+    --brand-saturation: 100%;
+    --brand-lightness: 50%;
+}
+```
