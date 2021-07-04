@@ -185,8 +185,8 @@ class Brixi {
             }
 
             /** Custom variables */
-            for (const variable in this.config.themes){
-                data += `\t--${variable}: ${this.config.themes[variable]};\n`;
+            for (const variable in this.config.variables){
+                data += `\t--${variable}: ${this.config.variables[variable]};\n`;
             }
 
             /** End of general */
