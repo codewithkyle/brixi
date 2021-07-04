@@ -1105,7 +1105,7 @@ https://prismjs.com/download.html#themes=prism-tomorrow&languages=markup+css+cli
     </head>
     <body>
         <main>
-            <aside><nav><a href="/" class="project-name">Brixi</a><a href="https://github.com/codewithkyle/brixi/"><span>GitHub</span></a><a href="https://www.npmjs.com/package/brixi"><span>NPM</span></a><header>Documents</header><a href="/alignment" data-slug="/alignment"><span>alignment</span></a><a href="/aspect-ratios" data-slug="/aspect-ratios"><span>aspect ratios</span></a><a href="/backgrounds" data-slug="/backgrounds"><span>backgrounds</span></a><a href="/borders" data-slug="/borders"><span>borders</span></a><a href="/box-shadows" data-slug="/box-shadows"><span>box shadows</span></a><a href="/colors" data-slug="/colors"><span>colors</span></a><a href="/containers" data-slug="/containers"><span>containers</span></a><a href="/css-variables" data-slug="/css-variables"><span>css variables</span></a><a href="/cursor" data-slug="/cursor"><span>cursor</span></a><a href="/display" data-slug="/display"><span>display</span></a><a href="/flexbox" data-slug="/flexbox"><span>flexbox</span></a><a href="/fonts" data-slug="/fonts"><span>fonts</span></a><a href="/grid" data-slug="/grid"><span>grid</span></a><a href="/line-height" data-slug="/line-height"><span>line height</span></a><a href="/margins" data-slug="/margins"><span>margins</span></a><a href="/padding" data-slug="/padding"><span>padding</span></a><a href="/positions" data-slug="/positions"><span>positions</span></a><a href="/scroll" data-slug="/scroll"><span>scroll</span></a><a href="/text-transform" data-slug="/text-transform"><span>text transform</span></a><a href="/whitespace" data-slug="/whitespace"><span>whitespace</span></a></nav></aside>
+            <aside><nav><a href="/" class="project-name">Brixi</a><a href="https://github.com/codewithkyle/brixi/"><span>GitHub</span></a><a href="https://www.npmjs.com/package/brixi"><span>NPM</span></a><header>Documents</header><a href="/alignment" data-slug="/alignment"><span>alignment</span></a><a href="/aspect-ratios" data-slug="/aspect-ratios"><span>aspect ratios</span></a><a href="/backgrounds" data-slug="/backgrounds"><span>backgrounds</span></a><a href="/borders" data-slug="/borders"><span>borders</span></a><a href="/box-shadows" data-slug="/box-shadows"><span>box shadows</span></a><a href="/colors" data-slug="/colors"><span>colors</span></a><a href="/containers" data-slug="/containers"><span>containers</span></a><a href="/css-variables" data-slug="/css-variables"><span>css variables</span></a><a href="/cursor" data-slug="/cursor"><span>cursor</span></a><a href="/display" data-slug="/display"><span>display</span></a><a href="/flexbox" data-slug="/flexbox"><span>flexbox</span></a><a href="/fonts" data-slug="/fonts"><span>fonts</span></a><a href="/grid" data-slug="/grid"><span>grid</span></a><a href="/line-height" data-slug="/line-height"><span>line height</span></a><a href="/margins" data-slug="/margins"><span>margins</span></a><a href="/padding" data-slug="/padding"><span>padding</span></a><a href="/positions" data-slug="/positions"><span>positions</span></a><a href="/scroll" data-slug="/scroll"><span>scroll</span></a><a href="/text-transform" data-slug="/text-transform"><span>text transform</span></a><a href="/themes" data-slug="/themes"><span>themes</span></a><a href="/whitespace" data-slug="/whitespace"><span>whitespace</span></a></nav></aside>
             <article><h1 id="cssvariables">CSS Variables</h1>
 <p>This is the only required file and will always be generated.</p>
 <h2 id="colors">Colors</h2>
@@ -1155,6 +1155,22 @@ https://prismjs.com/download.html#themes=prism-tomorrow&languages=markup+css+cli
 <pre><code class="css language-css">--ease-in: cubic-bezier(0.0, 0.0, 0.2, 1);
 --ease-out: cubic-bezier(0.4, 0.0, 1, 1);
 --ease-bounce: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+</code></pre>
+<h2 id="customvariables">Custom Variables</h2>
+<p>Custom variables can be added to the <code>variables</code> section of your config file.</p>
+<p><strong>Config:</strong></p>
+<pre><code class="javascript language-javascript">variables: {
+    "brand-hue": 200,
+    "brand-saturation": 100%,
+    "brand-lightness": 50%,
+}
+</code></pre>
+<p><strong>Output:</strong></p>
+<pre><code class="css language-css">:root{
+    --brand-hue: 200;
+    --brand-saturation: 100%;
+    --brand-lightness: 50%;
+}
 </code></pre></article>
         </main>
     </body>

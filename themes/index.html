@@ -4,7 +4,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        <title>Brixi - Colors</title>
+        <title>Brixi - Themes</title>
         <meta name="description" content="A lightweight (1.3kb) highly configurable utility-first CSS framework.">
         <link rel="icon" href="/favicon.png">
 
@@ -1106,26 +1106,48 @@ https://prismjs.com/download.html#themes=prism-tomorrow&languages=markup+css+cli
     <body>
         <main>
             <aside><nav><a href="/" class="project-name">Brixi</a><a href="https://github.com/codewithkyle/brixi/"><span>GitHub</span></a><a href="https://www.npmjs.com/package/brixi"><span>NPM</span></a><header>Documents</header><a href="/alignment" data-slug="/alignment"><span>alignment</span></a><a href="/aspect-ratios" data-slug="/aspect-ratios"><span>aspect ratios</span></a><a href="/backgrounds" data-slug="/backgrounds"><span>backgrounds</span></a><a href="/borders" data-slug="/borders"><span>borders</span></a><a href="/box-shadows" data-slug="/box-shadows"><span>box shadows</span></a><a href="/colors" data-slug="/colors"><span>colors</span></a><a href="/containers" data-slug="/containers"><span>containers</span></a><a href="/css-variables" data-slug="/css-variables"><span>css variables</span></a><a href="/cursor" data-slug="/cursor"><span>cursor</span></a><a href="/display" data-slug="/display"><span>display</span></a><a href="/flexbox" data-slug="/flexbox"><span>flexbox</span></a><a href="/fonts" data-slug="/fonts"><span>fonts</span></a><a href="/grid" data-slug="/grid"><span>grid</span></a><a href="/line-height" data-slug="/line-height"><span>line height</span></a><a href="/margins" data-slug="/margins"><span>margins</span></a><a href="/padding" data-slug="/padding"><span>padding</span></a><a href="/positions" data-slug="/positions"><span>positions</span></a><a href="/scroll" data-slug="/scroll"><span>scroll</span></a><a href="/text-transform" data-slug="/text-transform"><span>text transform</span></a><a href="/themes" data-slug="/themes"><span>themes</span></a><a href="/whitespace" data-slug="/whitespace"><span>whitespace</span></a></nav></aside>
-            <article><h1 id="addingcolors">Adding Colors</h1>
-<p>Use the <code>colors</code> object in the <code>brixi.config.js</code> file.</p>
-<p>Colors can be a single value or a group of shades.</p>
-<pre><code class="bash language-bash">colors: {
-    white: "#ffffff",
-    black: "#000000",
-    primary: {
-        100: "#EBF8FF",
-        200: "#BEE3F8",
-        300: "#90CDF4",
-        400: "#63B3ED",
-        500: "#4299E1",
-        600: "#3182CE",
-        700: "#2B6CB0",
-        800: "#2C5282",
-        900: "#2A4365",
+            <article><h1 id="customthemes">Custom Themes</h1>
+<p>Custom themes allow you to override any CSS variable based on the <code>&lt;html&gt;</code> elements <code>[theme]</code> attribute. Note that the <code>dark</code> and <code>light</code> themes can be explicitly set using the <code>[theme]</code> attribute but also can be set by a user's OS when the <code>[theme="auto"]</code> attribute is used.</p>
+<p><strong>Config:</strong></p>
+<pre><code class="javascript language-javascript">themes: {
+    dark: {
+        dashboard: "var(--neutral-700)",
+    },
+    light: {
+        dashboard: "var(--neutral-300)",
+    },
+    brand: {
+        dashboard: "var(--red-700)",
     }
 }
 </code></pre>
-<p>Convert a single primary color into several shades using <a href="https://colorpalette.app/">Colortron 9000</a>. You can also check your color palette's accessability <a href="https://accessiblecolors.app/">here</a>.</p></article>
+<p><strong>Output:</strong></p>
+<pre><code class="css language-css">:root[theme="brand"]{
+    --dashboard: var(--red-700);
+}
+
+:root[theme="dark"] {
+    --dashboard: var(--neutral-700);
+}
+@media (prefers-color-scheme: dark) {
+    :root[theme="auto"] {
+        --dashboard: var(--neutral-700);
+    }
+}
+
+
+:root[theme="light"] {
+        --dashboard: var(--neutral-300);
+}
+@media (prefers-color-scheme: light) {
+    :root[theme="auto"] {
+        --dashboard: var(--neutral-300);
+    }
+}
+</code></pre>
+<blockquote>
+  <p><strong>Note</strong>: the <code>dashboard</code> variable is not a default variable within Brixi. If you would like to use the<code>bg-dashboard</code> class you would need to provide a fallback value in the <code>colors</code> section of the config.</p>
+</blockquote></article>
         </main>
     </body>
 </html>
