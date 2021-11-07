@@ -1,0 +1,500 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Brixi</title>
+    <meta name="description" content="A lightweight (1.3kb) highly configurable utility-first CSS framework.">
+    <meta name="keywords" content="utility, css-framework, web-components">
+    <link rel="icon" href="null">
+
+    <link href="/css/normalize.css" rel="stylesheet">
+    <link href="/css/brixi.css" rel="stylesheet">
+    <link href="/css/skeleton.css" rel="stylesheet">
+    <link href="/css/layout.css" rel="stylesheet">
+    <link href="/css/navigation.css" rel="stylesheet">
+    <link href="/css/docs.css" rel="stylesheet">
+    <link href="/css/subnav.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="/static/highlight.css">
+    <script defer src="/static/highlight.js"></script>
+
+    <script type="module" src="/js/bootstrap.js"></script>
+</head>
+<body>
+    <header flex="row nowrap items-center justify-between">
+        <button id="nav-menu" onclick="document.documentElement.classList.toggle('menu-open');" aria-label="toggle navigation menu">
+            <svg xmlns="http://www.w3.org/2000/svg" class="menu-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" class="close-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+        <a href="/" class="font-bold" id="logo">
+            Brixi
+        </a>
+        <div flex="items-center row nowrap">
+            <nav>
+                
+                    <span class="font-sm font-grey-500">v0.5.2</span>
+                
+                
+                    <a aria-label="GitHub icon" href="https://github.com/codewithkyle/brixi/">
+                        <svg aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg>
+                    </a>
+                
+                
+                    <a aria-label="GitHub icon" href="https://github.com/codewithkyle/brixi/issues">
+                        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="bug" class="svg-inline--fa fa-bug fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M511.988 288.9c-.478 17.43-15.217 31.1-32.653 31.1H424v16c0 21.864-4.882 42.584-13.6 61.145l60.228 60.228c12.496 12.497 12.496 32.758 0 45.255-12.498 12.497-32.759 12.496-45.256 0l-54.736-54.736C345.886 467.965 314.351 480 280 480V236c0-6.627-5.373-12-12-12h-24c-6.627 0-12 5.373-12 12v244c-34.351 0-65.886-12.035-90.636-32.108l-54.736 54.736c-12.498 12.497-32.759 12.496-45.256 0-12.496-12.497-12.496-32.758 0-45.255l60.228-60.228C92.882 378.584 88 357.864 88 336v-16H32.666C15.23 320 .491 306.33.013 288.9-.484 270.816 14.028 256 32 256h56v-58.745l-46.628-46.628c-12.496-12.497-12.496-32.758 0-45.255 12.498-12.497 32.758-12.497 45.256 0L141.255 160h229.489l54.627-54.627c12.498-12.497 32.758-12.497 45.256 0 12.496 12.497 12.496 32.758 0 45.255L424 197.255V256h56c17.972 0 32.484 14.816 31.988 32.9zM257 0c-61.856 0-112 50.144-112 112h224C369 50.144 318.856 0 257 0z"></path></svg>
+                    </a>
+                
+                
+            </nav>
+        </div>
+    </header>
+    <main>
+        
+        <static-navigation-component>
+            <a class="is-active" href="/readme" data-slug="readme">readme</a><a class="" href="/alignment" data-slug="alignment">alignment</a><a class="" href="/aspect-ratios" data-slug="aspect-ratios">aspect ratios</a><a class="" href="/backgrounds" data-slug="backgrounds">backgrounds</a><a class="" href="/borders" data-slug="borders">borders</a><a class="" href="/box-shadows" data-slug="box-shadows">box shadows</a><a class="" href="/colors" data-slug="colors">colors</a><a class="" href="/containers" data-slug="containers">containers</a><a class="" href="/css-variables" data-slug="css-variables">css variables</a><a class="" href="/cursor" data-slug="cursor">cursor</a><a class="" href="/display" data-slug="display">display</a><a class="" href="/flexbox" data-slug="flexbox">flexbox</a><a class="" href="/fonts" data-slug="fonts">fonts</a><a class="" href="/grid" data-slug="grid">grid</a><a class="" href="/line-height" data-slug="line-height">line height</a><a class="" href="/margins" data-slug="margins">margins</a><a class="" href="/padding" data-slug="padding">padding</a><a class="" href="/positions" data-slug="positions">positions</a><a class="" href="/scroll" data-slug="scroll">scroll</a><a class="" href="/text-transform" data-slug="text-transform">text transform</a><a class="" href="/themes" data-slug="themes">themes</a><a class="" href="/whitespace" data-slug="whitespace">whitespace</a>
+        </static-navigation-component>
+    
+        <static-doc-view>
+            <h1 id="brixi">Brixi</h1>
+<p>A lightweight (1.3kb) highly configurable utility-first CSS framework.</p>
+<h2 id="installation">Installation</h2>
+<p>Install the npm package</p>
+<pre><code class="language-sh">npm i -S brixi
+</code></pre>
+<p>Add the startup script to your <code>package.json</code> file</p>
+<pre><code class="language-json">&quot;brixi&quot;: &quot;brixi&quot;
+</code></pre>
+<p>Run the script</p>
+<pre><code class="language-sh">npm run brixi
+</code></pre>
+<p>Or use the CDN version:</p>
+<pre><code class="language-html">&lt;link href=&quot;https://unpkg.com/brixi@^0.5/brixi.min.css&quot; rel=&quot;stylesheet&quot;&gt;
+</code></pre>
+<h2 id="configuration">Configuration</h2>
+<p>Below is the default config file. Any value can be overridden by adding a <code>brixi.config.js</code> file to your project&#39;s root directory.</p>
+<pre><code class="language-javascript">module.exports = {
+    outDir: &quot;./brixi&quot;,
+    important: true,
+    output: &quot;production&quot;,
+    baseUnit: &quot;rem&quot;,
+    features: {
+        aspectRatios: true,
+        borders: true,
+        containers: true,
+        cursors: true,
+        flexbox: true,
+        fonts: true,
+        grid: true,
+        lineHeight: true,
+        margin: true,
+        padding: true,
+        scroll: true,
+        shadows: true,
+        positions: true,
+        backgrounds: true,
+        alignment: true,
+        whitespace: true,
+        textTransforms: true,
+        display: true,
+    },
+    fonts: {
+        units: &quot;rem&quot;,
+        families: {
+            base: &quot;system-ui, -apple-system, BlinkMacSystemFont, &#39;Segoe UI&#39;, Roboto, Oxygen, Ubuntu, Cantarell, &#39;Open Sans&#39;, &#39;Helvetica Neue&#39;, sans-serif&quot;,
+            serif: &quot;Georgia, Cambria, &#39;Times New Roman&#39;, Times, serif&quot;,
+            mono: &quot;Menlo, Monaco, Consolas, &#39;Liberation Mono&#39;, &#39;Courier New&#39;, monospace&quot;,
+        },
+        weights: {
+            hairline: 100,
+            thin: 200,
+            light: 300,
+            regular: 400,
+            medium: 500,
+            semibold: 600,
+            bold: 700,
+            heavy: 800,
+            black: 900,
+        },
+        sizes: {
+            xs: 0.75,
+            sm: 0.875,
+            base: 1,
+            md: 1.125,
+            lg: 1.25,
+            xl: 1.5,
+            &quot;2xl&quot;: 1.875,
+            &quot;3xl&quot;: 2.25,
+        },
+    },
+    colors: {
+        white: &quot;#ffffff&quot;,
+        black: &quot;#000000&quot;,
+        &quot;blue-grey&quot;: {
+            50: &quot;#F8FAFC&quot;,
+            100: &quot;#F1F5F9&quot;,
+            200: &quot;#E2E8F0&quot;,
+            300: &quot;#CBD5E1&quot;,
+            400: &quot;#94A3B8&quot;,
+            500: &quot;#64748B&quot;,
+            600: &quot;#475569&quot;,
+            700: &quot;#334155&quot;,
+            800: &quot;#1E293B&quot;,
+            900: &quot;#0F172A&quot;,
+        },
+        &quot;cool-grey&quot;: {
+            50: &quot;#F9FAFB&quot;,
+            100: &quot;#F3F4F6&quot;,
+            200: &quot;#E5E7EB&quot;,
+            300: &quot;#D1D5DB&quot;,
+            400: &quot;#9CA3AF&quot;,
+            500: &quot;#6B7280&quot;,
+            600: &quot;#4B5563&quot;,
+            700: &quot;#374151&quot;,
+            800: &quot;#1F2937&quot;,
+            900: &quot;#111827&quot;,
+        },
+        grey: {
+            50: &quot;#FAFAFA&quot;,
+            100: &quot;#F4F4F5&quot;,
+            200: &quot;#E4E4E7&quot;,
+            300: &quot;#D4D4D8&quot;,
+            400: &quot;#A1A1AA&quot;,
+            500: &quot;#71717A&quot;,
+            600: &quot;#52525B&quot;,
+            700: &quot;#3F3F46&quot;,
+            800: &quot;#27272A&quot;,
+            900: &quot;#18181B&quot;,
+        },
+        neutral: {
+            50: &quot;#FAFAFA&quot;,
+            100: &quot;#F5F5F5&quot;,
+            200: &quot;#E5E5E5&quot;,
+            300: &quot;#D4D4D4&quot;,
+            400: &quot;#A3A3A3&quot;,
+            500: &quot;#737373&quot;,
+            600: &quot;#525252&quot;,
+            700: &quot;#404040&quot;,
+            800: &quot;#262626&quot;,
+            900: &quot;#171717&quot;,
+        },
+        &quot;warm-grey&quot;: {
+            50: &quot;#FAFAF9&quot;,
+            100: &quot;#F5F5F4&quot;,
+            200: &quot;#E7E5E4&quot;,
+            300: &quot;#D6D3D1&quot;,
+            400: &quot;#A8A29E&quot;,
+            500: &quot;#78716C&quot;,
+            600: &quot;#57534E&quot;,
+            700: &quot;#44403C&quot;,
+            800: &quot;#292524&quot;,
+            900: &quot;#1C1917&quot;,
+        },
+        red: {
+            50: &quot;#FEF2F2&quot;,
+            100: &quot;#FEE2E2&quot;,
+            200: &quot;#FECACA&quot;,
+            300: &quot;#FCA5A5&quot;,
+            400: &quot;#F87171&quot;,
+            500: &quot;#EF4444&quot;,
+            600: &quot;#DC2626&quot;,
+            700: &quot;#B91C1C&quot;,
+            800: &quot;#991B1B&quot;,
+            900: &quot;#7F1D1D&quot;,
+        },
+        orange: {
+            50: &quot;#FFF7ED&quot;,
+            100: &quot;#FFEDD5&quot;,
+            200: &quot;#FED7AA&quot;,
+            300: &quot;#FDBA74&quot;,
+            400: &quot;#FB923C&quot;,
+            500: &quot;#F97316&quot;,
+            600: &quot;#EA580C&quot;,
+            700: &quot;#C2410C&quot;,
+            800: &quot;#9A3412&quot;,
+            900: &quot;#7C2D12&quot;,
+        },
+        amber: {
+            50: &quot;#FFFBEB&quot;,
+            100: &quot;#FEF3C7&quot;,
+            200: &quot;#FDE68A&quot;,
+            300: &quot;#FCD34D&quot;,
+            400: &quot;#FBBF24&quot;,
+            500: &quot;#F59E0B&quot;,
+            600: &quot;#D97706&quot;,
+            700: &quot;#B45309&quot;,
+            800: &quot;#92400E&quot;,
+            900: &quot;#78350F&quot;,
+        },
+        yellow: {
+            50: &quot;#FEFCE8&quot;,
+            100: &quot;#FEF9C3&quot;,
+            200: &quot;#FEF08A&quot;,
+            300: &quot;#FDE047&quot;,
+            400: &quot;#FACC15&quot;,
+            500: &quot;#EAB308&quot;,
+            600: &quot;#CA8A04&quot;,
+            700: &quot;#A16207&quot;,
+            800: &quot;#854D0E&quot;,
+            900: &quot;#713F12&quot;,
+        },
+        lime: {
+            50: &quot;#F7FEE7&quot;,
+            100: &quot;#ECFCCB&quot;,
+            200: &quot;#D9F99D&quot;,
+            300: &quot;#BEF264&quot;,
+            400: &quot;#A3E635&quot;,
+            500: &quot;#84CC16&quot;,
+            600: &quot;#65A30D&quot;,
+            700: &quot;#4D7C0F&quot;,
+            800: &quot;#3F6212&quot;,
+            900: &quot;#365314&quot;,
+        },
+        green: {
+            50: &quot;#F0FDF4&quot;,
+            100: &quot;#DCFCE7&quot;,
+            200: &quot;#BBF7D0&quot;,
+            300: &quot;#86EFAC&quot;,
+            400: &quot;#4ADE80&quot;,
+            500: &quot;#22C55E&quot;,
+            600: &quot;#16A34A&quot;,
+            700: &quot;#15803D&quot;,
+            800: &quot;#166534&quot;,
+            900: &quot;#14532D&quot;,
+        },
+        emerald: {
+            50: &quot;#ECFDF5&quot;,
+            100: &quot;#D1FAE5&quot;,
+            200: &quot;#A7F3D0&quot;,
+            300: &quot;#6EE7B7&quot;,
+            400: &quot;#34D399&quot;,
+            500: &quot;#10B981&quot;,
+            600: &quot;#059669&quot;,
+            700: &quot;#047857&quot;,
+            800: &quot;#065F46&quot;,
+            900: &quot;#064E3B&quot;,
+        },
+        teal: {
+            50: &quot;#F0FDFA&quot;,
+            100: &quot;#CCFBF1&quot;,
+            200: &quot;#99F6E4&quot;,
+            300: &quot;#5EEAD4&quot;,
+            400: &quot;#2DD4BF&quot;,
+            500: &quot;#14B8A6&quot;,
+            600: &quot;#0D9488&quot;,
+            700: &quot;#0F766E&quot;,
+            800: &quot;#115E59&quot;,
+            900: &quot;#134E4A&quot;,
+        },
+        cyan: {
+            50: &quot;#ECFEFF&quot;,
+            100: &quot;#CFFAFE&quot;,
+            200: &quot;#A5F3FC&quot;,
+            300: &quot;#67E8F9&quot;,
+            400: &quot;#22D3EE&quot;,
+            500: &quot;#06B6D4&quot;,
+            600: &quot;#0891B2&quot;,
+            700: &quot;#0E7490&quot;,
+            800: &quot;#155E75&quot;,
+            900: &quot;#164E63&quot;,
+        },
+        &quot;light-blue&quot;: {
+            50: &quot;#F0F9FF&quot;,
+            100: &quot;#E0F2FE&quot;,
+            200: &quot;#BAE6FD&quot;,
+            300: &quot;#7DD3FC&quot;,
+            400: &quot;#38BDF8&quot;,
+            500: &quot;#0EA5E9&quot;,
+            600: &quot;#0284C7&quot;,
+            700: &quot;#0369A1&quot;,
+            800: &quot;#075985&quot;,
+            900: &quot;#0C4A6E&quot;,
+        },
+        blue: {
+            50: &quot;#EFF6FF&quot;,
+            100: &quot;#DBEAFE&quot;,
+            200: &quot;#BFDBFE&quot;,
+            300: &quot;#93C5FD&quot;,
+            400: &quot;#60A5FA&quot;,
+            500: &quot;#3B82F6&quot;,
+            600: &quot;#2563EB&quot;,
+            700: &quot;#1D4ED8&quot;,
+            800: &quot;#1E40AF&quot;,
+            900: &quot;#1E3A8A&quot;,
+        },
+        indigo: {
+            50: &quot;#EEF2FF&quot;,
+            100: &quot;#E0E7FF&quot;,
+            200: &quot;#C7D2FE&quot;,
+            300: &quot;#A5B4FC&quot;,
+            400: &quot;#818CF8&quot;,
+            500: &quot;#6366F1&quot;,
+            600: &quot;#4F46E5&quot;,
+            700: &quot;#4338CA&quot;,
+            800: &quot;#3730A3&quot;,
+            900: &quot;#312E81&quot;,
+        },
+        violet: {
+            50: &quot;#F5F3FF&quot;,
+            100: &quot;#EDE9FE&quot;,
+            200: &quot;#DDD6FE&quot;,
+            300: &quot;#C4B5FD&quot;,
+            400: &quot;#A78BFA&quot;,
+            500: &quot;#8B5CF6&quot;,
+            600: &quot;#7C3AED&quot;,
+            700: &quot;#6D28D9&quot;,
+            800: &quot;#5B21B6&quot;,
+            900: &quot;#4C1D95&quot;,
+        },
+        purple: {
+            50: &quot;#FAF5FF&quot;,
+            100: &quot;#F3E8FF&quot;,
+            200: &quot;#E9D5FF&quot;,
+            300: &quot;#D8B4FE&quot;,
+            400: &quot;#C084FC&quot;,
+            500: &quot;#A855F7&quot;,
+            600: &quot;#9333EA&quot;,
+            700: &quot;#7E22CE&quot;,
+            800: &quot;#6B21A8&quot;,
+            900: &quot;#581C87&quot;,
+        },
+        fuchsia: {
+            50: &quot;#FDF4FF&quot;,
+            100: &quot;#FAE8FF&quot;,
+            200: &quot;#F5D0FE&quot;,
+            300: &quot;#F0ABFC&quot;,
+            400: &quot;#E879F9&quot;,
+            500: &quot;#D946EF&quot;,
+            600: &quot;#C026D3&quot;,
+            700: &quot;#A21CAF&quot;,
+            800: &quot;#86198F&quot;,
+            900: &quot;#701A75&quot;,
+        },
+        pink: {
+            50: &quot;#FDF2F8&quot;,
+            100: &quot;#FCE7F3&quot;,
+            200: &quot;#FBCFE8&quot;,
+            300: &quot;#F9A8D4&quot;,
+            400: &quot;#F472B6&quot;,
+            500: &quot;#EC4899&quot;,
+            600: &quot;#DB2777&quot;,
+            700: &quot;#BE185D&quot;,
+            800: &quot;#9D174D&quot;,
+            900: &quot;#831843&quot;,
+        },
+        rose: {
+            50: &quot;#FFF1F2&quot;,
+            100: &quot;#FFE4E6&quot;,
+            200: &quot;#FECDD3&quot;,
+            300: &quot;#FDA4AF&quot;,
+            400: &quot;#FB7185&quot;,
+            500: &quot;#F43F5E&quot;,
+            600: &quot;#E11D48&quot;,
+            700: &quot;#BE123C&quot;,
+            800: &quot;#9F1239&quot;,
+            900: &quot;#881337&quot;,
+        },
+        primary: {
+            50: &quot;var(--blue-50)&quot;,
+            100: &quot;var(--blue-100)&quot;,
+            200: &quot;var(--blue-200)&quot;,
+            300: &quot;var(--blue-300)&quot;,
+            400: &quot;var(--blue-400)&quot;,
+            500: &quot;var(--blue-500)&quot;,
+            600: &quot;var(--blue-600)&quot;,
+            700: &quot;var(--blue-700)&quot;,
+            800: &quot;var(--blue-800)&quot;,
+            900: &quot;var(--blue-900)&quot;,
+        },
+        success: {
+            50: &quot;var(--green-50)&quot;,
+            100: &quot;var(--green-100)&quot;,
+            200: &quot;var(--green-200)&quot;,
+            300: &quot;var(--green-300)&quot;,
+            400: &quot;var(--green-400)&quot;,
+            500: &quot;var(--green-500)&quot;,
+            600: &quot;var(--green-600)&quot;,
+            700: &quot;var(--green-700)&quot;,
+            800: &quot;var(--green-800)&quot;,
+            900: &quot;var(--green-900)&quot;,
+        },
+        danger: {
+            50: &quot;var(--red-50)&quot;,
+            100: &quot;var(--red-100)&quot;,
+            200: &quot;var(--red-200)&quot;,
+            300: &quot;var(--red-300)&quot;,
+            400: &quot;var(--red-400)&quot;,
+            500: &quot;var(--red-500)&quot;,
+            600: &quot;var(--red-600)&quot;,
+            700: &quot;var(--red-700)&quot;,
+            800: &quot;var(--red-800)&quot;,
+            900: &quot;var(--red-900)&quot;,
+        },
+        warning: {
+            50: &quot;var(--amber-50)&quot;,
+            100: &quot;var(--amber-100)&quot;,
+            200: &quot;var(--amber-200)&quot;,
+            300: &quot;var(--amber-300)&quot;,
+            400: &quot;var(--amber-400)&quot;,
+            500: &quot;var(--amber-500)&quot;,
+            600: &quot;var(--amber-600)&quot;,
+            700: &quot;var(--amber-700)&quot;,
+            800: &quot;var(--amber-800)&quot;,
+            900: &quot;var(--amber-900)&quot;,
+        },
+    },
+    margins: [0, 0.125, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 3, 4, 5, 6],
+    padding: [0, 0.125, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 3, 4, 5, 6],
+    positions: [0],
+    borders: {
+        units: &quot;px&quot;,
+        styles: [&quot;solid&quot;, &quot;dashed&quot;, &quot;dotted&quot;],
+        widths: [0, 1, 2],
+        radius: [0.125, 0.25, 0.5],
+    },
+    shadows: {
+        xs: &quot;0 0 0 1px rgba(0, 0, 0, 0.05)&quot;,
+        sm: &quot;0 1px 2px 0 rgba(0, 0, 0, 0.05)&quot;,
+        md: &quot;0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)&quot;,
+        lg: &quot;0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)&quot;,
+        xl: &quot;0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)&quot;,
+        &quot;2xl&quot;: &quot;0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)&quot;,
+        &quot;3xl&quot;: &quot;0 25px 50px -12px rgba(0, 0, 0, 0.25)&quot;,
+    },
+    containers: {
+        units: &quot;px&quot;,
+        screens: {
+            &quot;411&quot;: 411,
+            &quot;768&quot;: 768,
+            &quot;1024&quot;: 1024,
+            &quot;1280&quot;: 1280,
+            &quot;1920&quot;: 1920,
+            &quot;3840&quot;: 3840,
+        },
+        columns: [2, 3, 4],
+    },
+    gaps: [1, 1.5, 2],
+    easings: {
+        &quot;in-out&quot;: &quot;0.4, 0.0, 0.2, 1&quot;,
+        in: &quot;0.0, 0.0, 0.2, 1&quot;,
+        out: &quot;0.4, 0.0, 1, 1&quot;,
+        bounce: &quot;0.175, 0.885, 0.32, 1.275&quot;,
+    },
+    aspectRatios: [&quot;16:9&quot;, &quot;4:3&quot;, &quot;1:1&quot;],
+    variables: {},
+    themes: {},
+};
+</code></pre>
+
+        </static-doc-view>
+        <static-subnav-component></static-subnav-component>
+    </main>
+    <textarea id="clipboard-input" tabindex="-1"></textarea>
+</body>
+</html>
