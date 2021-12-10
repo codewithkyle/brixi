@@ -449,4 +449,4 @@ module.exports = {
 
 ## License
 
-MIT Licensed. Colors based on [Tailwind CSS](https://tailwindcss.com/).
+MIT Licensed. Default colors from [Tailwind CSS](https://tailwindcss.com/). Shadows based on [this blog post](https://www.joshwcomeau.com/css/designing-shadows/) by Joshua Comeau.
