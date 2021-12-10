@@ -9,7 +9,8 @@
     "keywords": [
         "utility",
         "css-framework",
-        "web-components"
+        "web-components",
+        "css-variables"
     ],
     "author": "Kyle Andrews",
     "license": "MIT",

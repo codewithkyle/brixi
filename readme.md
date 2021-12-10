@@ -25,7 +25,7 @@ npm run brixi
 Or use the CDN version:
 
 ```html
-<link href="https://unpkg.com/brixi@^0.5/brixi.min.css" rel="stylesheet">
+<link href="https://unpkg.com/brixi@^0.5/brixi.min.css" rel="stylesheet" />
 ```
 
 ## Configuration
@@ -83,8 +83,9 @@ module.exports = {
             md: 1.125,
             lg: 1.25,
             xl: 1.5,
-            "2xl": 1.875,
-            "3xl": 2.25,
+            "2xl": 2,
+            "3xl": 3,
+            "4xl": 4,
         },
     },
     colors: {
@@ -258,7 +259,7 @@ module.exports = {
             800: "#155E75",
             900: "#164E63",
         },
-        "light-blue": {
+        sky: {
             50: "#F0F9FF",
             100: "#E0F2FE",
             200: "#BAE6FD",
@@ -424,12 +425,12 @@ module.exports = {
     containers: {
         units: "px",
         screens: {
-            "411": 411,
-            "768": 768,
-            "1024": 1024,
-            "1280": 1280,
-            "1920": 1920,
-            "3840": 3840,
+            411: 411,
+            768: 768,
+            1024: 1024,
+            1280: 1280,
+            1920: 1920,
+            3840: 3840,
         },
         columns: [2, 3, 4],
     },
@@ -445,3 +446,7 @@ module.exports = {
     themes: {},
 };
 ```
+
+## License
+
+MIT Licensed. Colors based on [Tailwind CSS](https://tailwindcss.com/).
