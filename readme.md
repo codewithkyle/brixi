@@ -25,7 +25,7 @@ npm run brixi
 Or use the CDN version:
 
 ```html
-<link href="https://unpkg.com/brixi@^0.5/brixi.min.css" rel="stylesheet" />
+<link href="https://unpkg.com/brixi@^0.6/brixi.min.css" rel="stylesheet" />
 ```
 
 ## Configuration
@@ -61,7 +61,7 @@ module.exports = {
     fonts: {
         units: "rem",
         families: {
-            base: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif",
+            "sans-serif": "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif",
             serif: "Georgia, Cambria, 'Times New Roman', Times, serif",
             mono: "Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
         },
@@ -414,13 +414,38 @@ module.exports = {
         radius: [0.125, 0.25, 0.5],
     },
     shadows: {
-        xs: "0 0 0 1px rgba(0, 0, 0, 0.05)",
-        sm: "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
-        md: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)",
-        lg: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
-        xl: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
-        "2xl": "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
-        "3xl": "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
+        colors: {
+            grey: "0deg 0% 50%",
+            success: "142deg 77% 73%",
+            warning: "46deg 97% 65%",
+            danger: "0deg 94% 82%",
+        },
+        sizes: {
+            sm: `
+                0px 1px 2px hsl(var(--shadow-color) / 0.7)
+            `,
+            md: `
+                0px 2px 2px hsl(var(--shadow-color) / 0.333),
+                0px 4px 4px hsl(var(--shadow-color) / 0.333),
+                0px 6px 6px hsl(var(--shadow-color) / 0.333)
+            `,
+            lg: `
+                0px 2px 2px hsl(var(--shadow-color) / 0.2),
+                0px 4px 4px hsl(var(--shadow-color) / 0.2),
+                0px 8px 8px hsl(var(--shadow-color) / 0.2),
+                0px 16px 16px hsl(var(--shadow-color) / 0.2),
+                0px 32px 32px hsl(var(--shadow-color) / 0.2)
+            `,
+            xl: `
+                0px 2px 2px hsl(var(--shadow-color) / 0.2),
+                0px 4px 4px hsl(var(--shadow-color) / 0.2),
+                0px 8px 8px hsl(var(--shadow-color) / 0.2),
+                0px 16px 16px hsl(var(--shadow-color) / 0.2),
+                0px 32px 32px hsl(var(--shadow-color) / 0.2),
+                0px 48px 48px hsl(var(--shadow-color) / 0.2),
+                0px 64px 64px hsl(var(--shadow-color) / 0.2)
+            `,
+        },
     },
     containers: {
         units: "px",
