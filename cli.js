@@ -61,31 +61,100 @@ class Brixi {
         }
 
         if (customConfig) {
-            for (const [key, value] of Object.entries(customConfig)) {
-                if (typeof customConfig[key] === "object") {
-                    for (const [key2, value2] of Object.entries(customConfig[key])) {
-                        if (typeof customConfig[key][key2] === "object") {
-                            if (typeof this.config[key][key2] === "undefined"){
-                                this.config[key][key2] = {};
-                            }
-                            for (const [key3, value3] of Object.entries(customConfig[key][key2])) {
-                                this.config[key][key2][key3] = value3;
-                            }
-                        } else {
-                            this.config[key][key2] = value2;
-                        }
-                    }
-                } else {
-                    this.config[key] = value;
+            // General info
+            if (customConfig?.outDir) {
+                this.config.outDir = customConfig.outDir;
+            }
+            if (customConfig?.important) {
+                this.config.important = customConfig.important;
+            }
+            if (customConfig?.output) {
+                this.config.output = customConfig.output;
+            }
+            if (customConfig?.baseUnit) {
+                this.config.baseUnit = customConfig.baseUnit;
+            }
+            if (customConfig?.features) {
+                this.config.features = Object.assign(this.config.features, customConfig.features);
+            }
+
+            // Fonts
+            if (customConfig?.fonts) {
+                if (customConfig.fonts?.units) {
+                    this.config.fonts.units = customConfig.fonts.units;
                 }
+                if (customConfig.fonts?.families) {
+                    this.config.fonts.families = Object.assign(this.config.fonts.families, customConfig.fonts.families);
+                }
+                if (customConfig.fonts?.weights) {
+                    this.config.fonts.weights = Object.assign(this.config.fonts.weights, customConfig.fonts.weights);
+                }
+                if (customConfig.fonts?.sizes) {
+                    this.config.fonts.sizes = Object.assign(this.config.fonts.sizes, customConfig.fonts.sizes);
+                }
+            }
+
+            // Colours
+            if (customConfig?.colors) {
+                this.config.colors = customConfig.colors;
+            }
+
+            // Margins
+            if (customConfig?.margins) {
+                this.config.margins = customConfig.margins;
+            }
+
+            // Padding
+            if (customConfig?.padding) {
+                this.config.padding = customConfig.padding;
+            }
+
+            // Positions
+            if (customConfig?.positions) {
+                this.config.positions = customConfig.positions;
+            }
+
+            // Borders
+            if (customConfig?.borders) {
+                this.config.borders = Object.assign(this.config.borders, customConfig.borders);
+            }
+
+            // Shadows
+            if (customConfig?.shadows) {
+                this.config.shadows = Object.assign(this.config.shadows, customConfig.shadows);
+            }
+
+            // Containers
+            if (customConfig?.containers) {
+                this.config.containers = Object.assign(this.config.containers, customConfig.containers);
+            }
+
+            // Gaps
+            if (customConfig?.gaps) {
+                this.config.gaps = customConfig.gaps;
+            }
+
+            // Easings
+            if (customConfig?.easings) {
+                this.config.easings = customConfig.easings;
+            }
+
+            // Aspect ratios
+            if (customConfig?.aspectRatios) {
+                this.config.aspectRatios = customConfig.aspectRatios;
+            }
+
+            // Variables
+            if (customConfig?.variables) {
+                this.config.variables = Object.assign(this.config.variables, customConfig.variables);
+            }
+
+            // Themes
+            if (customConfig?.themes) {
+                this.config.themes = Object.assign(this.config.themes, customConfig.themes);
             }
         }
 
-        if (typeof customConfig === "string") {
-            if (customConfig === "production" || customConfig === "source") {
-                this.config.output = customConfig;
-            }
-        }
         this.config.outDir = path.resolve(cwd, this.config.outDir);
     }
 
@@ -185,7 +254,7 @@ class Brixi {
             }
 
             /** Custom variables */
-            for (const variable in this.config.variables){
+            for (const variable in this.config.variables) {
                 data += `\t--${variable}: ${this.config.variables[variable]};\n`;
             }
 
@@ -193,17 +262,17 @@ class Brixi {
             data += "}\n";
 
             /** Themes */
-            for (const theme in this.config.themes){
+            for (const theme in this.config.themes) {
                 data += `:root[theme="${theme}"]{\n`;
-                for (const variable in this.config.themes[theme]){
+                for (const variable in this.config.themes[theme]) {
                     data += `\t--${variable}: ${this.config.themes[theme][variable]};\n`;
                 }
                 data += "}\n";
 
-                if (theme === "dark" || theme === "light"){
+                if (theme === "dark" || theme === "light") {
                     data += `@media (prefers-color-scheme: ${theme}) {\n`;
                     data += `\t:root[theme="auto"]{\n`;
-                    for (const variable in this.config.themes[theme]){
+                    for (const variable in this.config.themes[theme]) {
                         data += `\t\t--${variable}: ${this.config.themes[theme][variable]};\n`;
                     }
                     data += "\t}\n}\n";
@@ -632,19 +701,19 @@ class Brixi {
         });
     }
 
-    generateAspectRatios(){
+    generateAspectRatios() {
         return new Promise((resolve, reject) => {
             let data = "";
             const ratios = this.config.aspectRatios;
-            for (let i = 0; i < ratios.length; i++){
+            for (let i = 0; i < ratios.length; i++) {
                 const values = ratios[i].trim().split(/\:|\//);
-                if (values.length === 2){
+                if (values.length === 2) {
                     data += `@supports not (aspect-ratio: 1 / 1){\n`;
                     data += `\t.ar-${values[0]}\\:${values[1]}::before{\n`;
                     data += `\t\tcontent:"";\n`;
                     data += `\t\twidth: 100%;\n`;
                     data += `\t\tdisplay: block;\n`;
-                    data += `\t\tpadding-bottom: ${values[1] / values[0] * 100}%;\n`;
+                    data += `\t\tpadding-bottom: ${(values[1] / values[0]) * 100}%;\n`;
                     data += `\t}\n`;
                     data += `}\n`;
 
@@ -652,11 +721,11 @@ class Brixi {
                     data += `\t.ar-${values[0]}\\:${values[1]}{\n`;
                     data += `\t\taspect-ratio: ${values[0]} / ${values[1]}\n`;
                     data += `\t}\n`;
-                    data += `}\n`
+                    data += `}\n`;
                 }
             }
             fs.writeFile(path.join(this.temp, "aspect-ratios.css"), data, (error) => {
-                if (error){
+                if (error) {
                     reject();
                 }
                 resolve();
@@ -696,77 +765,77 @@ class Brixi {
             /** CSS Generators */
             await this.generateVariables();
 
-            if (this.config.features.margin){
+            if (this.config.features.margin) {
                 await this.generateMargins();
             }
 
-            if (this.config.features.padding){
+            if (this.config.features.padding) {
                 await this.generatePaddings();
             }
 
-            if (this.config.features.positions){
+            if (this.config.features.positions) {
                 await this.generatePositions();
             }
 
-            if (this.config.features.borders){
+            if (this.config.features.borders) {
                 await this.generateBorders();
             }
 
-            if (this.config.features.fonts){
+            if (this.config.features.fonts) {
                 await this.generateFonts();
                 await this.generateFontColors();
                 await this.generateFontSizes();
             }
 
-            if (this.config.features.alignment){
+            if (this.config.features.alignment) {
                 await this.copyFile("alignment");
             }
 
-            if (this.config.features.whitespace){
+            if (this.config.features.whitespace) {
                 await this.copyFile("whitespace");
             }
 
-            if (this.config.features.textTransforms){
+            if (this.config.features.textTransforms) {
                 await this.copyFile("text-transform");
             }
 
-            if (this.config.features.backgrounds){
+            if (this.config.features.backgrounds) {
                 await this.generateBackgroundColors();
             }
 
-            if (this.config.features.grid){
+            if (this.config.features.grid) {
                 await this.generateGrid();
             }
 
-            if (this.config.features.flexbox){
+            if (this.config.features.flexbox) {
                 await this.copyFile("flexbox");
             }
 
-            if (this.config.features.shadows){
+            if (this.config.features.shadows) {
                 await this.generateShadows();
             }
 
-            if (this.config.features.containers){
+            if (this.config.features.containers) {
                 await this.generateContainers();
             }
 
-            if (this.config.features.cursors){
+            if (this.config.features.cursors) {
                 await this.copyFile("cursor");
             }
 
-            if (this.config.features.lineHeight){
+            if (this.config.features.lineHeight) {
                 await this.copyFile("line-heights");
             }
 
-            if (this.config.features.scroll){
+            if (this.config.features.scroll) {
                 await this.copyFile("scrolling");
             }
 
-            if (this.config.features.aspectRatios){
+            if (this.config.features.aspectRatios) {
                 await this.generateAspectRatios();
             }
 
-            if (this.config.features.display){
+            if (this.config.features.display) {
                 await this.copyFile("display");
             }
 
@@ -784,9 +853,9 @@ class Brixi {
                 const prodCSS = await this.minifyCSS();
                 fs.writeFileSync(path.join(this.output, "brixi.css"), prodCSS);
                 fs.rmdirSync(path.join(this.output, "src"), { recursive: true });
-            }else{
+            } else {
                 const sourceFiles = glob.sync(`${this.output}/src/*.css`);
-                for (let i = 0; i < sourceFiles.length; i++){
+                for (let i = 0; i < sourceFiles.length; i++) {
                     const filename = sourceFiles[i].replace(/.*[\\\/]/, "");
                     fs.renameSync(sourceFiles[i], path.join(this.output, filename));
                 }

@@ -1,6 +1,6 @@
 {
     "name": "brixi",
-    "version": "0.5.2",
+    "version": "0.6.0",
     "description": "A lightweight (1.3kb) highly configurable utility-first CSS framework.",
     "repository": {
         "type": "git",
@@ -12,7 +12,7 @@
         "web-components"
     ],
     "author": "Kyle Andrews",
-    "license": "GPL-3.0",
+    "license": "MIT",
     "bugs": {
         "url": "https://github.com/codewithkyle/brixi/issues"
     },
@@ -30,9 +30,9 @@
         "brixi.min.css"
     ],
     "devDependencies": {
-        "@codewithkyle/dev-docs": "^1.0.1",
+        "@codewithkyle/dev-docs": "^1.0.3",
         "gh-pages": "^3.2.3",
-        "prettier": "^2.4.1",
+        "prettier": "^2.5.1",
         "serve": "^11.3.2"
     },
     "dependencies": {
@@ -44,7 +44,7 @@
     },
     "scripts": {
         "preview": "serve ./public",
-        "test": "node ./cli.js && mv ./brixi/brixi.css ./test/brixi.css && serve ./test",
+        "test": "node ./cli.js -c ./custom.config.js && mv ./brixi/brixi.css ./test/brixi.css && serve ./test",
         "docs": "docs",
         "build": "npm run test && mv ./brixi/brixi.css ./brixi.min.css",
         "predeploy": "docs -o ./public -c ./CNAME",

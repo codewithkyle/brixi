@@ -1,8 +1,6 @@
-# Adding Colors
+# Managing Colors
 
-Use the `colors` object in the `brixi.config.js` file.
-
-Colors can be a single value or a group of shades.
+Use the `colors` object in the `brixi.config.js` file. Colors can be a single value or a group of shades.
 
 ```bash
 colors: {
@@ -23,3 +21,5 @@ colors: {
 ```
 
 Convert a single primary color into several shades using [Colortron 9000](https://colorpalette.app/). You can also check your color palette's accessability [here](https://accessiblecolors.app/).
+
+> **Note**: Starting in v0.6 only the colors provided in the `colors` object will be used. If you're project doesn't use a custom config or your `colors` object is excluded the default colors will be used. If you need to mix the default colors with custom colors you'll need to copy and paste the color values out of the default config into your custom config. This change was required for reducing the output file size.

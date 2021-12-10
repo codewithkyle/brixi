@@ -26,7 +26,7 @@ module.exports = {
     fonts: {
         units: "rem",
         families: {
-            base: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif",
+            "sans-serif": "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif",
             serif: "Georgia, Cambria, 'Times New Roman', Times, serif",
             mono: "Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
         },
@@ -389,12 +389,12 @@ module.exports = {
     containers: {
         units: "px",
         screens: {
-            "411": 411,
-            "768": 768,
-            "1024": 1024,
-            "1280": 1280,
-            "1920": 1920,
-            "3840": 3840,
+            411: 411,
+            768: 768,
+            1024: 1024,
+            1280: 1280,
+            1920: 1920,
+            3840: 3840,
         },
         columns: [2, 3, 4],
     },
