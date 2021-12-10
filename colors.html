@@ -19,7 +19,7 @@
     <link href="/css/subnav.css" rel="stylesheet">
 
     <link rel="stylesheet" href="/static/highlight.css">
-    <script defer src="/static/highlight.js"></script>
+    <script src="https://unpkg.com/@highlightjs/cdn-assets@^11/highlight.min.js"></script>
 
     <script type="module" src="/js/bootstrap.js"></script>
 </head>
@@ -39,7 +39,7 @@
         <div flex="items-center row nowrap">
             <nav>
                 
-                    <span class="font-sm font-grey-500">v0.5.2</span>
+                    <span class="font-sm font-grey-500">v0.6.0</span>
                 
                 
                     <a aria-label="GitHub icon" href="https://github.com/codewithkyle/brixi/">
@@ -52,6 +52,10 @@
                     </a>
                 
                 
+                    <a aria-label="GitHub icon" href="https://www.npmjs.com/package/brixi">
+                        <svg style="width:24px;height:24px;" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="npm" class="svg-inline--fa fa-npm fa-w-18" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M288 288h-32v-64h32v64zm288-128v192H288v32H160v-32H0V160h576zm-416 32H32v128h64v-96h32v96h32V192zm160 0H192v160h64v-32h64V192zm224 0H352v128h64v-96h32v96h32v-96h32v96h32V192z"></path></svg>
+                    </a>
+                
             </nav>
         </div>
     </header>
@@ -62,9 +66,8 @@
         </static-navigation-component>
     
         <static-doc-view>
-            <h1 id="adding-colors">Adding Colors</h1>
-<p>Use the <code>colors</code> object in the <code>brixi.config.js</code> file.</p>
-<p>Colors can be a single value or a group of shades.</p>
+            <h1 id="managing-colors">Managing Colors</h1>
+<p>Use the <code>colors</code> object in the <code>brixi.config.js</code> file. Colors can be a single value or a group of shades.</p>
 <pre><code class="language-bash">colors: {
     white: &quot;#ffffff&quot;,
     black: &quot;#000000&quot;,
@@ -82,6 +85,9 @@
 }
 </code></pre>
 <p>Convert a single primary color into several shades using <a href="https://colorpalette.app/">Colortron 9000</a>. You can also check your color palette&#39;s accessability <a href="https://accessiblecolors.app/">here</a>.</p>
+<blockquote>
+<p><strong>Note</strong>: Starting in v0.6 only the colors provided in the <code>colors</code> object will be used. If you&#39;re project doesn&#39;t use a custom config or your <code>colors</code> object is excluded the default colors will be used. If you need to mix the default colors with custom colors you&#39;ll need to copy and paste the color values out of the default config into your custom config. This change was required for reducing the output file size.</p>
+</blockquote>
 
         </static-doc-view>
         <static-subnav-component></static-subnav-component>
