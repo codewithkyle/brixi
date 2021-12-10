@@ -1,12 +1,95 @@
 <!DOCTYPE html>
 <html lang="en" theme="auto">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="brixi.css" rel="stylesheet">
-</head>
-<body style="background-color: var(--primary-500);">
-</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            /*
+            1. Use a more-intuitive box-sizing model.
+            */
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+            }
+            /*
+            2. Remove default margin
+            */
+            * {
+                margin: 0;
+            }
+            /*
+            3. Allow percentage-based heights in the application
+            */
+            html,
+            body {
+                height: 100%;
+            }
+            /*
+            Typographic tweaks!
+            4. Add accessible line-height
+            5. Improve text rendering
+            */
+            body {
+                line-height: 1.5;
+                -webkit-font-smoothing: antialiased;
+            }
+            /*
+            6. Improve media defaults
+            */
+            img,
+            picture,
+            video,
+            canvas,
+            svg {
+                display: block;
+                max-width: 100%;
+            }
+            /*
+            7. Remove built-in form typography styles
+            */
+            input,
+            button,
+            textarea,
+            select {
+                font: inherit;
+                outline: none;
+                border: none;
+                background: inherit;
+            }
+            /*
+            8. Avoid text overflows
+            */
+            p,
+            h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6 {
+                overflow-wrap: break-word;
+            }
+            /*
+            9. Create a root stacking context
+            */
+            #root,
+            #__next {
+                isolation: isolate;
+            }
+        </style>
+        <link href="brixi.css" rel="stylesheet" />
+    </head>
+    <body class="w-screen h-screen font-sans-serif font-grey-900" flex="items-center justify-center column wrap">
+        <div flex="items-center row nowrap" class="mb-3">
+            <button class="mx-1 radius-0.25 px-1 bg-success-600 font-white font-sm font-medium shadow-success-md cursor-pointer" style="min-height: 36px">Complete order</button>
+            <button class="mx-1 radius-0.25 px-1 bg-warning-300 font-grey-900 font-sm font-medium shadow-warning-md cursor-pointer" style="min-height: 36px">Postpone order</button>
+            <button class="mx-1 radius-0.25 px-1 bg-danger-600 font-white font-sm font-medium shadow-danger-md cursor-pointer" style="min-height: 36px">Cancel order</button>
+        </div>
+        <div style="width: 200px; height: 200px" class="mb-3 shadow-grey-sm radius-0.5 bg-white border-1 border-grey-200 border-solid"></div>
+        <div style="width: 200px; height: 200px" class="mb-3 shadow-grey-md radius-0.5 bg-white border-1 border-grey-200 border-solid"></div>
+        <div style="width: 200px; height: 200px" class="mb-3 shadow-grey-lg radius-0.5 bg-white border-1 border-grey-200 border-solid"></div>
+        <div style="width: 200px; height: 200px" class="mb-4 shadow-grey-xl radius-0.5 bg-white border-1 border-grey-200 border-solid"></div>
+    </body>
 </html>

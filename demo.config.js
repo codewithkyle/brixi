@@ -1,5 +1,1 @@
-module.exports = {
-    colors: {
-        red: "red",
-    },
-};
+module.exports = {};

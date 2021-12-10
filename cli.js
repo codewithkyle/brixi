@@ -121,7 +121,12 @@ class Brixi {
 
             // Shadows
             if (customConfig?.shadows) {
-                this.config.shadows = Object.assign(this.config.shadows, customConfig.shadows);
+                if (customConfig.shadows?.sizes) {
+                    this.config.shadows.sizes = Object.assign(this.config.shadows.sizes, customConfig.shadows.sizes);
+                }
+                if (customConfig.shadows?.colors) {
+                    this.config.shadows.colors = Object.assign(this.config.shadows.colors, customConfig.shadows.colors);
+                }
             }
 
             // Containers
@@ -242,8 +247,15 @@ class Brixi {
             data += "\n";
 
             /** Box shadows */
-            for (const [name, value] of Object.entries(this.config.shadows)) {
-                data += `\t--shadow-${name}: ${value};\n`;
+            for (const color in this.config.shadows.colors) {
+                const hsl = this.config.shadows.colors[color];
+                for (const size in this.config.shadows.sizes) {
+                    data += `\t--shadow-${color}-${size}: ${this.config.shadows.sizes[size]
+                        .replace(/var\(--shadow-color\)/gi, hsl)
+                        .replace(/\t|\n|\r/g, "")
+                        .replace(/\s+/g, " ")
+                        .trim()};\n`;
+                }
             }
 
             data += "\n";
@@ -628,10 +640,12 @@ class Brixi {
         return new Promise((resolve, reject) => {
             let data = "";
 
-            for (const [name, values] of Object.entries(this.config.shadows)) {
-                data += `.shadow-${name}{\n`;
-                data += `\tbox-shadow: var(--shadow-${name});\n`;
-                data += "}\n";
+            for (const color in this.config.shadows.colors) {
+                for (const size in this.config.shadows.sizes) {
+                    data += `.shadow-${color}-${size}{\n`;
+                    data += `\tbox-shadow: var(--shadow-${color}-${size});\n`;
+                    data += "}\n";
+                }
             }
 
             fs.writeFile(path.join(this.temp, `shadows.css`), data, (error) => {
