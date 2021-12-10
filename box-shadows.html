@@ -67,20 +67,47 @@
     
         <static-doc-view>
             <h1 id="box-shadows">Box Shadows</h1>
-<p><strong>Format:</strong> <code>.shadow-{size}</code></p>
+<p><strong>Format:</strong> <code>.shadow-{color}-{size}</code></p>
 <p><strong>CSS:</strong> <code>box-shadow</code></p>
-<p><strong>Defaults:</strong></p>
-<pre><code class="language-bash">xs: &quot;0 0 0 1px rgba(0, 0, 0, 0.05)&quot;
-sm: &quot;0 1px 2px 0 rgba(0, 0, 0, 0.05)&quot;
-md: &quot;0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)&quot;
-lg: &quot;0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)&quot;
-xl: &quot;0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)&quot;
-2xl: &quot;0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)&quot;
-3xl: &quot;0 25px 50px -12px rgba(0, 0, 0, 0.25)&quot;
+<p><strong>Default sizes:</strong></p>
+<pre><code class="language-css">sm:
+0px 1px 2px hsl(var(--shadow-color) / 0.7)
+
+md:
+0px 2px 2px hsl(var(--shadow-color) / 0.333),
+0px 4px 4px hsl(var(--shadow-color) / 0.333),
+0px 6px 6px hsl(var(--shadow-color) / 0.333)
+
+lg:
+0px 2px 2px hsl(var(--shadow-color) / 0.2),
+0px 4px 4px hsl(var(--shadow-color) / 0.2),
+0px 8px 8px hsl(var(--shadow-color) / 0.2),
+0px 16px 16px hsl(var(--shadow-color) / 0.2),
+0px 32px 32px hsl(var(--shadow-color) / 0.2)
+
+xl:
+0px 2px 2px hsl(var(--shadow-color) / 0.2),
+0px 4px 4px hsl(var(--shadow-color) / 0.2),
+0px 8px 8px hsl(var(--shadow-color) / 0.2),
+0px 16px 16px hsl(var(--shadow-color) / 0.2),
+0px 32px 32px hsl(var(--shadow-color) / 0.2),
+0px 48px 48px hsl(var(--shadow-color) / 0.2),
+0px 64px 64px hsl(var(--shadow-color) / 0.2)
 </code></pre>
+<p><strong>Default colors:</strong></p>
+<pre><code class="language-javascript">{
+    grey: &quot;0deg 0% 50%&quot;,
+    success: &quot;142deg 77% 73%&quot;,
+    warning: &quot;46deg 97% 65%&quot;,
+    danger: &quot;0deg 94% 82%&quot;,
+}
+</code></pre>
+<blockquote>
+<p><strong>Note</strong>: colors use HSL values.</p>
+</blockquote>
 <p><strong>Output:</strong></p>
-<pre><code class="language-css">.shadow-xs{
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05);
+<pre><code class="language-css">.shadow-grey-sm {
+    box-shadow: 0px 1px 2px hsl(0deg 0% 50% / 0.7);
 }
 </code></pre>
 
