@@ -52,3 +52,5 @@ xl:
     box-shadow: 0px 1px 2px hsl(0deg 0% 50% / 0.7);
 }
 ```
+
+Box shadow design based on [this blog post](https://www.joshwcomeau.com/css/designing-shadows/) by Joshua Comeau. For help creating your own custom shadow sizes checkout [this box shadow generator](https://shadows.brumm.af/) or [this one](https://www.joshwcomeau.com/shadow-palette/).
