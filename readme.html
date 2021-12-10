@@ -79,7 +79,7 @@
 <pre><code class="language-sh">npm run brixi
 </code></pre>
 <p>Or use the CDN version:</p>
-<pre><code class="language-html">&lt;link href=&quot;https://unpkg.com/brixi@^0.5/brixi.min.css&quot; rel=&quot;stylesheet&quot;&gt;
+<pre><code class="language-html">&lt;link href=&quot;https://unpkg.com/brixi@^0.6/brixi.min.css&quot; rel=&quot;stylesheet&quot; /&gt;
 </code></pre>
 <h2 id="configuration">Configuration</h2>
 <p>Below is the default config file. Any value can be overridden by adding a <code>brixi.config.js</code> file to your project&#39;s root directory.</p>
@@ -111,7 +111,7 @@
     fonts: {
         units: &quot;rem&quot;,
         families: {
-            base: &quot;system-ui, -apple-system, BlinkMacSystemFont, &#39;Segoe UI&#39;, Roboto, Oxygen, Ubuntu, Cantarell, &#39;Open Sans&#39;, &#39;Helvetica Neue&#39;, sans-serif&quot;,
+            &quot;sans-serif&quot;: &quot;system-ui, -apple-system, BlinkMacSystemFont, &#39;Segoe UI&#39;, Roboto, Oxygen, Ubuntu, Cantarell, &#39;Open Sans&#39;, &#39;Helvetica Neue&#39;, sans-serif&quot;,
             serif: &quot;Georgia, Cambria, &#39;Times New Roman&#39;, Times, serif&quot;,
             mono: &quot;Menlo, Monaco, Consolas, &#39;Liberation Mono&#39;, &#39;Courier New&#39;, monospace&quot;,
         },
@@ -133,8 +133,9 @@
             md: 1.125,
             lg: 1.25,
             xl: 1.5,
-            &quot;2xl&quot;: 1.875,
-            &quot;3xl&quot;: 2.25,
+            &quot;2xl&quot;: 2,
+            &quot;3xl&quot;: 3,
+            &quot;4xl&quot;: 4,
         },
     },
     colors: {
@@ -308,7 +309,7 @@
             800: &quot;#155E75&quot;,
             900: &quot;#164E63&quot;,
         },
-        &quot;light-blue&quot;: {
+        sky: {
             50: &quot;#F0F9FF&quot;,
             100: &quot;#E0F2FE&quot;,
             200: &quot;#BAE6FD&quot;,
@@ -463,23 +464,48 @@
         radius: [0.125, 0.25, 0.5],
     },
     shadows: {
-        xs: &quot;0 0 0 1px rgba(0, 0, 0, 0.05)&quot;,
-        sm: &quot;0 1px 2px 0 rgba(0, 0, 0, 0.05)&quot;,
-        md: &quot;0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)&quot;,
-        lg: &quot;0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)&quot;,
-        xl: &quot;0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)&quot;,
-        &quot;2xl&quot;: &quot;0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)&quot;,
-        &quot;3xl&quot;: &quot;0 25px 50px -12px rgba(0, 0, 0, 0.25)&quot;,
+        colors: {
+            grey: &quot;0deg 0% 50%&quot;,
+            success: &quot;142deg 77% 73%&quot;,
+            warning: &quot;46deg 97% 65%&quot;,
+            danger: &quot;0deg 94% 82%&quot;,
+        },
+        sizes: {
+            sm: `
+                0px 1px 2px hsl(var(--shadow-color) / 0.7)
+            `,
+            md: `
+                0px 2px 2px hsl(var(--shadow-color) / 0.333),
+                0px 4px 4px hsl(var(--shadow-color) / 0.333),
+                0px 6px 6px hsl(var(--shadow-color) / 0.333)
+            `,
+            lg: `
+                0px 2px 2px hsl(var(--shadow-color) / 0.2),
+                0px 4px 4px hsl(var(--shadow-color) / 0.2),
+                0px 8px 8px hsl(var(--shadow-color) / 0.2),
+                0px 16px 16px hsl(var(--shadow-color) / 0.2),
+                0px 32px 32px hsl(var(--shadow-color) / 0.2)
+            `,
+            xl: `
+                0px 2px 2px hsl(var(--shadow-color) / 0.2),
+                0px 4px 4px hsl(var(--shadow-color) / 0.2),
+                0px 8px 8px hsl(var(--shadow-color) / 0.2),
+                0px 16px 16px hsl(var(--shadow-color) / 0.2),
+                0px 32px 32px hsl(var(--shadow-color) / 0.2),
+                0px 48px 48px hsl(var(--shadow-color) / 0.2),
+                0px 64px 64px hsl(var(--shadow-color) / 0.2)
+            `,
+        },
     },
     containers: {
         units: &quot;px&quot;,
         screens: {
-            &quot;411&quot;: 411,
-            &quot;768&quot;: 768,
-            &quot;1024&quot;: 1024,
-            &quot;1280&quot;: 1280,
-            &quot;1920&quot;: 1920,
-            &quot;3840&quot;: 3840,
+            411: 411,
+            768: 768,
+            1024: 1024,
+            1280: 1280,
+            1920: 1920,
+            3840: 3840,
         },
         columns: [2, 3, 4],
     },
@@ -495,6 +521,8 @@
     themes: {},
 };
 </code></pre>
+<h2 id="license">License</h2>
+<p>MIT Licensed. Default colors from <a href="https://tailwindcss.com/">Tailwind CSS</a>. Shadows based on <a href="https://www.joshwcomeau.com/css/designing-shadows/">this blog post</a> by Joshua Comeau.</p>
 
         </static-doc-view>
         <static-subnav-component></static-subnav-component>
