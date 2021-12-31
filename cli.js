@@ -158,6 +158,11 @@ class Brixi {
             if (customConfig?.themes) {
                 this.config.themes = Object.assign(this.config.themes, customConfig.themes);
             }
+
+            // Customer classes
+            if (customConfig?.classes) {
+                this.config.classes = customConfig.classes;
+            }
         }
 
         this.config.outDir = path.resolve(cwd, this.config.outDir);
@@ -695,6 +700,29 @@ class Brixi {
         });
     }
 
+    generateCustomClasses() {
+        return new Promise((resolve, reject) => {
+            let data = "";
+
+            for (const [className, css] of Object.entries(this.config.classes)) {
+                if (typeof css === "string") {
+                    data += `.${className.trim().replace(/\./g, "\\.").replace(/\//g, "\\/")}{\n}`;
+                    data += `${css.replace(/\;$/, "")};\n`;
+                    data += "}\n";
+                }
+            }
+
+            fs.writeFile(
+                path.join(this.temp, "custom.css", data, (error) => {
+                    if (error) {
+                        reject(error);
+                    }
+                    resolve();
+                })
+            );
+        });
+    }
+
     generateGrid() {
         return new Promise((resolve, reject) => {
             let data = "";
@@ -855,6 +883,8 @@ class Brixi {
             if (this.config.features.display) {
                 await this.copyFile("display");
             }
+
+            await this.generateCustomClasses();
 
             await this.copyCSS();
 
