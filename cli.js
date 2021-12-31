@@ -529,6 +529,9 @@ class Brixi {
                 data += "}\n";
             }
 
+            /** Inject custom 50% border radius */
+            data += ".radius-circle{\n\tborder-radius: 50%;\n}\n";
+
             fs.writeFile(path.join(this.temp, `borders.css`), data, (error) => {
                 if (error) {
                     reject(error);
