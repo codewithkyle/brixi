@@ -712,14 +712,12 @@ class Brixi {
                 }
             }
 
-            fs.writeFile(
-                path.join(this.temp, "custom.css", data, (error) => {
-                    if (error) {
-                        reject(error);
-                    }
-                    resolve();
-                })
-            );
+            fs.writeFile(path.join(this.temp, "custom.css"), data, (error) => {
+                if (error) {
+                    reject(error);
+                }
+                resolve();
+            });
         });
     }
 
@@ -884,7 +882,9 @@ class Brixi {
                 await this.copyFile("display");
             }
 
-            await this.generateCustomClasses();
+            if (Object.keys(this.config.classes).length) {
+                await this.generateCustomClasses();
+            }
 
             await this.copyCSS();
 
