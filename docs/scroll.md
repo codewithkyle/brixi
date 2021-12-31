@@ -3,34 +3,34 @@
 ## Overflow
 
 ```css
-.scroll{
+.scroll {
     overflow: scroll;
 }
-.scroll-x{
+.scroll-x {
     overflow-x: scroll;
 }
-.scroll-y{
+.scroll-y {
     overflow-y: scroll;
 }
-.no-scroll{
-    overflow: none;
+.no-scroll {
+    overflow: hidden;
 }
-.no-scroll-x{
+.no-scroll-x {
     overflow-x: hidden;
 }
-.no-scroll-y{
+.no-scroll-y {
     overflow-y: hidden;
 }
-.scroll-smooth{
+.scroll-smooth {
     scroll-behavior: smooth;
 }
-.scroll-auto{
+.scroll-auto {
     overflow: auto;
 }
-.scroll-x-auto{
+.scroll-x-auto {
     overflow-x: auto;
 }
-.scroll-y-auto{
+.scroll-y-auto {
     overflow-y: auto;
 }
 ```
@@ -38,19 +38,19 @@
 ## Scroll Snapping
 
 ```css
-.snap-y{
+.snap-y {
     scroll-snap-type: y mandatory;
 }
-.snap-x{
+.snap-x {
     scroll-snap-type: x mandatory;
 }
-.snap-start{
+.snap-start {
     scroll-snap-align: start;
 }
-.snap-center{
+.snap-center {
     scroll-snap-align: center;
 }
-.snap-end{
+.snap-end {
     scroll-snap-align: end;
 }
 ```
@@ -58,13 +58,13 @@
 ## Overscroll
 
 ```css
-.overscroll-auto{
-    overscroll-behavior: auto;   
+.overscroll-auto {
+    overscroll-behavior: auto;
 }
-.overscroll-contain{
+.overscroll-contain {
     overscroll-behavior: contain;
 }
-.overscroll-none{
+.overscroll-none {
     overscroll-behavior: none;
 }
 ```

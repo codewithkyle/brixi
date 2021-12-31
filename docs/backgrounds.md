@@ -1,6 +1,7 @@
 # Background Colors
 
 **Format:**
+
 ```bash
 .bg-{name}
 .bg-{name}-{shade}
@@ -10,15 +11,11 @@
 
 **Defaults:** see [Colors](https://github.com/codewithkyle/brixi/wiki/Colors)
 
-**Output:**
-```css
-.bg-white{
-    background-color: var(--white);
-}
-.bg-black{
-    background-color: var(--black);
-}
-.bg-primary-100{
-    background-color: var(--primary-100);
-}
+**Examples:**
+
+```html
+<div class="bg-white">
+    <div class="bg-grey-50"></div>
+    <div class="bg-primary-500"></div>
+</div>
 ```

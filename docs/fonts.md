@@ -7,8 +7,9 @@
 **CSS:** `font-family`
 
 **Defaults:**
+
 ```bash
-base: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"
+sans-serif: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"
 serif: "Georgia, Cambria, 'Times New Roman', Times, serif"
 mono: "Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace"
 ```
@@ -20,6 +21,7 @@ mono: "Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace"
 **CSS:** `font-weight`
 
 **Defaults:**
+
 ```bash
 hairline: 100
 thin: 200
@@ -39,6 +41,7 @@ black: 900
 **CSS:** `font-size`
 
 **Defaults:**
+
 ```bash
 xs: 0.75
 sm: 0.875
@@ -53,6 +56,7 @@ xl: 1.5
 ## Colors
 
 **Format:**
+
 ```bash
 .font-{name};
 .font-{name}-{shade};
@@ -60,4 +64,4 @@ xl: 1.5
 
 **CSS:** `color`
 
-**Defaults:** see [Colors](https://github.com/codewithkyle/brixi/wiki/Colors)
+**Defaults:** see [Colors](/colors)
