@@ -64,7 +64,7 @@
     <main>
         
         <static-navigation-component>
-            <a class="" href="/readme" data-slug="readme">readme</a><a class="" href="/alignment" data-slug="alignment">alignment</a><a class="" href="/aspect-ratios" data-slug="aspect-ratios">aspect ratios</a><a class="" href="/backgrounds" data-slug="backgrounds">backgrounds</a><a class="" href="/borders" data-slug="borders">borders</a><a class="" href="/box-shadows" data-slug="box-shadows">box shadows</a><a class="" href="/colors" data-slug="colors">colors</a><a class="" href="/containers" data-slug="containers">containers</a><a class="" href="/css-variables" data-slug="css-variables">css variables</a><a class="" href="/cursor" data-slug="cursor">cursor</a><a class="" href="/display" data-slug="display">display</a><a class="" href="/flexbox" data-slug="flexbox">flexbox</a><a class="" href="/fonts" data-slug="fonts">fonts</a><a class="" href="/grid" data-slug="grid">grid</a><a class="" href="/line-height" data-slug="line-height">line height</a><a class="is-active" href="/margins" data-slug="margins">margins</a><a class="" href="/padding" data-slug="padding">padding</a><a class="" href="/positions" data-slug="positions">positions</a><a class="" href="/scroll" data-slug="scroll">scroll</a><a class="" href="/text-transform" data-slug="text-transform">text transform</a><a class="" href="/themes" data-slug="themes">themes</a><a class="" href="/whitespace" data-slug="whitespace">whitespace</a>
+            <a class="" href="/readme" data-slug="readme">readme</a><a class="" href="/alignment" data-slug="alignment">alignment</a><a class="" href="/aspect-ratios" data-slug="aspect-ratios">aspect ratios</a><a class="" href="/backgrounds" data-slug="backgrounds">backgrounds</a><a class="" href="/borders" data-slug="borders">borders</a><a class="" href="/box-shadows" data-slug="box-shadows">box shadows</a><a class="" href="/colors" data-slug="colors">colors</a><a class="" href="/containers" data-slug="containers">containers</a><a class="" href="/cursor" data-slug="cursor">cursor</a><a class="" href="/custom-classes" data-slug="custom-classes">custom classes</a><a class="" href="/display" data-slug="display">display</a><a class="" href="/flexbox" data-slug="flexbox">flexbox</a><a class="" href="/fonts" data-slug="fonts">fonts</a><a class="" href="/grid" data-slug="grid">grid</a><a class="" href="/line-height" data-slug="line-height">line height</a><a class="is-active" href="/margins" data-slug="margins">margins</a><a class="" href="/padding" data-slug="padding">padding</a><a class="" href="/positions" data-slug="positions">positions</a><a class="" href="/scroll" data-slug="scroll">scroll</a><a class="" href="/text-transform" data-slug="text-transform">text transform</a><a class="" href="/themes" data-slug="themes">themes</a><a class="" href="/variables" data-slug="variables">variables</a><a class="" href="/whitespace" data-slug="whitespace">whitespace</a>
         </static-navigation-component>
     
         <static-doc-view>
@@ -73,20 +73,22 @@
 <pre><code class="language-bash">.m-{size}
 .m{side}-{size}
 </code></pre>
-<p><strong>CSS:</strong> <code>margin, margin-top, margin-right, margin-bottom, margin-left</code></p>
+<p><strong>CSS:</strong> <code>margin</code>, <code>margin-top</code>, <code>margin-right</code>, <code>margin-bottom</code>, <code>margin-left</code></p>
 <p><strong>Defaults:</strong></p>
 <pre><code class="language-bash">margins: [0, 0.125, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 3, 4, 5, 6]
 </code></pre>
-<p><strong>Output:</strong></p>
-<pre><code class="language-css">.m-2{
-    margin: 2rem;
-}
-.mr-1{
-    margin-right: 1rem;
-}
-.ml-0.25{
-    margin-left: 0.25rem;
-}
+<p><strong>Examples:</strong></p>
+<pre><code class="language-html">&lt;div class=&quot;m-1&quot;&gt;
+    &lt;!-- ...snip... --&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;mx-1 my-1&quot;&gt;
+    &lt;!-- ...snip... --&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;ml-1 mt-1 mr-1 mb-1&quot;&gt;
+    &lt;!-- ...snip... --&gt;
+&lt;/div&gt;
 </code></pre>
 
         </static-doc-view>

@@ -64,7 +64,7 @@
     <main>
         
         <static-navigation-component>
-            <a class="" href="/readme" data-slug="readme">readme</a><a class="" href="/alignment" data-slug="alignment">alignment</a><a class="" href="/aspect-ratios" data-slug="aspect-ratios">aspect ratios</a><a class="" href="/backgrounds" data-slug="backgrounds">backgrounds</a><a class="is-active" href="/borders" data-slug="borders">borders</a><a class="" href="/box-shadows" data-slug="box-shadows">box shadows</a><a class="" href="/colors" data-slug="colors">colors</a><a class="" href="/containers" data-slug="containers">containers</a><a class="" href="/css-variables" data-slug="css-variables">css variables</a><a class="" href="/cursor" data-slug="cursor">cursor</a><a class="" href="/display" data-slug="display">display</a><a class="" href="/flexbox" data-slug="flexbox">flexbox</a><a class="" href="/fonts" data-slug="fonts">fonts</a><a class="" href="/grid" data-slug="grid">grid</a><a class="" href="/line-height" data-slug="line-height">line height</a><a class="" href="/margins" data-slug="margins">margins</a><a class="" href="/padding" data-slug="padding">padding</a><a class="" href="/positions" data-slug="positions">positions</a><a class="" href="/scroll" data-slug="scroll">scroll</a><a class="" href="/text-transform" data-slug="text-transform">text transform</a><a class="" href="/themes" data-slug="themes">themes</a><a class="" href="/whitespace" data-slug="whitespace">whitespace</a>
+            <a class="" href="/readme" data-slug="readme">readme</a><a class="" href="/alignment" data-slug="alignment">alignment</a><a class="" href="/aspect-ratios" data-slug="aspect-ratios">aspect ratios</a><a class="" href="/backgrounds" data-slug="backgrounds">backgrounds</a><a class="is-active" href="/borders" data-slug="borders">borders</a><a class="" href="/box-shadows" data-slug="box-shadows">box shadows</a><a class="" href="/colors" data-slug="colors">colors</a><a class="" href="/containers" data-slug="containers">containers</a><a class="" href="/cursor" data-slug="cursor">cursor</a><a class="" href="/custom-classes" data-slug="custom-classes">custom classes</a><a class="" href="/display" data-slug="display">display</a><a class="" href="/flexbox" data-slug="flexbox">flexbox</a><a class="" href="/fonts" data-slug="fonts">fonts</a><a class="" href="/grid" data-slug="grid">grid</a><a class="" href="/line-height" data-slug="line-height">line height</a><a class="" href="/margins" data-slug="margins">margins</a><a class="" href="/padding" data-slug="padding">padding</a><a class="" href="/positions" data-slug="positions">positions</a><a class="" href="/scroll" data-slug="scroll">scroll</a><a class="" href="/text-transform" data-slug="text-transform">text transform</a><a class="" href="/themes" data-slug="themes">themes</a><a class="" href="/variables" data-slug="variables">variables</a><a class="" href="/whitespace" data-slug="whitespace">whitespace</a>
         </static-navigation-component>
     
         <static-doc-view>
@@ -74,34 +74,18 @@
 <pre><code class="language-bash">.border-{size}
 .border-{side}-{size}
 </code></pre>
-<p><strong>CSS:</strong> <code>border-width, border-top-width, border-right-width, border-bottom-width, border-left-width</code></p>
+<p><strong>CSS:</strong> <code>border-width</code>, <code>border-top-width</code>, <code>border-right-width</code>, <code>border-bottom-width</code>, <code>border-left-width</code></p>
 <p><strong>Defaults:</strong></p>
 <pre><code class="language-bash">widths: [0, 1, 2]
-</code></pre>
-<p><strong>Output:</strong></p>
-<pre><code class="language-css">.border-2{
-    border-width: 2px;
-}
-.border-r-1{
-    border-right-width: 1px;
-}
 </code></pre>
 <h2 id="styles">Styles</h2>
 <p><strong>Format:</strong></p>
 <pre><code class="language-bash">.border-{style}
 .border-{side}-{style}
 </code></pre>
-<p><strong>CSS:</strong> <code>border-style, border-top-style, border-right-style, border-bottom-style, border-left-style</code></p>
+<p><strong>CSS:</strong> <code>border-style</code>, <code>border-top-style</code>, <code>border-right-style</code>, <code>border-bottom-style</code>, <code>border-left-style</code></p>
 <p><strong>Defaults:</strong></p>
 <pre><code class="language-bash">styles: [&quot;solid&quot;, &quot;dashed&quot;, &quot;dotted&quot;]
-</code></pre>
-<p><strong>Output:</strong></p>
-<pre><code class="language-css">.border-dashed{
-    border-style: dashed;
-}
-.border-r-solid{
-    border-right-style: solid;
-}
 </code></pre>
 <h2 id="colors">Colors</h2>
 <p><strong>Format:</strong></p>
@@ -110,29 +94,22 @@
 .border-{side}-{color}
 .border-{side}-{color}-{shade}
 </code></pre>
-<p><strong>CSS:</strong> <code>border-color, border-top-color, border-right-color, border-bottom-color, border-left-color</code></p>
+<p><strong>CSS:</strong> <code>border-color</code>, <code>border-top-color</code>, <code>border-right-color</code>, <code>border-bottom-color</code>, <code>border-left-color</code></p>
 <p><strong>Defaults:</strong> see <a href="https://github.com/codewithkyle/brixi/wiki/Colors">Colors</a></p>
-<p><strong>Output:</strong></p>
-<pre><code class="language-css">.border-black{
-    border-color: var(--black);
-}
-.border-grey-300{
-    border-color: var(--grey-300);
-}
-.border-r-primary-300{
-    border-right-color: var(--primary-300);
-}
-</code></pre>
 <h2 id="radius">Radius</h2>
 <p><strong>Format:</strong> <code>.radius-{size}</code></p>
 <p><strong>CSS:</strong> <code>border-radius</code></p>
 <p><strong>Defaults:</strong></p>
 <pre><code class="language-bash">radius: [0.125, 0.25, 0.5]
 </code></pre>
-<p><strong>Output:</strong></p>
-<pre><code class="language-css">.radius-0.25{
-    border-radius: 0.25rem;
-}
+<h2 id="examples">Examples</h2>
+<pre><code class="language-html">&lt;div class=&quot;border-1 border-solid border-grey-200&quot;&gt;
+    &lt;!-- ...snip... --&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;border-t-1 border-t-solid border-t-grey-200&quot;&gt;
+    &lt;!-- ...snip... --&gt;
+&lt;/div&gt;
 </code></pre>
 
         </static-doc-view>

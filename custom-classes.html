@@ -64,31 +64,19 @@
     <main>
         
         <static-navigation-component>
-            <a class="" href="/readme" data-slug="readme">readme</a><a class="" href="/alignment" data-slug="alignment">alignment</a><a class="" href="/aspect-ratios" data-slug="aspect-ratios">aspect ratios</a><a class="" href="/backgrounds" data-slug="backgrounds">backgrounds</a><a class="" href="/borders" data-slug="borders">borders</a><a class="" href="/box-shadows" data-slug="box-shadows">box shadows</a><a class="" href="/colors" data-slug="colors">colors</a><a class="" href="/containers" data-slug="containers">containers</a><a class="" href="/cursor" data-slug="cursor">cursor</a><a class="" href="/custom-classes" data-slug="custom-classes">custom classes</a><a class="" href="/display" data-slug="display">display</a><a class="" href="/flexbox" data-slug="flexbox">flexbox</a><a class="" href="/fonts" data-slug="fonts">fonts</a><a class="" href="/grid" data-slug="grid">grid</a><a class="" href="/line-height" data-slug="line-height">line height</a><a class="" href="/margins" data-slug="margins">margins</a><a class="is-active" href="/padding" data-slug="padding">padding</a><a class="" href="/positions" data-slug="positions">positions</a><a class="" href="/scroll" data-slug="scroll">scroll</a><a class="" href="/text-transform" data-slug="text-transform">text transform</a><a class="" href="/themes" data-slug="themes">themes</a><a class="" href="/variables" data-slug="variables">variables</a><a class="" href="/whitespace" data-slug="whitespace">whitespace</a>
+            <a class="" href="/readme" data-slug="readme">readme</a><a class="" href="/alignment" data-slug="alignment">alignment</a><a class="" href="/aspect-ratios" data-slug="aspect-ratios">aspect ratios</a><a class="" href="/backgrounds" data-slug="backgrounds">backgrounds</a><a class="" href="/borders" data-slug="borders">borders</a><a class="" href="/box-shadows" data-slug="box-shadows">box shadows</a><a class="" href="/colors" data-slug="colors">colors</a><a class="" href="/containers" data-slug="containers">containers</a><a class="" href="/cursor" data-slug="cursor">cursor</a><a class="is-active" href="/custom-classes" data-slug="custom-classes">custom classes</a><a class="" href="/display" data-slug="display">display</a><a class="" href="/flexbox" data-slug="flexbox">flexbox</a><a class="" href="/fonts" data-slug="fonts">fonts</a><a class="" href="/grid" data-slug="grid">grid</a><a class="" href="/line-height" data-slug="line-height">line height</a><a class="" href="/margins" data-slug="margins">margins</a><a class="" href="/padding" data-slug="padding">padding</a><a class="" href="/positions" data-slug="positions">positions</a><a class="" href="/scroll" data-slug="scroll">scroll</a><a class="" href="/text-transform" data-slug="text-transform">text transform</a><a class="" href="/themes" data-slug="themes">themes</a><a class="" href="/variables" data-slug="variables">variables</a><a class="" href="/whitespace" data-slug="whitespace">whitespace</a>
         </static-navigation-component>
     
         <static-doc-view>
-            <h1 id="padding">Padding</h1>
-<p><strong>Format:</strong></p>
-<pre><code class="language-bash">.p-{size}
-.p{side}-{size}
+            <h1 id="custom-classes">Custom Classes</h1>
+<p>You can create custom classes by using the <code>classes</code> section of the Brixi config file. In the example below a custom <code>flex-1</code> class will be generated and injected into the Brixi CSS output.</p>
+<pre><code class="language-javascript">{
+    &quot;flex-1&quot;: &quot;flex: 1;&quot;
+}
 </code></pre>
-<p><strong>CSS:</strong> <code>padding</code>, <code>padding-top</code>, <code>padding-right</code>, <code>padding-bottom</code>, <code>padding-left</code></p>
-<p><strong>Defaults:</strong></p>
-<pre><code class="language-bash">padding: [0, 0.125, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 3, 4, 5, 6]
-</code></pre>
-<p><strong>Examples:</strong></p>
-<pre><code class="language-html">&lt;div class=&quot;p-1&quot;&gt;
-    &lt;!-- ...snip... --&gt;
-&lt;/div&gt;
-
-&lt;div class=&quot;px-1 py-1&quot;&gt;
-    &lt;!-- ...snip... --&gt;
-&lt;/div&gt;
-
-&lt;div class=&quot;pl-1 pt-1 pr-1 pb-1&quot;&gt;
-    &lt;!-- ...snip... --&gt;
-&lt;/div&gt;
+<pre><code class="language-css">.flex-1 {
+    flex: 1;
+}
 </code></pre>
 
         </static-doc-view>
