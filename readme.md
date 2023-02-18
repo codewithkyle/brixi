@@ -2,6 +2,8 @@
 
 A lightweight (1.3kb) highly configurable utility-first CSS framework.
 
+> **Note**: the lightweight size above is the minimum configuration (variables only). The maximum size is ~13kb. Most projects will be ~5kb after removing undesired colors and features.
+
 ## Installation
 
 Install the npm package
@@ -32,6 +34,8 @@ Or use the CDN version:
 
 Below is the default config file. Any value can be overridden by adding a `brixi.config.js` file to your project's root directory.
 
+> **Note**: the config below has all features disabled by default. We recommend using this opt-in pattern to keep the bundle size small.
+
 ```javascript
 module.exports = {
     outDir: "./brixi",
@@ -39,24 +43,24 @@ module.exports = {
     output: "production",
     baseUnit: "rem",
     features: {
-        aspectRatios: true,
-        borders: true,
-        containers: true,
-        cursors: true,
-        flexbox: true,
-        fonts: true,
-        grid: true,
-        lineHeight: true,
-        margin: true,
-        padding: true,
-        scroll: true,
-        shadows: true,
-        positions: true,
-        backgrounds: true,
-        alignment: true,
-        whitespace: true,
-        textTransforms: true,
-        display: true,
+        aspectRatios: false,
+        borders: false,
+        containers: false,
+        cursors: false,
+        flexbox: false,
+        fonts: false,
+        grid: false,
+        lineHeight: false,
+        margin: false,
+        padding: false,
+        scroll: false,
+        shadows: false,
+        positions: false,
+        backgrounds: false,
+        alignment: false,
+        whitespace: false,
+        textTransforms: false,
+        display: false,
     },
     fonts: {
         units: "rem",
