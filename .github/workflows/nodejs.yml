@@ -13,7 +13,7 @@ jobs:
             - name: Setup Node and NPM
               uses: actions/setup-node@v3
               with:
-                  node-version: 18.0.0
+                  node-version: 16.0.0
 
             - name: Install NPM Packages
               run: npm ci
