@@ -7,6 +7,7 @@ const semver = require("semver");
 const yargs = require("yargs").argv;
 const minify = require("minify");
 const ora = require("ora");
+var convert = require('color-convert');
 
 const cwd = process.cwd();
 const defaultConfig = require("./config.js");
@@ -223,9 +224,17 @@ class Brixi {
                 if (typeof values === "object") {
                     for (const [shade, value] of Object.entries(values)) {
                         data += `\t--${name}-${shade}: ${value};\n`;
+                        const rgb = convert.hex.rgb(value);
+                        data += `\t--${name}-${shade}-rgb: ${rgb[0]}, ${rgb[1]}, ${rgb[2]};\n`;
+                        const hsl = convert.hex.hsl(value);
+                        data += `\t--${name}-${shade}-hsl: ${hsl[0]} ${hsl[1]}% ${hsl[2]}%;\n`;
                     }
                 } else {
                     data += `\t--${name}: ${values};\n`;
+                    const rgb = convert.hex.rgb(values);
+                    data += `\t--${name}-rgb: ${rgb[0]}, ${rgb[1]}, ${rgb[2]};\n`;
+                    const hsl = convert.hex.hsl(values);
+                    data += `\t--${name}-hsl: ${hsl[0]} ${hsl[1]}% ${hsl[2]}%;\n`;
                 }
 
                 data += "\n";
