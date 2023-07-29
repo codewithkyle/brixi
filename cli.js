@@ -805,11 +805,11 @@ class Brixi {
         try {
             /** Setup */
             if (fs.existsSync(this.temp)) {
-                fs.rmdirSync(this.temp, { recursive: true });
+                fs.rmSync(this.temp, { recursive: true });
             }
             fs.mkdirSync(this.temp);
             if (fs.existsSync(this.output)) {
-                fs.rmdirSync(this.output, { recursive: true });
+                fs.rmSync(this.output, { recursive: true });
             }
             fs.mkdirSync(this.output);
             fs.mkdirSync(path.join(this.output, "src"));
@@ -902,24 +902,24 @@ class Brixi {
             }
 
             if (fs.existsSync(this.config.outDir)) {
-                fs.rmdirSync(this.config.outDir, { recursive: true });
+                fs.rmSync(this.config.outDir, { recursive: true });
             }
 
             if (this.config.output === "production") {
                 const prodCSS = await this.minifyCSS();
                 fs.writeFileSync(path.join(this.output, "brixi.css"), prodCSS);
-                fs.rmdirSync(path.join(this.output, "src"), { recursive: true });
+                fs.rmSync(path.join(this.output, "src"), { recursive: true });
             } else {
                 const sourceFiles = glob.sync(`${this.output}/src/*.css`);
                 for (let i = 0; i < sourceFiles.length; i++) {
                     const filename = sourceFiles[i].replace(/.*[\\\/]/, "");
                     fs.renameSync(sourceFiles[i], path.join(this.output, filename));
                 }
-                fs.rmdirSync(path.join(this.output, "src"));
+                fs.rmSync(path.join(this.output, "src"));
             }
 
             fs.renameSync(this.output, this.config.outDir);
-            fs.rmdirSync(this.temp, { recursive: true });
+            fs.rmSync(this.temp, { recursive: true });
 
             this.spinner.succeed();
             process.exit(0);
