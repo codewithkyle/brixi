@@ -27,7 +27,7 @@ npm run brixi
 Or use the CDN version:
 
 ```html
-<link href="https://unpkg.com/brixi@^0.6/brixi.min.css" rel="stylesheet" />
+<link href="https://unpkg.com/brixi@^0.7/brixi.min.css" rel="stylesheet" />
 ```
 
 ## Configuration
