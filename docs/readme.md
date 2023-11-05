@@ -1,6 +1,6 @@
 # Brixi
 
-A lightweight (1.3kb) highly configurable utility-first CSS framework.
+A lightweight highly configurable utility-first CSS framework.
 
 ## Installation
 
