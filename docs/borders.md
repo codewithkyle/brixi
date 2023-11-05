@@ -43,11 +43,17 @@ styles: ["solid", "dashed", "dotted"]
 .border-{color}-{shade}
 .border-{side}-{color}
 .border-{side}-{color}-{shade}
+
+# Transparency
+.border-{color}/{opacity}
+.border-{color}-{shade}/{opacity}
+.border-{side}-{color}/{opacity}
+.border-{side}-{color}-{shade}/{opacity}
 ```
 
 **CSS:** `border-color`, `border-top-color`, `border-right-color`, `border-bottom-color`, `border-left-color`
 
-**Defaults:** see [Colors](https://github.com/codewithkyle/brixi/wiki/Colors)
+**Defaults:** see [Colors](https://brixi.dev/colors)
 
 ## Radius
 

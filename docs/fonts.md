@@ -64,4 +64,4 @@ xl: 1.5
 
 **CSS:** `color`
 
-**Defaults:** see [Colors](/colors)
+**Defaults:** see [Colors](https://brixi.dev/colors)

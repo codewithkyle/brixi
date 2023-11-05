@@ -53,6 +53,7 @@ module.exports = {
         shadows: true,
         positions: true,
         backgrounds: true,
+        transparentBackgrounds: true,
         alignment: true,
         whitespace: true,
         textTransforms: true,
@@ -65,6 +66,7 @@ module.exports = {
         borderRadius: true,
         borderWidths: true,
         borderColors: true,
+        transparentBorderColors: true,
         borderStyles: true,
     },
     fonts: {
@@ -100,7 +102,7 @@ module.exports = {
     colors: {
         white: "#ffffff",
         black: "#000000",
-        "blue-grey": {
+        "slate": {
             50: "#F8FAFC",
             100: "#F1F5F9",
             200: "#E2E8F0",
@@ -111,8 +113,9 @@ module.exports = {
             700: "#334155",
             800: "#1E293B",
             900: "#0F172A",
+            950: "#020617",
         },
-        "cool-grey": {
+        "steel": {
             50: "#F9FAFB",
             100: "#F3F4F6",
             200: "#E5E7EB",
@@ -123,6 +126,7 @@ module.exports = {
             700: "#374151",
             800: "#1F2937",
             900: "#111827",
+            950: "#030712",
         },
         grey: {
             50: "#FAFAFA",
@@ -135,6 +139,7 @@ module.exports = {
             700: "#3F3F46",
             800: "#27272A",
             900: "#18181B",
+            950: "#09090b",
         },
         neutral: {
             50: "#FAFAFA",
@@ -147,8 +152,9 @@ module.exports = {
             700: "#404040",
             800: "#262626",
             900: "#171717",
+            950: "#0a0a0a",
         },
-        "warm-grey": {
+        "stone": {
             50: "#FAFAF9",
             100: "#F5F5F4",
             200: "#E7E5E4",
@@ -159,6 +165,7 @@ module.exports = {
             700: "#44403C",
             800: "#292524",
             900: "#1C1917",
+            950: "#0c0a09",
         },
         red: {
             50: "#FEF2F2",
@@ -171,6 +178,7 @@ module.exports = {
             700: "#B91C1C",
             800: "#991B1B",
             900: "#7F1D1D",
+            950: "#450a0a",
         },
         orange: {
             50: "#FFF7ED",
@@ -183,6 +191,7 @@ module.exports = {
             700: "#C2410C",
             800: "#9A3412",
             900: "#7C2D12",
+            950: "#431407",
         },
         amber: {
             50: "#FFFBEB",
@@ -195,6 +204,7 @@ module.exports = {
             700: "#B45309",
             800: "#92400E",
             900: "#78350F",
+            950: "#451a03",
         },
         yellow: {
             50: "#FEFCE8",
@@ -207,6 +217,7 @@ module.exports = {
             700: "#A16207",
             800: "#854D0E",
             900: "#713F12",
+            950: "#422006",
         },
         lime: {
             50: "#F7FEE7",
@@ -219,6 +230,7 @@ module.exports = {
             700: "#4D7C0F",
             800: "#3F6212",
             900: "#365314",
+            950: "#1a2e05",
         },
         green: {
             50: "#F0FDF4",
@@ -231,6 +243,7 @@ module.exports = {
             700: "#15803D",
             800: "#166534",
             900: "#14532D",
+            950: "#052e16",
         },
         emerald: {
             50: "#ECFDF5",
@@ -243,6 +256,7 @@ module.exports = {
             700: "#047857",
             800: "#065F46",
             900: "#064E3B",
+            950: "#022c22",
         },
         teal: {
             50: "#F0FDFA",
@@ -255,6 +269,7 @@ module.exports = {
             700: "#0F766E",
             800: "#115E59",
             900: "#134E4A",
+            950: "#042f2e",
         },
         cyan: {
             50: "#ECFEFF",
@@ -267,6 +282,7 @@ module.exports = {
             700: "#0E7490",
             800: "#155E75",
             900: "#164E63",
+            950: "#083344",
         },
         sky: {
             50: "#F0F9FF",
@@ -279,6 +295,7 @@ module.exports = {
             700: "#0369A1",
             800: "#075985",
             900: "#0C4A6E",
+            950: "#082f49",
         },
         blue: {
             50: "#EFF6FF",
@@ -291,6 +308,7 @@ module.exports = {
             700: "#1D4ED8",
             800: "#1E40AF",
             900: "#1E3A8A",
+            950: "#172554",
         },
         indigo: {
             50: "#EEF2FF",
@@ -303,6 +321,7 @@ module.exports = {
             700: "#4338CA",
             800: "#3730A3",
             900: "#312E81",
+            950: "#1e1b4b",
         },
         violet: {
             50: "#F5F3FF",
@@ -315,6 +334,7 @@ module.exports = {
             700: "#6D28D9",
             800: "#5B21B6",
             900: "#4C1D95",
+            950: "#2e1065",
         },
         purple: {
             50: "#FAF5FF",
@@ -327,6 +347,7 @@ module.exports = {
             700: "#7E22CE",
             800: "#6B21A8",
             900: "#581C87",
+            950: "#3b0764",
         },
         fuchsia: {
             50: "#FDF4FF",
@@ -339,6 +360,7 @@ module.exports = {
             700: "#A21CAF",
             800: "#86198F",
             900: "#701A75",
+            950: "#4a044e",
         },
         pink: {
             50: "#FDF2F8",
@@ -351,6 +373,7 @@ module.exports = {
             700: "#BE185D",
             800: "#9D174D",
             900: "#831843",
+            950: "#500724",
         },
         rose: {
             50: "#FFF1F2",
@@ -363,54 +386,7 @@ module.exports = {
             700: "#BE123C",
             800: "#9F1239",
             900: "#881337",
-        },
-        primary: {
-            50: "var(--blue-50)",
-            100: "var(--blue-100)",
-            200: "var(--blue-200)",
-            300: "var(--blue-300)",
-            400: "var(--blue-400)",
-            500: "var(--blue-500)",
-            600: "var(--blue-600)",
-            700: "var(--blue-700)",
-            800: "var(--blue-800)",
-            900: "var(--blue-900)",
-        },
-        success: {
-            50: "var(--green-50)",
-            100: "var(--green-100)",
-            200: "var(--green-200)",
-            300: "var(--green-300)",
-            400: "var(--green-400)",
-            500: "var(--green-500)",
-            600: "var(--green-600)",
-            700: "var(--green-700)",
-            800: "var(--green-800)",
-            900: "var(--green-900)",
-        },
-        danger: {
-            50: "var(--red-50)",
-            100: "var(--red-100)",
-            200: "var(--red-200)",
-            300: "var(--red-300)",
-            400: "var(--red-400)",
-            500: "var(--red-500)",
-            600: "var(--red-600)",
-            700: "var(--red-700)",
-            800: "var(--red-800)",
-            900: "var(--red-900)",
-        },
-        warning: {
-            50: "var(--amber-50)",
-            100: "var(--amber-100)",
-            200: "var(--amber-200)",
-            300: "var(--amber-300)",
-            400: "var(--amber-400)",
-            500: "var(--amber-500)",
-            600: "var(--amber-600)",
-            700: "var(--amber-700)",
-            800: "var(--amber-800)",
-            900: "var(--amber-900)",
+            950: "#4c0519",
         },
     },
     margins: [0, 0.125, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 3, 4, 5, 6],
@@ -476,7 +452,7 @@ module.exports = {
     variables: {},
     themes: {},
     classes: {},
-    opacity: [0.05, 0.1, 0.3, 0.6, 0.87],
+    opacity: [0.05, 0.1, 0.15, 0.3, 0.6, 0.87],
     prefixes: {},
 };
 ```

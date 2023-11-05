@@ -8,40 +8,43 @@
 
 ```css
 sm:
-0px 1px 2px hsl(var(--shadow-color) / 0.7)
+0px 1px 3px hsl(var(--shadow-color) / 0.15)
 
 md:
-0px 2px 2px hsl(var(--shadow-color) / 0.333),
-0px 4px 4px hsl(var(--shadow-color) / 0.333),
-0px 6px 6px hsl(var(--shadow-color) / 0.333)
+0px 2px 2px hsl(var(--shadow-color) / 0.05)
+0px 4px 4px hsl(var(--shadow-color) / 0.05)
+0px 8px 8px hsl(var(--shadow-color) / 0.1)
 
 lg:
-0px 2px 2px hsl(var(--shadow-color) / 0.2),
-0px 4px 4px hsl(var(--shadow-color) / 0.2),
-0px 8px 8px hsl(var(--shadow-color) / 0.2),
-0px 16px 16px hsl(var(--shadow-color) / 0.2),
-0px 32px 32px hsl(var(--shadow-color) / 0.2)
+0px 2px 2px hsl(var(--shadow-color) / 0.05)
+0px 4px 4px hsl(var(--shadow-color) / 0.05)
+0px 8px 8px hsl(var(--shadow-color) / 0.05)
+0px 16px 16px hsl(var(--shadow-color) / 0.05)
+0px 32px 32px hsl(var(--shadow-color) / 0.05)
 
 xl:
-0px 2px 2px hsl(var(--shadow-color) / 0.2),
-0px 4px 4px hsl(var(--shadow-color) / 0.2),
-0px 8px 8px hsl(var(--shadow-color) / 0.2),
-0px 16px 16px hsl(var(--shadow-color) / 0.2),
-0px 32px 32px hsl(var(--shadow-color) / 0.2),
-0px 48px 48px hsl(var(--shadow-color) / 0.2),
-0px 64px 64px hsl(var(--shadow-color) / 0.2)
+0px 2px 2px hsl(var(--shadow-color) / 0.05)
+0px 4px 4px hsl(var(--shadow-color) / 0.05)
+0px 8px 8px hsl(var(--shadow-color) / 0.05)
+0px 16px 16px hsl(var(--shadow-color) / 0.05)
+0px 32px 32px hsl(var(--shadow-color) / 0.05)
+0px 48px 48px hsl(var(--shadow-color) / 0.05)
+0px 64px 64px hsl(var(--shadow-color) / 0.05)
 ```
 
 **Default colors:**
 
 ```javascript
 {
-	grey: "0deg 0% 50%",
-	success: "142deg 77% 73%",
-	warning: "46deg 97% 65%",
-	danger: "0deg 94% 82%",
+    black: "0deg 0% 0%",
 }
 ```
+
+colors: {
+},
+sizes: {
+
+},
 
 > **Note**: colors use HSL values.
 
