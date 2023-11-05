@@ -46,7 +46,7 @@
     },
     "scripts": {
         "preview": "serve ./public",
-        "test": "node ./cli.js -c ./demo.config.js && mv ./brixi/brixi.css ./test/brixi.css && serve ./test",
+        "test": "node ./cli.js -c ./config.js",
         "docs": "docs",
         "build": "node ./cli.js && mv ./brixi/brixi.css ./brixi.min.css",
         "predeploy": "docs -o ./public -c ./CNAME",

@@ -164,6 +164,11 @@ class Brixi {
             if (customConfig?.classes) {
                 this.config.classes = customConfig.classes;
             }
+
+            // Opacity
+            if (customConfig?.opacity) {
+                this.config.opacity = customConfig.opacity;
+            }
         }
 
         this.config.outDir = path.resolve(cwd, this.config.outDir);
@@ -730,6 +735,25 @@ class Brixi {
         });
     }
 
+    generateOpacity() {
+        return new Promise((resolve, reject) => {
+            let data = "";
+
+            for (const opacity of this.config.opacity) {
+                data += `.o-${opacity * 100}{\n`;
+                data += `\topacity: ${opacity};\n`;
+                data += "}\n";
+            }
+
+            fs.writeFile(path.join(this.temp, "opacity.css"), data, (error) => {
+                if (error) {
+                    reject(error);
+                }
+                resolve();
+            });
+        });
+    }
+
     generateGrid() {
         return new Promise((resolve, reject) => {
             let data = "";
@@ -895,6 +919,10 @@ class Brixi {
                 await this.generateCustomClasses();
             }
 
+            if (this.config.features.opacity) {
+                await this.generateOpacity();
+            }
+
             await this.copyCSS();
 
             if (this.config.important) {
@@ -915,7 +943,7 @@ class Brixi {
                     const filename = sourceFiles[i].replace(/.*[\\\/]/, "");
                     fs.renameSync(sourceFiles[i], path.join(this.output, filename));
                 }
-                fs.rmSync(path.join(this.output, "src"));
+                fs.rmSync(path.join(this.output, "src"), { recursive: true });
             }
 
             fs.renameSync(this.output, this.config.outDir);

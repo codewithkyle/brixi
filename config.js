@@ -22,6 +22,7 @@ module.exports = {
         whitespace: true,
         textTransforms: true,
         display: true,
+        opacity: true,
     },
     fonts: {
         units: "rem",
@@ -435,4 +436,5 @@ module.exports = {
     variables: {},
     themes: {},
     classes: {},
+    opacity: [0.05, 0.1, 0.3, 0.6, 0.87],
 };
