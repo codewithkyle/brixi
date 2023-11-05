@@ -1,8 +1,6 @@
 # Brixi
 
-A lightweight (1.3kb) highly configurable utility-first CSS framework.
-
-> **Note**: the lightweight size above is the minimum configuration (variables only). The maximum size is ~13kb. Most projects will be ~5kb after removing undesired colors and features.
+A lightweight highly configurable utility-first CSS framework.
 
 ## Installation
 
@@ -27,14 +25,14 @@ npm run brixi
 Or use the CDN version:
 
 ```html
-<link href="https://unpkg.com/brixi@^0.7/brixi.min.css" rel="stylesheet" />
+<link href="https://unpkg.com/brixi@^0.8/brixi.min.css" rel="stylesheet" />
 ```
 
 ## Configuration
 
 Below is the default config file. Any value can be overridden by adding a `brixi.config.js` file to your project's root directory.
 
-> **Note**: the config below has all features disabled by default. We recommend using this opt-in pattern to keep the bundle size small.
+> **Note**: the config below has all features enabled by default. We recommend using a opt-in pattern to keep the bundle size small.
 
 ```javascript
 module.exports = {
@@ -43,24 +41,31 @@ module.exports = {
     output: "production",
     baseUnit: "rem",
     features: {
-        aspectRatios: false,
-        borders: false,
-        containers: false,
-        cursors: false,
-        flexbox: false,
-        fonts: false,
-        grid: false,
-        lineHeight: false,
-        margin: false,
-        padding: false,
-        scroll: false,
-        shadows: false,
-        positions: false,
-        backgrounds: false,
-        alignment: false,
-        whitespace: false,
-        textTransforms: false,
-        display: false,
+        aspectRatios: true,
+        containers: true,
+        cursors: true,
+        flexbox: true,
+        grid: true,
+        lineHeight: true,
+        margin: true,
+        padding: true,
+        scroll: true,
+        shadows: true,
+        positions: true,
+        backgrounds: true,
+        alignment: true,
+        whitespace: true,
+        textTransforms: true,
+        display: true,
+        opacity: true,
+        fontColors: true,
+        fontSizes: true,
+        fontWeights: true,
+        fontFamilies: true,
+        borderRadius: true,
+        borderWidths: true,
+        borderColors: true,
+        borderStyles: true,
     },
     fonts: {
         units: "rem",
@@ -419,47 +424,44 @@ module.exports = {
     },
     shadows: {
         colors: {
-            grey: "0deg 0% 50%",
-            success: "142deg 77% 73%",
-            warning: "46deg 97% 65%",
-            danger: "0deg 94% 82%",
+            black: "0deg 0% 0%",
         },
         sizes: {
             sm: `
-                0px 1px 2px hsl(var(--shadow-color) / 0.7)
+                0px 1px 3px hsl(var(--shadow-color) / 0.15)
             `,
             md: `
-                0px 2px 2px hsl(var(--shadow-color) / 0.333),
-                0px 4px 4px hsl(var(--shadow-color) / 0.333),
-                0px 6px 6px hsl(var(--shadow-color) / 0.333)
+                0px 2px 2px hsl(var(--shadow-color) / 0.05),
+                0px 4px 4px hsl(var(--shadow-color) / 0.05),
+                0px 8px 8px hsl(var(--shadow-color) / 0.1)
             `,
             lg: `
-                0px 2px 2px hsl(var(--shadow-color) / 0.2),
-                0px 4px 4px hsl(var(--shadow-color) / 0.2),
-                0px 8px 8px hsl(var(--shadow-color) / 0.2),
-                0px 16px 16px hsl(var(--shadow-color) / 0.2),
-                0px 32px 32px hsl(var(--shadow-color) / 0.2)
+                0px 2px 2px hsl(var(--shadow-color) / 0.05),
+                0px 4px 4px hsl(var(--shadow-color) / 0.05),
+                0px 8px 8px hsl(var(--shadow-color) / 0.05),
+                0px 16px 16px hsl(var(--shadow-color) / 0.05),
+                0px 32px 32px hsl(var(--shadow-color) / 0.05)
             `,
             xl: `
-                0px 2px 2px hsl(var(--shadow-color) / 0.2),
-                0px 4px 4px hsl(var(--shadow-color) / 0.2),
-                0px 8px 8px hsl(var(--shadow-color) / 0.2),
-                0px 16px 16px hsl(var(--shadow-color) / 0.2),
-                0px 32px 32px hsl(var(--shadow-color) / 0.2),
-                0px 48px 48px hsl(var(--shadow-color) / 0.2),
-                0px 64px 64px hsl(var(--shadow-color) / 0.2)
+                0px 2px 2px hsl(var(--shadow-color) / 0.05),
+                0px 4px 4px hsl(var(--shadow-color) / 0.05),
+                0px 8px 8px hsl(var(--shadow-color) / 0.05),
+                0px 16px 16px hsl(var(--shadow-color) / 0.05),
+                0px 32px 32px hsl(var(--shadow-color) / 0.05),
+                0px 48px 48px hsl(var(--shadow-color) / 0.05),
+                0px 64px 64px hsl(var(--shadow-color) / 0.05)
             `,
         },
     },
     containers: {
         units: "px",
         screens: {
+            320: 320,
             411: 411,
             768: 768,
             1024: 1024,
             1280: 1280,
             1920: 1920,
-            3840: 3840,
         },
         columns: [2, 3, 4],
     },
@@ -474,6 +476,8 @@ module.exports = {
     variables: {},
     themes: {},
     classes: {},
+    opacity: [0.05, 0.1, 0.3, 0.6, 0.87],
+    prefixes: {},
 };
 ```
 

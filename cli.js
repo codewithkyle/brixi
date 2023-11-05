@@ -595,9 +595,21 @@ class Brixi {
                         if (typeof values === "object") {
                             for (const [shade, value] of Object.entries(values)) {
                                 classes[`${borderType[i]}-${name}-${shade}`] = `\t${borderAttrs[i]}-color: var(--${name}-${shade});\n`;
+
+                                if (this.config.features.transparentBorderColors) {
+                                    for (const opacity of this.config.opacity) {
+                                        classes[`${borderType[i]}-${name}-${shade}\\/${opacity * 100}`] = `\t${borderAttrs[i]}-color: hsl(var(--${name}-${shade}-hsl) / ${opacity});\n`;
+                                    }
+                                }
                             }
                         } else {
                             classes[`${borderType[i]}-${name}`] = `\t${borderAttrs[i]}-color: var(--${name});\n`;
+
+                            if (this.config.features.transparentBorderColors) {
+                                for (const opacity of this.config.opacity) {
+                                    classes[`${borderType[i]}-${name}\\/${opacity * 100}`] = `\t${borderAttrs[i]}-color: hsl(var(--${name}-hsl) / ${opacity});\n`;
+                                }
+                            }
                         }
                     }
                 }
@@ -687,13 +699,29 @@ class Brixi {
             let classes = {};
             let mediaRules = {};
 
+            if (this.config.features.transparentBackgrounds) {
+                classes["bg-transparent"] = `\tbackground-color: transparent;\n`;
+            }
+
             for (const [name, values] of Object.entries(this.config.colors)) {
                 if (typeof values === "object") {
                     for (const [shade, value] of Object.entries(values)) {
                         classes[`bg-${name}-${shade}`] = `\tbackground-color: var(--${name}-${shade});\n`;
+
+                        if (this.config.features.transparentBackgrounds) {
+                            for (const opacity of this.config.opacity) {
+                                classes[`bg-${name}-${shade}\\/${opacity * 100}`] = `\tbackground-color: hsl(var(--${name}-${shade}-hsl) / ${opacity});\n`;
+                            }
+                        }
                     }
                 } else {
                     classes[`bg-${name}`] = `\tbackground-color: var(--${name});\n`;
+
+                    if (this.config.features.transparentBackgrounds) {
+                        for (const opacity of this.config.opacity) {
+                            classes[`bg-${name}\\/${opacity * 100}`] = `\tbackground-color: hsl(var(--${name}-hsl) / ${opacity});\n`;
+                        }
+                    }
                 }
             }
 
@@ -719,6 +747,8 @@ class Brixi {
                     classes[`shadow-${color}-${size}`] = `\tbox-shadow: var(--shadow-${color}-${size});\n`;
                 }
             }
+
+            classes["shadow-none"] = "\tbox-shadow: none;\n";
 
             this.processMediaRules(classes, mediaRules, "shadows");
             const data = this.generateCSS(classes, mediaRules);
