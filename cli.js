@@ -504,59 +504,71 @@ class Brixi {
             const borderType = ["border", "border-t", "border-r", "border-b", "border-l"];
 
             /** Border styles */
-            const borders = this.config.borders.styles;
-            for (let i = 0; i < borderType.length; i++) {
-                for (let b = 0; b < borders.length; b++) {
-                    data += `.${borderType[i]}-${borders[b]}{\n`;
-                    data += `\t${borderAttrs[i]}-style: ${borders[b]};\n`;
-                    data += "}\n";
-                }
-            }
-
-            /** Border widths */
-            const widths = this.config.borders.widths;
-            for (let i = 0; i < borderType.length; i++) {
-                for (let b = 0; b < widths.length; b++) {
-                    data += `.${borderType[i]}-${widths[b]}{\n`;
-                    data += `\t${borderAttrs[i]}-width: ${widths[b]}${this.config.borders?.units ?? this.config.baseUnit};\n`;
-                    data += "}\n";
-                }
-            }
-
-            /** Border colors */
-            for (let i = 0; i < borderType.length; i++) {
-                for (const [name, values] of Object.entries(this.config.colors)) {
-                    if (typeof values === "object") {
-                        for (const [shade, value] of Object.entries(values)) {
-                            data += `.${borderType[i]}-${name}-${shade}{\n`;
-                            data += `\t${borderAttrs[i]}-color: var(--${name}-${shade});\n`;
-                            data += "}\n";
-                        }
-                    } else {
-                        data += `.${borderType[i]}-${name}{\n`;
-                        data += `\t${borderAttrs[i]}-color: var(--${name});\n`;
+            if (this.config.features.borderStyles) {
+                const borders = this.config.borders.styles;
+                for (let i = 0; i < borderType.length; i++) {
+                    for (let b = 0; b < borders.length; b++) {
+                        data += `.${borderType[i]}-${borders[b]}{\n`;
+                        data += `\t${borderAttrs[i]}-style: ${borders[b]};\n`;
                         data += "}\n";
                     }
                 }
             }
 
-            /** Border radius */
-            const radius = this.config.borders.radius;
-            for (let b = 0; b < radius.length; b++) {
-                data += `.radius-${radius[b].toString().replace(/(\.)/g, "\\.")}{\n`;
-                data += `\tborder-radius: ${radius[b]}${this.config.baseUnit};\n`;
-                data += "}\n";
+            /** Border widths */
+            if (this.config.features.borderWidths) {
+                const widths = this.config.borders.widths;
+                for (let i = 0; i < borderType.length; i++) {
+                    for (let b = 0; b < widths.length; b++) {
+                        data += `.${borderType[i]}-${widths[b]}{\n`;
+                        data += `\t${borderAttrs[i]}-width: ${widths[b]}${this.config.borders?.units ?? this.config.baseUnit};\n`;
+                        data += "}\n";
+                    }
+                }
             }
 
-            /** Inject custom 50% border radius */
-            data += ".radius-circle{\n\tborder-radius: 50%;\n}\n";
-
-            fs.writeFile(path.join(this.temp, `borders.css`), data, (error) => {
-                if (error) {
-                    reject(error);
+            /** Border colors */
+            if (this.config.features.borderColors) {
+                for (let i = 0; i < borderType.length; i++) {
+                    for (const [name, values] of Object.entries(this.config.colors)) {
+                        if (typeof values === "object") {
+                            for (const [shade, value] of Object.entries(values)) {
+                                data += `.${borderType[i]}-${name}-${shade}{\n`;
+                                data += `\t${borderAttrs[i]}-color: var(--${name}-${shade});\n`;
+                                data += "}\n";
+                            }
+                        } else {
+                            data += `.${borderType[i]}-${name}{\n`;
+                            data += `\t${borderAttrs[i]}-color: var(--${name});\n`;
+                            data += "}\n";
+                        }
+                    }
                 }
+            }
+
+            /** Border radius */
+            if (this.config.features.borderRadius) {
+                const radius = this.config.borders.radius;
+                for (let b = 0; b < radius.length; b++) {
+                    data += `.radius-${radius[b].toString().replace(/(\.)/g, "\\.")}{\n`;
+                    data += `\tborder-radius: ${radius[b]}${this.config.baseUnit};\n`;
+                    data += "}\n";
+                }
+
+                /** Inject custom 50% border radius */
+                data += ".radius-circle{\n\tborder-radius: 50%;\n}\n";
+            }
+
+            if (data.length > 0) {
+                fs.writeFile(path.join(this.temp, `borders.css`), data, (error) => {
+                    if (error) {
+                        reject(error);
+                    }
+                    resolve();
+                });
+            } else {
                 resolve();
-            });
+            }
         });
     }
 
@@ -564,70 +576,56 @@ class Brixi {
         return new Promise((resolve, reject) => {
             let data = "";
 
-            for (const [name, value] of Object.entries(this.config.fonts.families)) {
-                data += `.font-${name}{\n`;
-                data += `\tfont-family: var(--font-${name});\n`;
-                data += "}\n";
-            }
-
-            for (const [name, value] of Object.entries(this.config.fonts.weights)) {
-                data += `.font-${name}{\n`;
-                data += `\tfont-weight: var(--font-${name});\n`;
-                data += "}\n";
-            }
-
-            fs.writeFile(path.join(this.temp, `fonts.css`), data, (error) => {
-                if (error) {
-                    reject(error);
-                }
-                resolve();
-            });
-        });
-    }
-
-    generateFontColors() {
-        return new Promise((resolve, reject) => {
-            let data = "";
-
-            for (const [name, values] of Object.entries(this.config.colors)) {
-                if (typeof values === "object") {
-                    for (const [shade, value] of Object.entries(values)) {
-                        data += `.font-${name}-${shade}{\n`;
-                        data += `\tcolor: var(--${name}-${shade});\n`;
-                        data += "}\n";
-                    }
-                } else {
+            if (this.config.features.fontFamilies) {
+                for (const [name, value] of Object.entries(this.config.fonts.families)) {
                     data += `.font-${name}{\n`;
-                    data += `\tcolor: var(--${name});\n`;
+                    data += `\tfont-family: var(--font-${name});\n`;
                     data += "}\n";
                 }
             }
 
-            fs.writeFile(path.join(this.temp, `font-colors.css`), data, (error) => {
-                if (error) {
-                    reject(error);
+            if (this.config.features.fontWeights) {
+                for (const [name, value] of Object.entries(this.config.fonts.weights)) {
+                    data += `.font-${name}{\n`;
+                    data += `\tfont-weight: var(--font-${name});\n`;
+                    data += "}\n";
                 }
-                resolve();
-            });
-        });
-    }
-
-    generateFontSizes() {
-        return new Promise((resolve, reject) => {
-            let data = "";
-
-            for (const [size, value] of Object.entries(this.config.fonts.sizes)) {
-                data += `.font-${size}{\n`;
-                data += `\tfont-size: var(--font-${size});\n`;
-                data += "}\n";
             }
 
-            fs.writeFile(path.join(this.temp, `font-sizes.css`), data, (error) => {
-                if (error) {
-                    reject(error);
+            if (this.config.features.fontColors) {
+                for (const [name, values] of Object.entries(this.config.colors)) {
+                    if (typeof values === "object") {
+                        for (const [shade, value] of Object.entries(values)) {
+                            data += `.font-${name}-${shade}{\n`;
+                            data += `\tcolor: var(--${name}-${shade});\n`;
+                            data += "}\n";
+                        }
+                    } else {
+                        data += `.font-${name}{\n`;
+                        data += `\tcolor: var(--${name});\n`;
+                        data += "}\n";
+                    }
                 }
+            }
+
+            if (this.config.features.fontSizes) {
+                for (const [size, value] of Object.entries(this.config.fonts.sizes)) {
+                    data += `.font-${size}{\n`;
+                    data += `\tfont-size: var(--font-${size});\n`;
+                    data += "}\n";
+                }
+            }
+
+            if (data.length > 0) {
+                fs.writeFile(path.join(this.temp, `fonts.css`), data, (error) => {
+                    if (error) {
+                        reject(error);
+                    }
+                    resolve();
+                });
+            } else {
                 resolve();
-            });
+            }
         });
     }
 
@@ -853,15 +851,8 @@ class Brixi {
                 await this.generatePositions();
             }
 
-            if (this.config.features.borders) {
-                await this.generateBorders();
-            }
-
-            if (this.config.features.fonts) {
-                await this.generateFonts();
-                await this.generateFontColors();
-                await this.generateFontSizes();
-            }
+            await this.generateBorders();
+            await this.generateFonts();
 
             if (this.config.features.alignment) {
                 await this.copyFile("alignment");
