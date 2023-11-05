@@ -28,6 +28,8 @@ Or use the CDN version:
 <link href="https://unpkg.com/brixi@^0.8/brixi.min.css" rel="stylesheet" />
 ```
 
+> **Note**: the CDN version of Brixi is massive. It includes `dark:` prefix support along with a slew of responsive resizing prefixes. [Click here to view the config file](https://github.com/codewithkyle/brixi/blob/master/demo.config.js).
+
 ## Configuration
 
 Below is the default config file. Any value can be overridden by adding a `brixi.config.js` file to your project's root directory.
