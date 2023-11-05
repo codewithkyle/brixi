@@ -450,7 +450,7 @@ module.exports = {
             rule: "min-width: 411px",
         },
         md: {
-            features: ["containers", "display", "margins", "padding"],
+            features: ["containers", "display", "margins", "padding", "flexbox"],
             rule: "min-width: 768px",
         }
     },

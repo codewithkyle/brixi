@@ -875,11 +875,20 @@ class Brixi {
                 const prefixedData = [];
                 for (const prefix in this.config.prefixes) {
                     if (this.config.prefixes[prefix].features.includes(fileName)) {
-                        let modifiedData = "";
-                        modifiedData += `@media (${this.config.prefixes[prefix].rule}){\n`;
-                        modifiedData += data.replace(/(\.)/g, `.${prefix}\\:`);
-                        modifiedData += "\n}";
-                        prefixedData.push(modifiedData);
+                        if (fileName === "flexbox") {
+                            let modifiedData = "";
+                            // ~="
+                            modifiedData += `@media (${this.config.prefixes[prefix].rule}){\n`;
+                            modifiedData += data.replace(/(\~\=\")/g, `~="${prefix}:`);
+                            modifiedData += "\n}";
+                            prefixedData.push(modifiedData);
+                        } else {
+                            let modifiedData = "";
+                            modifiedData += `@media (${this.config.prefixes[prefix].rule}){\n`;
+                            modifiedData += data.replace(/(\.)/g, `.${prefix}\\:`);
+                            modifiedData += "\n}";
+                            prefixedData.push(modifiedData);
+                        }
                     }
                 }
                 data += "\n";
