@@ -871,7 +871,20 @@ class Brixi {
                 if (error) {
                     reject(error);
                 }
-                fs.writeFile(path.join(this.temp, `${fileName}.css`), buffer, (error) => {
+                let data = buffer.toString();
+                const prefixedData = [];
+                for (const prefix in this.config.prefixes) {
+                    if (this.config.prefixes[prefix].features.includes(fileName)) {
+                        let modifiedData = "";
+                        modifiedData += `@media (${this.config.prefixes[prefix].rule}){\n`;
+                        modifiedData += data.replace(/(\.)/g, `.${prefix}\\:`);
+                        modifiedData += "\n}";
+                        prefixedData.push(modifiedData);
+                    }
+                }
+                data += "\n";
+                data += prefixedData.join("\n");
+                fs.writeFile(path.join(this.temp, `${fileName}.css`), data, (error) => {
                     if (error) {
                         reject(error);
                     }
@@ -921,7 +934,7 @@ class Brixi {
             }
 
             if (this.config.features.textTransforms) {
-                await this.copyFile("textTransform");
+                await this.copyFile("textTransforms");
             }
 
             if (this.config.features.backgrounds) {

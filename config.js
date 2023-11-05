@@ -446,7 +446,7 @@ module.exports = {
             rule: "prefers-color-scheme: dark",
         },
         sm: {
-            features: ["containers", "display", "margins", "padding"],
+            features: ["containers", "display", "margins", "padding", "textTransforms"],
             rule: "min-width: 411px",
         },
         md: {
