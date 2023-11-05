@@ -715,7 +715,7 @@ class Brixi {
 
             for (const [className, css] of Object.entries(this.config.classes)) {
                 if (typeof css === "string") {
-                    data += `.${className.trim().replace(/\./g, "\\.").replace(/\//g, "\\/")}{\n}`;
+                    data += `.${className.trim().replace(/\./g, "\\.").replace(/\//g, "\\/")}{\n`;
                     data += `${css.replace(/\;$/, "")};\n`;
                     data += "}\n";
                 }
