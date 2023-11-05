@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" theme="auto">
+<html lang="en">
     <head>
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -81,15 +81,15 @@
         </style>
         <link href="brixi.css" rel="stylesheet" />
     </head>
-    <body class="w-screen h-screen font-sans-serif font-grey-900" flex="items-center justify-center column wrap">
-        <div flex="items-center row nowrap" class="mb-3">
-            <button class="mx-1 radius-0.25 px-1 bg-success-600 font-white font-sm font-medium shadow-success-md cursor-pointer" style="min-height: 36px">Complete order</button>
-            <button class="mx-1 radius-0.25 px-1 bg-warning-300 font-grey-900 font-sm font-medium shadow-warning-md cursor-pointer" style="min-height: 36px">Postpone order</button>
-            <button class="mx-1 radius-0.25 px-1 bg-danger-600 font-white font-sm font-medium shadow-danger-md cursor-pointer" style="min-height: 36px">Cancel order</button>
+    <body class="bg-white dark:bg-grey-900 w-screen min-h-screen font-sans-serif font-grey-900 block">
+        <div flex="column wrap md:row md:nowrap justify-center items-center" class="p-3 w-full">
+            <button class="mx-1 mb-1 md:mb-auto radius-0.25 px-1 bg-success-600 dark:bg-success-400 font-white dark:font-grey-900 font-sm font-medium cursor-pointer" style="min-height: 36px">Complete order</button>
+            <button class="mx-1 mb-1 md:mb-auto radius-0.25 px-1 bg-warning-300 font-grey-900 font-sm font-medium cursor-pointer" style="min-height: 36px">Postpone order</button>
+            <button class="mx-1 mb-1 md:mb-auto radius-0.25 px-1 bg-danger-600 dark:bg-danger-400 font-white dark:font-grey-900 font-sm font-medium cursor-pointer" style="min-height: 36px">Cancel order</button>
         </div>
-        <div style="width: 200px; height: 200px" class="mb-3 shadow-grey-sm radius-0.5 bg-white border-1 border-grey-200 border-solid"></div>
-        <div style="width: 200px; height: 200px" class="mb-3 shadow-grey-md radius-0.5 bg-white border-1 border-grey-200 border-solid"></div>
-        <div style="width: 200px; height: 200px" class="mb-3 shadow-grey-lg radius-0.5 bg-white border-1 border-grey-200 border-solid"></div>
-        <div style="width: 200px; height: 200px" class="mb-4 shadow-grey-xl radius-0.5 bg-white border-1 border-grey-200 border-solid"></div>
+        <div class="block mx-auto w-full sm:w-411 md:w-768 ar-1:1 mb-3 shadow-black-sm radius-0.5 bg-white dark:bg-grey-800 border-1 border-grey-200 dark:border-grey-700 border-solid"></div>
+        <div class="block mx-auto w-full sm:w-411 md:w-768 ar-1:1 mb-3 shadow-black-md radius-0.5 bg-white dark:bg-grey-800 border-1 border-grey-200 dark:border-grey-700 border-solid"></div>
+        <div class="block mx-auto w-full sm:w-411 md:w-768 ar-1:1 mb-3 shadow-black-lg radius-0.5 bg-white dark:bg-grey-800 border-1 border-grey-200 dark:border-grey-700 border-solid"></div>
+        <div class="block mx-auto w-full sm:w-411 md:w-768 ar-1:1 mb-4 shadow-black-xl radius-0.5 bg-white dark:bg-grey-800 border-1 border-grey-200 dark:border-grey-700 border-solid"></div>
     </body>
 </html>
