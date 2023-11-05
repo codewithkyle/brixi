@@ -64,69 +64,63 @@
     <main>
         
         <static-navigation-component>
-            <a class="" href="/readme" data-slug="readme">readme</a><a class="" href="/alignment" data-slug="alignment">alignment</a><a class="" href="/aspect-ratios" data-slug="aspect-ratios">aspect ratios</a><a class="" href="/backgrounds" data-slug="backgrounds">backgrounds</a><a class="" href="/borders" data-slug="borders">borders</a><a class="" href="/box-shadows" data-slug="box-shadows">box shadows</a><a class="" href="/colors" data-slug="colors">colors</a><a class="" href="/containers" data-slug="containers">containers</a><a class="" href="/cursor" data-slug="cursor">cursor</a><a class="" href="/custom-classes" data-slug="custom-classes">custom classes</a><a class="" href="/display" data-slug="display">display</a><a class="" href="/flexbox" data-slug="flexbox">flexbox</a><a class="" href="/fonts" data-slug="fonts">fonts</a><a class="" href="/grid" data-slug="grid">grid</a><a class="" href="/line-height" data-slug="line-height">line height</a><a class="" href="/margins" data-slug="margins">margins</a><a class="" href="/opacity" data-slug="opacity">opacity</a><a class="" href="/padding" data-slug="padding">padding</a><a class="is-active" href="/positions" data-slug="positions">positions</a><a class="" href="/prefixes" data-slug="prefixes">prefixes</a><a class="" href="/scroll" data-slug="scroll">scroll</a><a class="" href="/text-transform" data-slug="text-transform">text transform</a><a class="" href="/themes" data-slug="themes">themes</a><a class="" href="/variables" data-slug="variables">variables</a><a class="" href="/whitespace" data-slug="whitespace">whitespace</a>
+            <a class="" href="/readme" data-slug="readme">readme</a><a class="" href="/alignment" data-slug="alignment">alignment</a><a class="" href="/aspect-ratios" data-slug="aspect-ratios">aspect ratios</a><a class="" href="/backgrounds" data-slug="backgrounds">backgrounds</a><a class="" href="/borders" data-slug="borders">borders</a><a class="" href="/box-shadows" data-slug="box-shadows">box shadows</a><a class="" href="/colors" data-slug="colors">colors</a><a class="" href="/containers" data-slug="containers">containers</a><a class="" href="/cursor" data-slug="cursor">cursor</a><a class="" href="/custom-classes" data-slug="custom-classes">custom classes</a><a class="" href="/display" data-slug="display">display</a><a class="" href="/flexbox" data-slug="flexbox">flexbox</a><a class="" href="/fonts" data-slug="fonts">fonts</a><a class="" href="/grid" data-slug="grid">grid</a><a class="" href="/line-height" data-slug="line-height">line height</a><a class="" href="/margins" data-slug="margins">margins</a><a class="" href="/opacity" data-slug="opacity">opacity</a><a class="" href="/padding" data-slug="padding">padding</a><a class="" href="/positions" data-slug="positions">positions</a><a class="is-active" href="/prefixes" data-slug="prefixes">prefixes</a><a class="" href="/scroll" data-slug="scroll">scroll</a><a class="" href="/text-transform" data-slug="text-transform">text transform</a><a class="" href="/themes" data-slug="themes">themes</a><a class="" href="/variables" data-slug="variables">variables</a><a class="" href="/whitespace" data-slug="whitespace">whitespace</a>
         </static-navigation-component>
     
         <static-doc-view>
-            <h1 id="positions">Positions</h1>
-<h2 id="custom-positions">Custom Positions</h2>
-<p><strong>Format:</strong> <code>.{side}-{size}</code></p>
-<p><strong>CSS:</strong> <code>top</code>, <code>right</code>, <code>bottom</code>, <code>left</code></p>
-<p><strong>Defaults:</strong></p>
-<pre><code class="language-bash">positions: [0]
+            <h1 id="prefixes">Prefixes</h1>
+<p>Starting in Brixi v0.8 you can define a prefix and an <code>@media</code> query rule. This can be used to create powerful dynamic elements that respond to the users prefered colour scheme or device viewport size. Only define prefixes when absolutely necessary! They will quickly bloat the output CSS file size.</p>
+<p><strong>Example</strong></p>
+<pre><code class="language-javascript">prefixes: {
+    dark: {
+        features: [&quot;backgrounds&quot;, &quot;fonts&quot;, &quot;borders&quot;, &quot;shadows&quot;],
+        rule: &quot;prefers-color-scheme: dark&quot;,
+    },
+    md: {
+        features: [&quot;containers&quot;, &quot;display&quot;, &quot;margins&quot;, &quot;padding&quot;, &quot;flexbox&quot;],
+        rule: &quot;min-width: 768px&quot;,
+    }
+}
 </code></pre>
-<p><strong>Examples:</strong></p>
-<pre><code class="language-html">&lt;div class=&quot;t-0 r-0 b-0 l-0&quot;&gt;
-    &lt;!-- ...snip... --&gt;
+<p>The &quot;feature&quot; value maps to the <code>features</code> section of the config. For convenience <code>fonts</code> and <code>borders</code> are grouped.</p>
+<p><strong>Example Backgrounds CSS Output</strong></p>
+<pre><code class="language-css">.bg-white{
+    background-color: var(--white);
+}
+.bg-grey-950{
+    background-color: var(--grey-50);
+}
+@media (prefers-color-scheme: dark) {
+     .dark\:bg-white{
+        background-color: var(--white);
+    }
+    .dark\:bg-grey-950{
+        background-color: var(--grey-950);
+    }   
+}
+</code></pre>
+<p><strong>Example Display CSS Output</strong></p>
+<pre><code class="language-css">.block{
+    display: block;
+}
+.none{
+    display: none;
+}
+@media (min-width: 768px) {
+    .md\:block{
+        display: block;
+    }
+    .md\:none{
+        display: none;
+    }
+}
+</code></pre>
+<p><strong>Example HTML</strong></p>
+<pre><code class="language-html">&lt;div class=&quot;bg-white dark:bg-grey-950 none md:block&quot;&gt;
+    &lt;!-- snip --&gt;
 &lt;/div&gt;
 </code></pre>
-<h2 id="default-positions">Default Positions</h2>
-<pre><code class="language-css">.relative {
-    position: relative !important;
-}
-.absolute {
-    position: absolute !important;
-}
-.fixed {
-    position: fixed !important;
-}
-.sticky {
-    position: sticky !important;
-}
-.t-auto {
-    top: auto !important;
-}
-.r-auto {
-    right: auto !important;
-}
-.b-auto {
-    bottom: auto !important;
-}
-.l-auto {
-    left: auto !important;
-}
-.x-auto {
-    right: auto !important;
-    left: auto !important;
-}
-.y-auto {
-    top: auto !important;
-    bottom: auto !important;
-}
-.center {
-    top: 50% !important;
-    left: 50% !important;
-    transform: translate(-50%, -50%) !important;
-}
-.x-center {
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-}
-.y-center {
-    top: 50% !important;
-    transform: translateY(-50%) !important;
-}
-</code></pre>
+<p>In this exmaple the <code>&lt;div&gt;</code> will use the <code>display: none</code> property until the device viewport width is at least <code>768px</code> at which point the <code>display: block</code> property override will kick in. The background color will default to <code>var(--white)</code> unless the users OS is configured to use dark mode. What dark mode is detected the background color <code>var(--grey-950)</code> override will kick in.</p>
 
         </static-doc-view>
         <static-subnav-component></static-subnav-component>
