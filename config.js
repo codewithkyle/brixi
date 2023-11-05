@@ -1,7 +1,7 @@
 module.exports = {
     outDir: "./brixi",
     important: true,
-    output: "production",
+    output: "dev",
     baseUnit: "rem",
     features: {
         aspectRatios: true,
@@ -387,35 +387,32 @@ module.exports = {
     },
     shadows: {
         colors: {
-            grey: "0deg 0% 50%",
-            success: "142deg 77% 73%",
-            warning: "46deg 97% 65%",
-            danger: "0deg 94% 82%",
+            black: "0deg 0% 0%",
         },
         sizes: {
             sm: `
-                0px 1px 2px hsl(var(--shadow-color) / 0.7)
+                0px 1px 2px hsl(var(--shadow-color) / 0.3)
             `,
             md: `
-                0px 2px 2px hsl(var(--shadow-color) / 0.333),
-                0px 4px 4px hsl(var(--shadow-color) / 0.333),
-                0px 6px 6px hsl(var(--shadow-color) / 0.333)
+                0px 2px 2px hsl(var(--shadow-color) / 0.15),
+                0px 4px 4px hsl(var(--shadow-color) / 0.15),
+                0px 6px 6px hsl(var(--shadow-color) / 0.15)
             `,
             lg: `
-                0px 2px 2px hsl(var(--shadow-color) / 0.2),
-                0px 4px 4px hsl(var(--shadow-color) / 0.2),
-                0px 8px 8px hsl(var(--shadow-color) / 0.2),
-                0px 16px 16px hsl(var(--shadow-color) / 0.2),
-                0px 32px 32px hsl(var(--shadow-color) / 0.2)
+                0px 2px 2px hsl(var(--shadow-color) / 0.1),
+                0px 4px 4px hsl(var(--shadow-color) / 0.1),
+                0px 8px 8px hsl(var(--shadow-color) / 0.1),
+                0px 16px 16px hsl(var(--shadow-color) / 0.1),
+                0px 32px 32px hsl(var(--shadow-color) / 0.1)
             `,
             xl: `
-                0px 2px 2px hsl(var(--shadow-color) / 0.2),
-                0px 4px 4px hsl(var(--shadow-color) / 0.2),
-                0px 8px 8px hsl(var(--shadow-color) / 0.2),
-                0px 16px 16px hsl(var(--shadow-color) / 0.2),
-                0px 32px 32px hsl(var(--shadow-color) / 0.2),
-                0px 48px 48px hsl(var(--shadow-color) / 0.2),
-                0px 64px 64px hsl(var(--shadow-color) / 0.2)
+                0px 2px 2px hsl(var(--shadow-color) / 0.1),
+                0px 4px 4px hsl(var(--shadow-color) / 0.1),
+                0px 8px 8px hsl(var(--shadow-color) / 0.1),
+                0px 16px 16px hsl(var(--shadow-color) / 0.1),
+                0px 32px 32px hsl(var(--shadow-color) / 0.1),
+                0px 48px 48px hsl(var(--shadow-color) / 0.1),
+                0px 64px 64px hsl(var(--shadow-color) / 0.1)
             `,
         },
     },
@@ -443,4 +440,18 @@ module.exports = {
     themes: {},
     classes: {},
     opacity: [0.05, 0.1, 0.3, 0.6, 0.87],
+    prefixes: {
+        dark: {
+            features: ["backgrounds", "fonts", "borders"],
+            rule: "prefers-color-scheme: dark",
+        },
+        sm: {
+            features: ["containers", "display", "margins", "padding"],
+            rule: "min-width: 411px",
+        },
+        md: {
+            features: ["containers", "display", "margins", "padding"],
+            rule: "min-width: 768px",
+        }
+    },
 };

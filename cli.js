@@ -169,9 +169,46 @@ class Brixi {
             if (customConfig?.opacity) {
                 this.config.opacity = customConfig.opacity;
             }
+
+            if (customConfig?.prefixes) {
+                this.config.prefixes = Object.assign(this.config.prefixes, customConfig.prefixes);
+            }
         }
 
         this.config.outDir = path.resolve(cwd, this.config.outDir);
+    }
+
+    processMediaRules(classes, mediaRules, type) {
+        for (const prefix in this.config.prefixes){
+            if (this.config.prefixes[prefix].features.includes(type)){
+                mediaRules[prefix] = {
+                    rule: this.config.prefixes[prefix].rule,
+                    classes: {},
+                };
+                for (const className in classes){
+                    mediaRules[prefix].classes[`${prefix}\\:${className}`] = classes[className];
+                }
+            }
+        }
+    }
+
+    generateCSS(classes, mediaRules) {
+        let data = "";
+        for (const className in classes) {
+            data += `.${className}{\n`;
+            data += classes[className];
+            data += "}\n";
+        }
+        for (const rule in mediaRules) {
+            data += `@media (${mediaRules[rule].rule}){\n`;
+            for (const className in mediaRules[rule].classes) {
+                data += `\t.${className}{\n`;
+                data += `\t${mediaRules[rule].classes[className]}`;
+                data += "\t}\n";
+            }
+            data += "}\n";
+        }
+        return data;
     }
 
     copyCSS() {
@@ -355,24 +392,23 @@ class Brixi {
         });
     }
 
-    generateAttributes(attr, classes, values, unit = "") {
-        let data = "";
-        for (let i = 0; i < classes.length; i++) {
+    generateAttributes(attr, classComponents, values, unit = "") {
+        const classes = {};
+        for (let i = 0; i < classComponents.length; i++) {
             for (let k = 0; k < values.length; k++) {
-                data += `.${attr}${classes[i].prefix}-${values[k].toString().replace(/(\.)|(\/)/g, "\\.")}{\n`;
-                for (let p = 0; p < classes[i].css.length; p++) {
-                    data += `\t${classes[i].css[p]}: ${values[k]}${unit};\n`;
+                const className = `${attr}${classComponents[i].prefix}-${values[k].toString().replace(/(\.)|(\/)/g, "\\.")}`;
+                classes[className] = "";
+                for (let p = 0; p < classComponents[i].css.length; p++) {
+                    classes[className] += `\t${classComponents[i].css[p]}: ${values[k]}${unit};\n`;
                 }
-                data += "}\n";
             }
         }
-        return data;
+        return classes;
     }
 
     generateMargins() {
         return new Promise((resolve, reject) => {
-            let data = "";
-            const classes = [
+            const classComponents = [
                 {
                     prefix: "",
                     css: ["margin"],
@@ -403,9 +439,19 @@ class Brixi {
                 },
             ];
 
-            const staticData = fs.readFileSync(path.join(__dirname, "src/margin.css"));
-            data += staticData;
-            data += this.generateAttributes("m", classes, this.config.margins, this.config.baseUnit);
+            const classes = this.generateAttributes("m", classComponents, this.config.margins, this.config.baseUnit);
+            classes["m-auto"] = "\tmargin: auto;\n";
+            classes["mx-auto"] = "\tmargin-left: auto;\n\tmargin-right: auto;\n";
+            classes["my-auto"] = "\tmargin-top: auto;\n\tmargin-bottom: auto;\n";
+            classes["mt-auto"] = "\tmargin-top: auto;\n";
+            classes["mr-auto"] = "\tmargin-right: auto;\n";
+            classes["mb-auto"] = "\tmargin-bottom: auto;\n";
+            classes["ml-auto"] = "\tmargin-left: auto;\n";
+
+            const mediaRules = {};
+
+            this.processMediaRules(classes, mediaRules, "margins");
+            const data = this.generateCSS(classes, mediaRules);
 
             fs.writeFile(path.join(this.temp, `margins.css`), data, (error) => {
                 if (error) {
@@ -418,8 +464,7 @@ class Brixi {
 
     generatePaddings() {
         return new Promise((resolve, reject) => {
-            let data = "";
-            const classes = [
+            const classComponents = [
                 {
                     prefix: "",
                     css: ["padding"],
@@ -450,7 +495,11 @@ class Brixi {
                 },
             ];
 
-            data += this.generateAttributes("p", classes, this.config.padding, this.config.baseUnit);
+            const classes = this.generateAttributes("p", classComponents, this.config.padding, this.config.baseUnit);
+            const mediaRules = {};
+
+            this.processMediaRules(classes, mediaRules, "paddings");
+            const data = this.generateCSS(classes, mediaRules);
 
             fs.writeFile(path.join(this.temp, `padding.css`), data, (error) => {
                 if (error) {
@@ -463,8 +512,7 @@ class Brixi {
 
     generatePositions() {
         return new Promise((resolve, reject) => {
-            let data = "";
-            const classes = [
+            const classComponents = [
                 {
                     prefix: "t",
                     css: ["top"],
@@ -483,9 +531,25 @@ class Brixi {
                 },
             ];
 
-            const staticData = fs.readFileSync(path.join(__dirname, "src/position.css"));
-            data += staticData;
-            data += this.generateAttributes("", classes, this.config.positions);
+            const classes = this.generateAttributes("", classComponents, this.config.positions);
+            classes["relative"] = "\tposition: relative;\n";
+            classes["absolute"] = "\tposition: absolute;\n";
+            classes["fixed"] = "\tposition: fixed;\n";
+            classes["sticky"] = "\tposition: sticky;\n";
+            classes["t-auto"] = "\ttop: auto;\n";
+            classes["r-auto"] = "\tright: auto;\n";
+            classes["b-auto"] = "\tbottom: auto;\n";
+            classes["l-auto"] = "\tleft: auto;\n";
+            classes["x-auto"] = "\tright: auto;\n\tleft: auto;\n";
+            classes["y-auto"] = "\ttop: auto;\n\tbottom: auto;\n";
+            classes["center"] = "\ttop: 50%;\n\tleft: 50%;\n\ttransform: translate(-50%, -50%);\n";
+            classes["x-center"] = "\tleft: 50%;\n\ttransform: translateX(-50%);\n";
+            classes["y-center"] = "\ttop: 50%;\n\ttransform: translateY(-50%);\n";
+
+            const mediaRules = {};
+
+            this.processMediaRules(classes, mediaRules, "positions");
+            const data = this.generateCSS(classes, mediaRules);
 
             fs.writeFile(path.join(this.temp, `positions.css`), data, (error) => {
                 if (error) {
@@ -498,19 +562,18 @@ class Brixi {
 
     generateBorders() {
         return new Promise((resolve, reject) => {
-            let data = "";
-
             const borderAttrs = ["border", "border-top", "border-right", "border-bottom", "border-left"];
             const borderType = ["border", "border-t", "border-r", "border-b", "border-l"];
+
+            const classes = {};
+            const mediaRules = {};
 
             /** Border styles */
             if (this.config.features.borderStyles) {
                 const borders = this.config.borders.styles;
                 for (let i = 0; i < borderType.length; i++) {
                     for (let b = 0; b < borders.length; b++) {
-                        data += `.${borderType[i]}-${borders[b]}{\n`;
-                        data += `\t${borderAttrs[i]}-style: ${borders[b]};\n`;
-                        data += "}\n";
+                        classes[`${borderType[i]}-${borders[b]}`] = `\t${borderAttrs[i]}-style: ${borders[b]};\n`;
                     }
                 }
             }
@@ -520,9 +583,7 @@ class Brixi {
                 const widths = this.config.borders.widths;
                 for (let i = 0; i < borderType.length; i++) {
                     for (let b = 0; b < widths.length; b++) {
-                        data += `.${borderType[i]}-${widths[b]}{\n`;
-                        data += `\t${borderAttrs[i]}-width: ${widths[b]}${this.config.borders?.units ?? this.config.baseUnit};\n`;
-                        data += "}\n";
+                        classes[`${borderType[i]}-${widths[b]}`] = `\t${borderAttrs[i]}-width: ${widths[b]}${this.config.borders?.units ?? this.config.baseUnit};\n`;
                     }
                 }
             }
@@ -533,14 +594,10 @@ class Brixi {
                     for (const [name, values] of Object.entries(this.config.colors)) {
                         if (typeof values === "object") {
                             for (const [shade, value] of Object.entries(values)) {
-                                data += `.${borderType[i]}-${name}-${shade}{\n`;
-                                data += `\t${borderAttrs[i]}-color: var(--${name}-${shade});\n`;
-                                data += "}\n";
+                                classes[`${borderType[i]}-${name}-${shade}`] = `\t${borderAttrs[i]}-color: var(--${name}-${shade});\n`;
                             }
                         } else {
-                            data += `.${borderType[i]}-${name}{\n`;
-                            data += `\t${borderAttrs[i]}-color: var(--${name});\n`;
-                            data += "}\n";
+                            classes[`${borderType[i]}-${name}`] = `\t${borderAttrs[i]}-color: var(--${name});\n`;
                         }
                     }
                 }
@@ -550,16 +607,18 @@ class Brixi {
             if (this.config.features.borderRadius) {
                 const radius = this.config.borders.radius;
                 for (let b = 0; b < radius.length; b++) {
-                    data += `.radius-${radius[b].toString().replace(/(\.)/g, "\\.")}{\n`;
-                    data += `\tborder-radius: ${radius[b]}${this.config.baseUnit};\n`;
-                    data += "}\n";
+                    classes[`radius-${radius[b].toString().replace(/(\.)/g, "\\.")}`] = `\tborder-radius: ${radius[b]}${this.config.baseUnit};\n`;
                 }
 
                 /** Inject custom 50% border radius */
-                data += ".radius-circle{\n\tborder-radius: 50%;\n}\n";
+                classes["radius-circle"] = "\tborder-radius: 50%;\n";
             }
 
-            if (data.length > 0) {
+
+            if (Object.keys(classes).length > 0) {
+                this.processMediaRules(classes, mediaRules, "borders");
+                const data = this.generateCSS(classes, mediaRules);
+
                 fs.writeFile(path.join(this.temp, `borders.css`), data, (error) => {
                     if (error) {
                         reject(error);
@@ -574,21 +633,18 @@ class Brixi {
 
     generateFonts() {
         return new Promise((resolve, reject) => {
-            let data = "";
+            const classes = {};
+            const mediaRules = {};
 
             if (this.config.features.fontFamilies) {
                 for (const [name, value] of Object.entries(this.config.fonts.families)) {
-                    data += `.font-${name}{\n`;
-                    data += `\tfont-family: var(--font-${name});\n`;
-                    data += "}\n";
+                    classes[`font-${name}`] = `\tfont-family: var(--font-${name});\n`;
                 }
             }
 
             if (this.config.features.fontWeights) {
                 for (const [name, value] of Object.entries(this.config.fonts.weights)) {
-                    data += `.font-${name}{\n`;
-                    data += `\tfont-weight: var(--font-${name});\n`;
-                    data += "}\n";
+                    classes[`font-${name}`] = `\tfont-weight: var(--font-${name});\n`;
                 }
             }
 
@@ -596,27 +652,24 @@ class Brixi {
                 for (const [name, values] of Object.entries(this.config.colors)) {
                     if (typeof values === "object") {
                         for (const [shade, value] of Object.entries(values)) {
-                            data += `.font-${name}-${shade}{\n`;
-                            data += `\tcolor: var(--${name}-${shade});\n`;
-                            data += "}\n";
+                            classes[`font-${name}-${shade}`] = `\tcolor: var(--${name}-${shade});\n`;
                         }
                     } else {
-                        data += `.font-${name}{\n`;
-                        data += `\tcolor: var(--${name});\n`;
-                        data += "}\n";
+                        classes[`font-${name}`] = `\tcolor: var(--${name});\n`;
                     }
                 }
             }
 
             if (this.config.features.fontSizes) {
                 for (const [size, value] of Object.entries(this.config.fonts.sizes)) {
-                    data += `.font-${size}{\n`;
-                    data += `\tfont-size: var(--font-${size});\n`;
-                    data += "}\n";
+                    classes[`font-${size}`] = `\tfont-size: var(--font-${size});\n`;
                 }
             }
 
-            if (data.length > 0) {
+            if (Object.keys(classes).length > 0) {
+                this.processMediaRules(classes, mediaRules, "fonts");
+                const data = this.generateCSS(classes, mediaRules);
+
                 fs.writeFile(path.join(this.temp, `fonts.css`), data, (error) => {
                     if (error) {
                         reject(error);
@@ -631,23 +684,23 @@ class Brixi {
 
     generateBackgroundColors() {
         return new Promise((resolve, reject) => {
-            let data = "";
+            let classes = {};
+            let mediaRules = {};
 
             for (const [name, values] of Object.entries(this.config.colors)) {
                 if (typeof values === "object") {
                     for (const [shade, value] of Object.entries(values)) {
-                        data += `.bg-${name}-${shade}{\n`;
-                        data += `\tbackground-color: var(--${name}-${shade});\n`;
-                        data += "}\n";
+                        classes[`bg-${name}-${shade}`] = `\tbackground-color: var(--${name}-${shade});\n`;
                     }
                 } else {
-                    data += `.bg-${name}{\n`;
-                    data += `\tbackground-color: var(--${name});\n`;
-                    data += "}\n";
+                    classes[`bg-${name}`] = `\tbackground-color: var(--${name});\n`;
                 }
             }
 
-            fs.writeFile(path.join(this.temp, `background-colors.css`), data, (error) => {
+            this.processMediaRules(classes, mediaRules, "backgrounds");
+            const data = this.generateCSS(classes, mediaRules);
+
+            fs.writeFile(path.join(this.temp, `backgrounds.css`), data, (error) => {
                 if (error) {
                     reject(error);
                 }
@@ -658,15 +711,17 @@ class Brixi {
 
     generateShadows() {
         return new Promise((resolve, reject) => {
-            let data = "";
+            const classes = {};
+            const mediaRules = {};
 
             for (const color in this.config.shadows.colors) {
                 for (const size in this.config.shadows.sizes) {
-                    data += `.shadow-${color}-${size}{\n`;
-                    data += `\tbox-shadow: var(--shadow-${color}-${size});\n`;
-                    data += "}\n";
+                    classes[`shadow-${color}-${size}`] = `\tbox-shadow: var(--shadow-${color}-${size});\n`;
                 }
             }
+
+            this.processMediaRules(classes, mediaRules, "shadows");
+            const data = this.generateCSS(classes, mediaRules);
 
             fs.writeFile(path.join(this.temp, `shadows.css`), data, (error) => {
                 if (error) {
@@ -679,29 +734,37 @@ class Brixi {
 
     generateContainers() {
         return new Promise((resolve, reject) => {
-            let data = "";
+            const classes = {};
+            const mediaRules = {};
 
             for (const [name, value] of Object.entries(this.config.containers.screens)) {
-                data += `.w-${name}{\n`;
-                data += `\twidth: ${value}${this.config.containers?.units ?? this.config.baseUnit};\n`;
-                data += "}\n";
-
-                data += `.max-w-${name}{\n`;
-                data += `\tmax-width: ${value}${this.config.containers?.units ?? this.config.baseUnit};\n`;
-                data += "}\n";
+                classes[`w-${name}`] = `\twidth: ${value}${this.config.containers?.units ?? this.config.baseUnit};\n`;
+                classes[`max-w-${name}`] = `\tmax-width: ${value}${this.config.containers?.units ?? this.config.baseUnit};\n`;
             }
 
             const columns = this.config.containers.columns;
             for (let i = 0; i < columns.length; i++) {
                 for (let k = 1; k < columns[i]; k++) {
-                    data += `.w-${k}\\/${columns[i]}{\n`;
-                    data += `\twidth: ${(k / columns[i]) * 100}%;\n`;
-                    data += "}\n";
+                    classes[`w-${k}\\/${columns[i]}`] = `\twidth: ${(k / columns[i]) * 100}%;\n`;
                 }
             }
+           
+            // Static classes
+            classes["w-auto"] = `\twidth: auto;\n`;
+            classes["w-full"] = `\twidth: 100%;\n`;
+            classes["w-screen"] = `\twidth: 100vw;\n`;
+            classes["min-w-full"] = `\tmin-width: 100%;\n`;
+            classes["max-w-full"] = `\tmax-width: 100%;\n`;
+            classes["max-w-screen"] = `\tmax-width: 100vw;\n`;
+            classes["h-auto"] = `\theight: auto;\n`;
+            classes["h-full"] = `\theight: 100%;\n`;
+            classes["h-screen"] = `\theight: 100vh;\n`;
+            classes["min-h-full"] = `\tmin-height: 100%;\n`;
+            classes["max-h-full"] = `\tmax-height: 100%;\n`;
+            classes["max-h-screen"] = `\tmax-height: 100vh;\n`;
 
-            const staticData = fs.readFileSync(path.join(__dirname, "src/container.css"));
-            data += staticData.toString();
+            this.processMediaRules(classes, mediaRules, "containers");
+            const data = this.generateCSS(classes, mediaRules);
 
             fs.writeFile(path.join(this.temp, `containers.css`), data, (error) => {
                 if (error) {
@@ -735,13 +798,15 @@ class Brixi {
 
     generateOpacity() {
         return new Promise((resolve, reject) => {
-            let data = "";
+            const classes = {};
+            const mediaRules = {};
 
             for (const opacity of this.config.opacity) {
-                data += `.o-${opacity * 100}{\n`;
-                data += `\topacity: ${opacity};\n`;
-                data += "}\n";
+                classes[`o-${opacity * 100}`] = `\topacity: ${opacity};\n`;
             }
+
+            this.processMediaRules(classes, mediaRules, "opacity");
+            const data = this.generateCSS(classes, mediaRules);
 
             fs.writeFile(path.join(this.temp, "opacity.css"), data, (error) => {
                 if (error) {
@@ -777,27 +842,20 @@ class Brixi {
 
     generateAspectRatios() {
         return new Promise((resolve, reject) => {
-            let data = "";
+            const classes = {};
+            const mediaRules = {};
+
             const ratios = this.config.aspectRatios;
             for (let i = 0; i < ratios.length; i++) {
                 const values = ratios[i].trim().split(/\:|\//);
                 if (values.length === 2) {
-                    data += `@supports not (aspect-ratio: 1 / 1){\n`;
-                    data += `\t.ar-${values[0]}\\:${values[1]}::before{\n`;
-                    data += `\t\tcontent:"";\n`;
-                    data += `\t\twidth: 100%;\n`;
-                    data += `\t\tdisplay: block;\n`;
-                    data += `\t\tpadding-bottom: ${(values[1] / values[0]) * 100}%;\n`;
-                    data += `\t}\n`;
-                    data += `}\n`;
-
-                    data += `@supports (aspect-ratio: 1 / 1){\n`;
-                    data += `\t.ar-${values[0]}\\:${values[1]}{\n`;
-                    data += `\t\taspect-ratio: ${values[0]} / ${values[1]}\n`;
-                    data += `\t}\n`;
-                    data += `}\n`;
+                    classes[`ar-${values[0]}\\:${values[1]}`] = `\taspect-ratio: ${values[0]} / ${values[1]}\n`;
                 }
             }
+
+            this.processMediaRules(classes, mediaRules, "aspectRatios");
+            const data = this.generateCSS(classes, mediaRules);
+
             fs.writeFile(path.join(this.temp, "aspect-ratios.css"), data, (error) => {
                 if (error) {
                     reject();
@@ -863,7 +921,7 @@ class Brixi {
             }
 
             if (this.config.features.textTransforms) {
-                await this.copyFile("text-transform");
+                await this.copyFile("textTransform");
             }
 
             if (this.config.features.backgrounds) {
@@ -891,7 +949,7 @@ class Brixi {
             }
 
             if (this.config.features.lineHeight) {
-                await this.copyFile("line-heights");
+                await this.copyFile("lineHeights");
             }
 
             if (this.config.features.scroll) {
